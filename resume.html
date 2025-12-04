@@ -29,16 +29,18 @@
     color: white;
     padding: 40px 30px;
     position: relative;
+    text-align: center;
   }
 
-  /* 头像 */
+  /* 头像区域 */
   .photo {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
     border: 5px solid rgba(255,255,255,0.5);
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
+    cursor: pointer;
   }
   .photo img {
     width: 100%;
@@ -46,14 +48,30 @@
     object-fit: cover;
   }
 
+  /* 上传按钮隐藏 */
+  #avatarInput {
+    display: none;
+  }
+
+  .change-avatar-btn {
+    padding: 6px 14px;
+    color: #1f3c56;
+    background: #ffffff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
   .sidebar h2 {
-    text-align: center;
     margin-bottom: 30px;
     line-height: 1.4;
   }
 
   .icon-list {
     margin-top: 20px;
+    text-align: left;
   }
   .icon-item {
     margin-bottom: 20px;
@@ -64,7 +82,7 @@
     opacity: 0.9;
   }
 
-  /* 底部彩色波浪 */
+  /* 左侧底部波浪 */
   .wave {
     position: absolute;
     bottom: 0;
@@ -101,11 +119,6 @@
     padding-left: 20px;
   }
 
-  .footer-space {
-    height: 40px;
-  }
-
-  /* 自适应 */
   @media (max-width: 768px) {
     .container {
       flex-direction: column;
@@ -115,8 +128,8 @@
     }
   }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
@@ -124,11 +137,17 @@
   <!-- 左侧栏 -->
   <div class="sidebar">
 
-    <div class="photo">
-      <img src="你的头像URL" alt="头像">
-    </div>
+    <!-- 头像 -->
+    <label for="avatarInput">
+      <div class="photo" id="avatarPreview">
+        <img src="https://via.placeholder.com/200" alt="头像" id="avatarImg">
+      </div>
+    </label>
 
-    <h2>你的名字<br> Your Name</h2>
+    <!-- 隐藏的上传 input -->
+    <input type="file" id="avatarInput" accept="image/*">
+
+    <h2>你的名字<br>Your Name</h2>
 
     <div class="icon-list">
       <div class="icon-item">
@@ -138,51 +157,44 @@
 
       <div class="icon-item">
         <strong>📞 电话</strong>
-        <span>你的电话号码</span>
+        <span>你的电话</span>
       </div>
 
       <div class="icon-item">
         <strong>✉️ 邮箱</strong>
-        <span>你的 Email</span>
+        <span>你的邮箱</span>
       </div>
 
       <div class="icon-item">
         <strong>🌐 网站</strong>
-        <span>你的个人网站或 GitHub</span>
+        <span>你的个人网站 / GitHub</span>
       </div>
     </div>
 
+    <!-- 波浪背景 -->
     <svg class="wave" viewBox="0 0 1440 200">
       <path fill="#ffc857" d="M0,64L80,90.7C160,117,320,171,480,186.7C640,203,800,181,960,170.7C1120,160,1280,160,1360,160L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
     </svg>
 
   </div>
 
-  <!-- 右侧内容 -->
+  <!-- 右侧内容区 -->
   <div class="content">
-    
+
     <h1>个人简介</h1>
 
     <div class="section">
       <h2>工作经验</h2>
       <ul>
-        <li>
-          <strong>公司名称 · 职位</strong>（起止时间）  
-          <br>主要负责内容与成绩描述……
-        </li>
-        <li>
-          <strong>公司名称 · 职位</strong>（起止时间）  
-          <br>主要负责内容与成果……
-        </li>
+        <li><strong>公司名称 · 职位</strong>（时间）<br>工作职责与成果…</li>
+        <li><strong>公司名称 · 职位</strong>（时间）<br>工作职责与成果…</li>
       </ul>
     </div>
 
     <div class="section">
       <h2>教育背景</h2>
       <ul>
-        <li><strong>学校名称 · 学位</strong>（城市 / 年份）  
-          <br>可以写 GPA、课程或奖项
-        </li>
+        <li><strong>学校名称 · 学位</strong>（城市 / 年份）</li>
       </ul>
     </div>
 
@@ -196,18 +208,29 @@
     </div>
 
     <div class="section">
-      <h2>个人简介 / 自我评价</h2>
-      <p>
-        这里填你自己的一段简短介绍，三四句话即可。  
-        可以写你的性格、工作风格、目标或优势。
-      </p>
+      <h2>自我介绍</h2>
+      <p>写一点关于你的性格、风格、亮点、兴趣。</p>
     </div>
 
-    <div class="footer-space"></div>
-
   </div>
-
 </div>
+
+<!-- JS：上传头像并实时预览 -->
+<script>
+  const avatarInput = document.getElementById("avatarInput");
+  const avatarImg = document.getElementById("avatarImg");
+
+  avatarInput.addEventListener("change", function () {
+    const file = avatarInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      avatarImg.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
 
 </body>
 </html>
