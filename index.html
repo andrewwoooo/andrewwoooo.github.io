@@ -1,41 +1,131 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <title>Andrew 的个人网站</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Andrew • Personal Site</title>
+
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html { height:100%; font-family: "Helvetica", sans-serif; }
+
+    /* 背景视差 */
+    .hero {
+        position: relative;
+        height: 100vh;
+        background: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1950&q=80") 
+            no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: rgba(0,0,0,0.45);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity:0; transform: translateY(20px); }
+        to { opacity:1; transform: translateY(0); }
+    }
+
+    h1 {
+        font-size: 3rem;
+        letter-spacing: 4px;
+    }
+    p {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        padding: 12px 28px;
+        background: #00aaff;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        background: #0088cc;
+    }
+
+    /* 汉堡菜单 */
+    .menu {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        z-index: 3;
+        cursor: pointer;
+    }
+    .menu div {
+        width: 28px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+    }
+
+    /* 下滑箭头 */
+    .arrow {
+        position: absolute;
+        bottom: 20px;
+        font-size: 40px;
+        color: white;
+        animation: bounce 1.8s infinite;
+        z-index: 2;
+    }
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(10px); }
+        60% { transform: translateY(5px); }
+    }
+
+    /* 下面的内容区 */
+    .content {
+        padding: 60px 10%;
+        text-align: center;
+    }
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Hi，我是 Andrew</h1>
-    <p class="subtitle">城市 · 金融 · 思想 · 写作</p>
 
-```
-<div class="card-grid">
-  <a class="card" href="city.html">
-    <div class="card-title">🏙 城市研究</div>
-    <div class="card-desc">空间叙事、城市文化、区域观察。</div>
-  </a>
+<!-- 顶部大背景 -->
+<section class="hero">
+    <div class="menu">
+        <div></div><div></div><div></div>
+    </div>
 
-  <a class="card" href="finance.html">
-    <div class="card-title">📈 金融笔记</div>
-    <div class="card-desc">市场直觉、学习记录、投资理解。</div>
-  </a>
+    <div class="hero-content">
+        <h1>Andrew 的空间</h1>
+        <p>看见世界，看见自己</p>
+        <a href="blog.html" class="btn">Enter Blog</a>
+    </div>
 
-  <a class="card" href="essays.html">
-    <div class="card-title">📝 随笔</div>
-    <div class="card-desc">思考、碎片、意义探索。</div>
-  </a>
+    <div class="arrow">⌄</div>
+</section>
 
-  <a class="card" href="about.html">
-    <div class="card-title">👤 关于我</div>
-    <div class="card-desc">我的故事 · 经历 · 兴趣。</div>
-  </a>
+<!-- 内容区 -->
+<div class="content">
+    <h2>热门文章</h2>
+    <p>此处可以放博客、作品集或任何你想展示的内容。</p>
 </div>
-```
 
-  </div>
 </body>
 </html>
