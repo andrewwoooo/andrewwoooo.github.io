@@ -1,281 +1,286 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Andrew’s Notes | 探索的空间</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Andrew’s Notes | 探索的空间</title>
 
-    <style>
-   body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, 
-                 Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    color: #eaeaea;
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, 
+                     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        color: #eaeaea;
 
-    /* 宇宙背景（深空渐变 + 星点） */
-    background: radial-gradient(circle at top, #1b1f35 0%, #0b0e1a 40%, #000 100%);
-    background-attachment: fixed;
-    overflow-x: hidden;
-    position: relative;
-}
+        /* 🌍 宇宙俯视地球背景 */
+        background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80')
+                    no-repeat center center fixed;
+        background-size: cover;
+    }
 
-/* 星空粒子层 */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 70% 80%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,0.45), transparent),
-        radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.25), transparent);
-    background-size: 600px 600px;
-    animation: moveStars 40s linear infinite;
-    pointer-events: none;
-    z-index: -1;
-}
+    /* 深色透明遮罩 */
+    .overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(2px);
+        z-index: -1;
+    }
 
-/* 星空微动 */
-@keyframes moveStars {
-    from { transform: translateY(0); }
-    to { transform: translateY(-600px); }
-}
+    /* 顶部导航 */
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0; left: 0;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 1000;
+    }
 
+    .menu-btn {
+        font-size: 28px;
+        cursor: pointer;
+        color: #fff;
+        text-shadow: 0 0 8px rgba(0,0,0,0.6);
+        transition: 0.2s;
+    }
+    .menu-btn:hover {
+        transform: scale(1.1);
+    }
 
-        /* 顶部导航 */
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: flex-end;
-            z-index: 1000;
-        }
+    /* ✨ 更好看的右侧抽屉菜单 */
+    .drawer {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 320px;
+        height: 100%;
+        background: rgba(20,20,30,0.75);
+        backdrop-filter: blur(10px);
+        border-left: 1px solid rgba(255,255,255,0.12);
+        transition: 0.35s ease;
+        padding: 50px 32px;
+        z-index: 2000;
+    }
 
-        .menu-btn {
-            font-size: 26px;
-            cursor: pointer;
-            color: #fff;
-        }
+    .drawer.open {
+        right: 0;
+    }
 
-        /* 抽屉导航 */
-        .drawer {
-            position: fixed;
-            right: -260px;
-            top: 0;
-            width: 260px;
-            height: 100%;
-            background: #151515;
-            box-shadow: -3px 0 20px rgba(0,0,0,0.5);
-            transition: 0.35s;
-            padding: 40px 25px;
-            z-index: 2000;
-        }
+    .drawer h3 {
+        margin-top: 0;
+        margin-bottom: 26px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+    }
 
-        .drawer.open {
-            right: 0;
-        }
+    .drawer a {
+        display: block;
+        margin: 18px 0;
+        text-decoration: none;
+        font-size: 17px;
+        color: #e0e0e0;
+        padding: 8px 0;
+        transition: 0.2s;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
 
-        .drawer h3 {
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-size: 20px;
-            color: #fff;
-        }
+    .drawer a:hover {
+        color: #ffffff;
+        transform: translateX(4px);
+    }
 
-        .drawer a {
-            display: block;
-            margin: 14px 0;
-            text-decoration: none;
-            color: #cfcfcf;
-            font-size: 16px;
-            transition: 0.2s;
-        }
+    /* HERO 区域 */
+    .hero {
+        height: 78vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 20px;
+        text-shadow: 0 0 12px rgba(0,0,0,0.75);
+    }
 
-        .drawer a:hover {
-            color: #fff;
-        }
+    .hero h1 {
+        font-size: 56px;
+        margin: 0 0 12px 0;
+        letter-spacing: 1px;
+    }
 
-        /* Hero 区域 */
-        .hero {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
+    .hero p {
+        font-size: 22px;
+        color: #dcdcdc;
+        margin-top: 0;
+    }
 
-        .hero h1 {
-            font-size: 50px;
-            margin: 0 0 18px 0;
-            letter-spacing: 1px;
-        }
+    /* ✨ 透明玻璃按钮 */
+    .glass-btn {
+        padding: 14px 34px;
+        font-size: 17px;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        cursor: pointer;
+        transition: 0.35s;
+        letter-spacing: 0.5px;
+        text-shadow: 0 0 10px rgba(0,0,0,0.6);
+        margin-top: 40px;
+    }
 
-        .hero p {
-            font-size: 20px;
-            color: #bfbfbf;
-            margin-top: 0;
-        }
+    .glass-btn:hover {
+        background: rgba(255,255,255,0.25);
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    }
 
-        .hero button {
-            margin-top: 40px;
-            padding: 12px 28px;
-            border: 1px solid #fff;
-            background: transparent;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
+    /* 最新文章标题 */
+    .section-title {
+        text-align: center;
+        font-size: 28px;
+        margin-top: 30px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(0,0,0,0.65);
+    }
 
-        .hero button:hover {
-            background: #fff;
-            color: #000;
-        }
+    /* 卡片区域 */
+    .cards {
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 0 22px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 24px;
+    }
 
-        /* 文章区 */
-        .section-title {
-            text-align: center;
-            font-size: 28px;
-            margin-top: 30px;
-            color: #fff;
-        }
+    .card {
+        background: rgba(20,20,25,0.75);
+        border-radius: 12px;
+        backdrop-filter: blur(6px);
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.15);
+        transition: 0.3s;
+    }
 
-        .cards {
-            max-width: 960px;
-            margin: 40px auto;
-            padding: 0 22px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 24px;
-        }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    }
 
-        .card {
-            background: #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 0 1px #2a2a2a;
-            transition: 0.3s;
-        }
+    .card img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        background: #333;
+    }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-        }
+    .card-content {
+        padding: 18px 20px 24px;
+    }
 
-        .card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            background: #333;
-        }
+    .card-title {
+        font-size: 20px;
+        margin: 5px 0 10px;
+        color: #fff;
+    }
 
-        .card-content {
-            padding: 18px 20px 24px;
-        }
+    .card-desc {
+        color: #cccccc;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 18px;
+    }
 
-        .card-title {
-            font-size: 20px;
-            margin: 5px 0 10px;
-            color: #fff;
-        }
-
-        .card-desc {
-            color: #bbbbbb;
-            font-size: 15px;
-            line-height: 1.5;
-            margin-bottom: 18px;
-        }
-
-        .card a {
-            display: inline-block;
-            text-decoration: none;
-            padding: 8px 16px;
-            background: #fff;
-            color: #000;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-    </style>
+    .card a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 8px 16px;
+        background: #fff;
+        color: #000;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+</style>
 
 </head>
 <body>
 
-    <!-- 顶部导航 -->
-    <header>
-        <div class="menu-btn" onclick="toggleDrawer()">☰</div>
-    </header>
+<div class="overlay"></div>
 
-    <!-- 抽屉菜单 -->
-    <div id="drawer" class="drawer">
-        <h3>导航 Navigation</h3>
-        <a href="index.html">🏠 Home</a>
-        <a href="blog.html">📝 Blog</a>
-        <a href="categories.html">📂 Categories</a>
-        <a href="archive.html">🗂 Archive</a>
-        <a href="about.html">👤 About</a>
+<!-- 顶部导航 -->
+<header>
+    <div class="menu-btn" onclick="toggleDrawer()">☰</div>
+</header>
+
+<!-- 抽屉菜单 -->
+<div id="drawer" class="drawer">
+    <h3>导航 Navigation</h3>
+    <a href="index.html">🏠 Home</a>
+    <a href="https://lightbonelife.blogspot.com/">📝 Blogger</a>
+    <a href="categories.html">📂 Categories</a>
+    <a href="archive.html">🗂 Archive</a>
+    <a href="about.html">👤 About</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Andrew’s Notes</h1>
+    <p>探索的空间</p>
+    <button class="glass-btn" onclick="location.href='https://lightbonelife.blogspot.com/'">
+        进入博客 · Enter Blog
+    </button>
+</section>
+
+<!-- 最新文章 -->
+<h2 class="section-title">最新文章 / Recent Posts</h2>
+
+<section class="cards">
+
+    <!-- 卡片 1 -->
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=11" />
+        <div class="card-content">
+            <div class="card-title">淬火 · Quenching</div>
+            <div class="card-desc">关于生活、写作、自我重建的随笔栏目。</div>
+            <a href="https://lightbonelife.blogspot.com/p/quenching.html" target="_blank">阅读 Read</a>
+        </div>
     </div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Andrew’s Notes</h1>
-        <p>探索的空间</p>
-
-        <button onclick="location.href='blog.html'">进入博客 / Enter Blog</button>
-    </section>
-
-    <!-- 最近文章 -->
-    <h2 class="section-title">最新文章 / Recent Posts</h2>
-
-    <section class="cards">
-
-        <!-- 卡片示例 1 -->
-        <div class="card">
-            <img src="https://picsum.photos/400/200?random=1" />
-            <div class="card-content">
-                <div class="card-title">中年危机与美食的哲学</div>
-                <div class="card-desc">一篇关于中年危机、“道德价值逆反”、以及从食物中寻找意义的随笔。</div>
-                <a href="post-midlife-food.html">阅读 Read</a>
-            </div>
+    <!-- 卡片 2 -->
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=12" />
+        <div class="card-content">
+            <div class="card-title">食品与表象 Food & Appearance</div>
+            <div class="card-desc">从食物与表象进入日常经验的深层结构观察。</div>
+            <a href="https://lightbonelife.blogspot.com/p/blog-page.html" target="_blank">阅读 Read</a>
         </div>
+    </div>
 
-        <!-- 卡片示例 2 -->
-        <div class="card">
-            <img src="https://picsum.photos/400/200?random=2" />
-            <div class="card-content">
-                <div class="card-title">ERE 读书笔记｜现金流篇</div>
-                <div class="card-desc">整理 Early Retirement Extreme 中最核心的现金流思想及公式推导。</div>
-                <a href="post-ere-cashflow.html">阅读 Read</a>
-            </div>
+    <!-- 卡片 3 -->
+    <div class="card">
+        <img src="https://picsum.photos/400/200?random=13" />
+        <div class="card-content">
+            <div class="card-title">空间叙事 Spatial Narrative</div>
+            <div class="card-desc">关于城市、空间叙事、现代性与地方性的观察。</div>
+            <a href="https://lightbonelife.blogspot.com/p/spatial.html" target="_blank">阅读 Read</a>
         </div>
+    </div>
 
-        <!-- 卡片示例 3 -->
-        <div class="card">
-            <img src="https://picsum.photos/400/200?random=3" />
-            <div class="card-content">
-                <div class="card-title">日元与 Carry Trade 的感悟</div>
-                <div class="card-desc">从个人学习视角出发，理解日元、利差交易与美联储担忧的基差交易。</div>
-                <a href="post-yen-carry.html">阅读 Read</a>
-            </div>
-        </div>
+</section>
 
-    </section>
-
-    <script>
-        function toggleDrawer() {
-            document.getElementById("drawer").classList.toggle("open");
-        }
-    </script>
+<script>
+function toggleDrawer() {
+    document.getElementById("drawer").classList.toggle("open");
+}
+</script>
 
 </body>
 </html>
