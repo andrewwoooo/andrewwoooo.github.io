@@ -12,6 +12,7 @@
     background: #faf6f3;
     color: #333;
   }
+
   * { box-sizing: border-box; }
 
   .container {
@@ -33,15 +34,24 @@
     position: relative;
   }
 
-  /* 波浪 */
-  .wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+  /* 返回首页按钮 */
+  .home-btn {
+    display: inline-block;
+    margin-bottom: 25px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    backdrop-filter: blur(4px);
+  }
+  .home-btn:hover {
+    background: rgba(255,255,255,0.35);
   }
 
-  /* 头像区 */
+  /* 头像 */
   .avatar-wrapper {
     text-align: center;
     margin-bottom: 35px;
@@ -53,7 +63,6 @@
     overflow: hidden;
     border: 5px solid rgba(255,255,255,0.6);
     margin: 0 auto 10px;
-    cursor: pointer;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
   .avatar img {
@@ -61,7 +70,6 @@
     height: 100%;
     object-fit: cover;
   }
-  #avatarInput { display: none; }
 
   .sidebar h2 {
     font-size: 26px;
@@ -86,7 +94,15 @@
     font-size: 14px;
   }
 
-  /* ===== 右侧内容（Pinterest 风）===== */
+  /* 波浪 */
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  /* ===== 右侧 Pinterest 内容 ===== */
   .content {
     width: 68%;
     padding: 60px;
@@ -99,7 +115,6 @@
     margin-bottom: 8px;
     color: #2d2d2d;
   }
-
   .subtitle {
     font-size: 16px;
     opacity: 0.55;
@@ -148,14 +163,13 @@
   <!-- ===== 左侧栏 ===== -->
   <div class="sidebar">
 
-    <label for="avatarInput">
-      <div class="avatar-wrapper">
-        <div class="avatar">
-          <img id="avatarImg" src="https://via.placeholder.com/200" alt="头像">
-        </div>
+    <a class="home-btn" href="index.html">← 返回首页</a>
+
+    <div class="avatar-wrapper">
+      <div class="avatar">
+        <img src="https://andrewwoooo.github.io/head.png" alt="头像">
       </div>
-    </label>
-    <input type="file" id="avatarInput" accept="image/*">
+    </div>
 
     <h2>你的名字<br>Your Name</h2>
 
@@ -187,7 +201,7 @@
 
   </div>
 
-  <!-- ===== 右侧内容（Pinterest 风）===== -->
+  <!-- ===== 右侧内容 ===== -->
   <div class="content">
 
     <h1>个人简介 Profile</h1>
@@ -196,8 +210,7 @@
     <div class="section">
       <h2>关于我</h2>
       <p class="small">
-        一段 Pinterest 风格的个人介绍，例如：  
-        喜欢设计、工具、城市与空间的关系；相信系统性思考，也喜欢感性的生活方式。
+        在这里写你的介绍…
       </p>
     </div>
 
@@ -236,19 +249,6 @@
   </div>
 
 </div>
-
-<script>
-  const avatarInput = document.getElementById("avatarInput");
-  const avatarImg = document.getElementById("avatarImg");
-
-  avatarInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => avatarImg.src = e.target.result;
-    reader.readAsDataURL(file);
-  });
-</script>
 
 </body>
 </html>
