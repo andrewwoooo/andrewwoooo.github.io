@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iPhone Desktop Style</title>
+<style>
+  :root{
+    --icon-size:78px;
+    --icon-radius:18px;
+    --gap:34px;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Roboto", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#fff;
+    background: linear-gradient(180deg, #0b1220 0%, #07101a 40%, #02060a 100%);
+  }
+
+  /* Background wallpaper (centered, cover). You can replace the URL with any image */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80");
+    background-position: center;
+    background-size: cover;
+    filter: saturate(0.9) contrast(0.9) brightness(0.55);
+    z-index:0;
+    pointer-events:none;
+  }
+
+  /* subtle vignette */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(60% 40% at 50% 20%, rgba(255,255,255,0.02), rgba(0,0,0,0.6));
+    z-index:0;
+    pointer-events:none;
+  }
+
+  .page{
+    position:relative;
+    z-index:1;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* status bar */
+  .status-bar{
+    height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 18px;
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    color: #ffffff;
+    font-weight:600;
+    letter-spacing:0.6px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
+
+  .status-left,
+  .status-right{
+    position:absolute;
+    top:0;
+    height:54px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 12px;
+  }
+  .status-left{ left:0; }
+  .status-right{ right:0; }
+
+  /* main grid area */
+  .main{
+    flex:1;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:30px 40px 60px;
+    box-sizing:border-box;
+  }
+
+  .dock-frame{
+    width: min(1200px, 92%);
+    max-width:1400px;
+  }
+
+  /* App grid: auto-fit to available width. On wide screens show many columns */
+  .app-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--gap);
+    align-items:start;
+  }
+
+  @media (min-width:1400px){
+    .app-grid{
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+
+  .app{
+    text-align:center;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .app-link{
+    display:inline-block;
+    width:var(--icon-size);
+    height:var(--icon-size);
+    border-radius:var(--icon-radius);
+    overflow:hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.02) inset;
+    transition: transform 200ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto;
+    border: 1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+  }
+
+  .app-link img{
+    width:64%;
+    height:64%;
+    object-fit:contain;
+    display:block;
+  }
+
+  .app-name{
+    margin-top:10px;
+    font-size:14px;
+    color:rgba(255,255,255,0.95);
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    width:100%;
+  }
+
+  .app:hover .app-link{
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 2px 0 rgba(255,255,255,0.02) inset;
+  }
+
+  /* small badge example */
+  .badge{
+    position:relative;
+    display:inline-block;
+  }
+  .badge::after{
+    content: attr(data-badge);
+    position:absolute;
+    top:-6px;
+    right:-6px;
+    min-width:18px;
+    padding:2px 6px;
+    font-size:12px;
+    background:#ff4b4b;
+    color:#fff;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.35);
+  }
+
+  /* dock at bottom (optional) */
+  .dock{
+    margin-top:28px;
+    display:flex;
+    justify-content:center;
+    gap:26px;
+    padding:14px 20px;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12));
+    border-radius:18px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .dock .app-link{
+    width:60px;
+    height:60px;
+    border-radius:14px;
+  }
+  .dock .app-name{ display:none; }
+
+  /* footer note */
+  .footer{
+    text-align:center;
+    padding:28px 20px;
+    font-size:13px;
+    color:rgba(255,255,255,0.6);
+  }
+
+  /* responsive tweaks */
+  @media (max-width:900px){
+    :root{ --icon-size:66px; --gap:22px; }
+    .status-bar{ font-size:18px; height:48px;}
+    .app-name{ font-size:13px;}
+    .dock{ gap:18px;}
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="status-bar">
+      <div class="status-left">✔</div>
+      <div class="status-center">9:41</div>
+      <div class="status-right">🔋 100%</div>
+    </div>
+
+    <main class="main">
+      <div class="dock-frame">
+        <!-- App grid -->
+        <div class="app-grid">
+
+          <!-- Example app items: replace href and img src and label as you like -->
+          <a class="app" href="https://lightbonelife.blogspot.com" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/fluency/96/google-blogger.png" alt="Blogger"></div>
+            <div class="app-name">Blogger</div>
+          </a>
+
+          <a class="app" href="https://github.com/andrewwoooo" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/ios-filled/100/github.png" alt="GitHub"></div>
+            <div class="app-name">GitHub</div>
+          </a>
+
+          <a class="app" href="https://twitter.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/twitter--v1.png" alt="Twitter"></div>
+            <div class="app-name">Twitter</div>
+          </a>
+
+          <a class="app" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/linkedin.png" alt="LinkedIn"></div>
+            <div class="app-name">LinkedIn</div>
+          </a>
+
+          <a class="app" href="https://www.youtube.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/youtube-play.png" alt="YouTube"></div>
+            <div class="app-name">YouTube</div>
+          </a>
+
+          <a class="app" href="https://chat.openai.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/chatgpt.png" alt="ChatGPT"></div>
+            <div class="app-name">ChatGPT</div>
+          </a>
+
+          <a class="app" href="mailto:your.email@example.com" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/fluency/96/new-post.png" alt="Mail"></div>
+            <div class="app-name">邮件</div>
+          </a>
+
+          <a class="app" href="https://www.google.com" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/google-logo.png" alt="Google"></div>
+            <div class="app-name">搜索</div>
+          </a>
+
+          <a class="app" href="https://www.instagram.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/instagram-new.png" alt="Instagram"></div>
+            <div class="app-name">Instagram</div>
+          </a>
+
+          <a class="app" href="https://notion.so" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/ios-filled/96/notion.png" alt="Notion"></div>
+            <div class="app-name">Notion</div>
+          </a>
+
+          <a class="app" href="https://calendar.google.com/" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/google-calendar--v1.png" alt="Calendar"></div>
+            <div class="app-name">日历</div>
+          </a>
+
+          <a class="app" href="#" target="_blank" rel="noopener">
+            <div class="app-link"><img src="https://img.icons8.com/color/96/settings.png" alt="Settings"></div>
+            <div class="app-name">设置</div>
+          </a>
+
+        </div>
+
+        <!-- Dock (optional fixed row) -->
+        <div class="dock" aria-hidden="true" style="margin-top:36px;">
+          <a class="app-link" href="https://lightbonelife.blogspot.com" target="_blank" rel="noopener" title="Blogger">
+            <img src="https://img.icons8.com/fluency/96/google-blogger.png" alt="">
+          </a>
+          <a class="app-link" href="https://github.com" target="_blank" rel="noopener" title="GitHub">
+            <img src="https://img.icons8.com/ios-filled/100/github.png" alt="">
+          </a>
+          <a class="app-link" href="https://chat.openai.com/" target="_blank" rel="noopener" title="ChatGPT">
+            <img src="https://img.icons8.com/color/96/chatgpt.png" alt="">
+          </a>
+          <a class="app-link" href="mailto:your.email@example.com" target="_blank" rel="noopener" title="Mail">
+            <img src="https://img.icons8.com/fluency/96/new-post.png" alt="">
+          </a>
+        </div>
+
+      </div>
+    </main>
+
+    <div class="footer">
+      提示：将图标的 href 替换为你想要的链接（target="_blank" 可在新窗口打开）。
+    </div>
+
+  </div>
+</body>
+</html>
