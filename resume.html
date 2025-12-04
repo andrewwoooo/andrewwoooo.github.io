@@ -3,231 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>个人简介</title>
+<title>Pinterest Style Profile</title>
 
 <style>
+  /* ===== 全局设置 ===== */
   body {
     margin: 0;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    background: #f8f8f8;
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    background: #faf6f3;
     color: #333;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   .container {
-    display: flex;
-    max-width: 1100px;
-    margin: auto;
-    background: #fff;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    min-height: 100vh;
+    max-width: 960px;
+    margin: 50px auto;
+    padding: 0 20px;
   }
 
-  /* 左侧栏 */
-  .sidebar {
-    width: 35%;
-    background: linear-gradient(to bottom, #d8c7df 0%, #1f3c56 55%, #142738 100%);
-    color: white;
-    padding: 40px 30px;
-    position: relative;
+  /* ===== 头像区（Pinterest 大头像）===== */
+  .avatar-wrapper {
     text-align: center;
+    margin-bottom: 35px;
   }
 
-  /* 头像区域 */
-  .photo {
+  .avatar {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid rgba(255,255,255,0.5);
-    margin: 0 auto 15px;
+    border: 8px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    margin: auto;
     cursor: pointer;
   }
-  .photo img {
+
+  .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  /* 上传按钮隐藏 */
   #avatarInput {
     display: none;
   }
 
-  .change-avatar-btn {
-    padding: 6px 14px;
-    color: #1f3c56;
-    background: #ffffff;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 14px;
+  /* ===== 标题区 ===== */
+  h1 {
+    font-size: 38px;      /* Pinterest 大标题 */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 10px 0 5px;
+    text-align: center;
+    color: #2d2d2d;
   }
 
-  .sidebar h2 {
-    margin-bottom: 30px;
-    line-height: 1.4;
-  }
-
-  .icon-list {
-    margin-top: 20px;
-    text-align: left;
-  }
-  .icon-item {
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-  .icon-item span {
-    display: block;
-    opacity: 0.9;
-  }
-
-  /* 左侧底部波浪 */
-  .wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  /* 右侧内容区 */
-  .content {
-    width: 65%;
-    padding: 50px;
-  }
-
-  .content h1 {
-    margin-top: 0;
-    color: #1f3c56;
-    border-bottom: 3px solid #eee;
-    padding-bottom: 8px;
-  }
-
-  .section {
+  .subtitle {
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.6;
     margin-bottom: 40px;
   }
 
-  .section h2 {
-    color: #1f3c56;
-    margin-bottom: 15px;
-    font-size: 22px;
-    border-left: 5px solid #1f3c56;
-    padding-left: 10px;
+  /* ===== 卡片区 ===== */
+  .card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
   }
 
-  ul {
+  .card-title {
+    font-size: 22px;     /* Pinterest 小标题 */
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 12px;
+    border-left: 4px solid #f1c27d;
+    color: #2d2d2d;
+  }
+
+  .card ul {
     padding-left: 20px;
   }
 
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-    }
-    .sidebar, .content {
-      width: 100%;
-    }
+  .card li {
+    font-size: 16px;
+    line-height: 1.85;  /* Pinterest 行高更松 */
+    margin-bottom: 10px;
+  }
+
+  .small {
+    font-size: 14px;
+    opacity: 0.8;
   }
 </style>
 
 </head>
+
 <body>
 
 <div class="container">
 
-  <!-- 左侧栏 -->
-  <div class="sidebar">
-
-    <!-- 头像 -->
+  <!-- 头像区 -->
+  <div class="avatar-wrapper">
     <label for="avatarInput">
-      <div class="photo" id="avatarPreview">
-        <img src="https://via.placeholder.com/200" alt="头像" id="avatarImg">
+      <div class="avatar">
+        <img id="avatarImg" src="https://via.placeholder.com/200" alt="头像">
       </div>
     </label>
-
-    <!-- 隐藏的上传 input -->
     <input type="file" id="avatarInput" accept="image/*">
-
-    <h2>你的名字<br>Your Name</h2>
-
-    <div class="icon-list">
-      <div class="icon-item">
-        <strong>📍 地址</strong>
-        <span>你的城市 / 国家</span>
-      </div>
-
-      <div class="icon-item">
-        <strong>📞 电话</strong>
-        <span>你的电话</span>
-      </div>
-
-      <div class="icon-item">
-        <strong>✉️ 邮箱</strong>
-        <span>你的邮箱</span>
-      </div>
-
-      <div class="icon-item">
-        <strong>🌐 网站</strong>
-        <span>你的个人网站 / GitHub</span>
-      </div>
-    </div>
-
-    <!-- 波浪背景 -->
-    <svg class="wave" viewBox="0 0 1440 200">
-      <path fill="#ffc857" d="M0,64L80,90.7C160,117,320,171,480,186.7C640,203,800,181,960,170.7C1120,160,1280,160,1360,160L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-    </svg>
-
   </div>
 
-  <!-- 右侧内容区 -->
-  <div class="content">
+  <!-- 标题 -->
+  <h1>你的名字 Your Name</h1>
+  <div class="subtitle">产品经理 · 城市研究 · 创作者</div>
 
-    <h1>个人简介</h1>
-
-    <div class="section">
-      <h2>工作经验</h2>
-      <ul>
-        <li><strong>公司名称 · 职位</strong>（时间）<br>工作职责与成果…</li>
-        <li><strong>公司名称 · 职位</strong>（时间）<br>工作职责与成果…</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>教育背景</h2>
-      <ul>
-        <li><strong>学校名称 · 学位</strong>（城市 / 年份）</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>技能特长</h2>
-      <ul>
-        <li>技能 1</li>
-        <li>技能 2</li>
-        <li>技能 3</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>自我介绍</h2>
-      <p>写一点关于你的性格、风格、亮点、兴趣。</p>
-    </div>
-
+  <!-- 个人简介卡片 -->
+  <div class="card">
+    <div class="card-title">关于我</div>
+    <p class="small">
+      在这里写一段更 Pinterest 风、更生活化的介绍，例如：
+      <br><br>
+      喜欢设计、城市观察、效率工具；正在通过写作和项目实践重建一个更自由的生活结构。
+      关注空间、商业、人与系统的关系，希望做一些有趣又有洞察力的事情。
+    </p>
   </div>
+
+  <!-- 工作经验 -->
+  <div class="card">
+    <div class="card-title">工作经历</div>
+    <ul>
+      <li>
+        <strong>公司 · 职位</strong>  
+        <div class="small">2020 - 至今</div>
+        负责……
+      </li>
+      <li>
+        <strong>公司 · 职位</strong>  
+        <div class="small">2017 - 2020</div>
+        负责……
+      </li>
+    </ul>
+  </div>
+
+  <!-- 教育 -->
+  <div class="card">
+    <div class="card-title">教育背景</div>
+    <ul>
+      <li><strong>学校名称 · 专业</strong>（2013 - 2017）</li>
+    </ul>
+  </div>
+
+  <!-- 技能 -->
+  <div class="card">
+    <div class="card-title">技能特长</div>
+    <ul>
+      <li>城市研究 / 空间分析</li>
+      <li>产品设计 / 信息架构</li>
+      <li>数据分析 / 写作表达</li>
+    </ul>
+  </div>
+
 </div>
 
-<!-- JS：上传头像并实时预览 -->
+<!-- ===== JS：上传头像预览 ===== -->
 <script>
   const avatarInput = document.getElementById("avatarInput");
   const avatarImg = document.getElementById("avatarImg");
 
   avatarInput.addEventListener("change", function () {
-    const file = avatarInput.files[0];
+    const file = this.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function (e) {
-      avatarImg.src = e.target.result;
-    };
+    reader.onload = e => avatarImg.src = e.target.result;
     reader.readAsDataURL(file);
   });
 </script>
