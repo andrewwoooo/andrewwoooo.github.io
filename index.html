@@ -1,285 +1,195 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Andrew’s Notes | 探索的空间</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrew’s Notes｜探索的空间</title>
 
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, 
-                     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        color: #eaeaea;
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
 
-        /* 🌍 宇宙俯视地球背景 */
-        background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80')
-                    no-repeat center center fixed;
-        background-size: cover;
-    }
+        /* 顶部宇宙背景 */
+        .hero {
+            height: 100vh;
+            background: url("https://img-blog.csdnimg.cn/img_convert/509b4c7fcbdeb18f0bc33bd44a14bcbb.jpeg") no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            position: relative;
+        }
 
-    /* 深色透明遮罩 */
-    .overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: blur(2px);
-        z-index: -1;
-    }
+        /* 右上角汉堡菜单 */
+        .menu-btn {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+        }
 
-    /* 顶部导航 */
-    header {
-        position: fixed;
-        width: 100%;
-        top: 0; left: 0;
-        padding: 20px 30px;
-        display: flex;
-        justify-content: flex-end;
-        z-index: 1000;
-    }
+        /* 侧边分类菜单 */
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,0.85);
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 60px;
+        }
 
-    .menu-btn {
-        font-size: 28px;
-        cursor: pointer;
-        color: #fff;
-        text-shadow: 0 0 8px rgba(0,0,0,0.6);
-        transition: 0.2s;
-    }
-    .menu-btn:hover {
-        transform: scale(1.1);
-    }
+        .side-menu a {
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 22px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
 
-    /* ✨ 更好看的右侧抽屉菜单 */
-    .drawer {
-        position: fixed;
-        top: 0;
-        right: -320px;
-        width: 320px;
-        height: 100%;
-        background: rgba(20,20,30,0.75);
-        backdrop-filter: blur(10px);
-        border-left: 1px solid rgba(255,255,255,0.12);
-        transition: 0.35s ease;
-        padding: 50px 32px;
-        z-index: 2000;
-    }
+        .side-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
-    .drawer.open {
-        right: 0;
-    }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 36px;
+            cursor: pointer;
+            color: white;
+        }
 
-    .drawer h3 {
-        margin-top: 0;
-        margin-bottom: 26px;
-        font-size: 22px;
-        font-weight: 600;
-        color: #ffffff;
-        letter-spacing: 0.5px;
-    }
+        /* 中间透明按钮 */
+        .center-btn {
+            margin-top: 20px;
+            padding: 12px 28px;
+            border: 1px solid white;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(3px);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    .drawer a {
-        display: block;
-        margin: 18px 0;
-        text-decoration: none;
-        font-size: 17px;
-        color: #e0e0e0;
-        padding: 8px 0;
-        transition: 0.2s;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+        .center-btn:hover {
+            background: rgba(255,255,255,0.35);
+        }
 
-    .drawer a:hover {
-        color: #ffffff;
-        transform: translateX(4px);
-    }
+        /* 下拉箭头 */
+        .down-arrow {
+            position: absolute;
+            bottom: 25px;
+            font-size: 30px;
+            animation: bounce 1.5s infinite;
+        }
 
-    /* HERO 区域 */
-    .hero {
-        height: 78vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0 20px;
-        text-shadow: 0 0 12px rgba(0,0,0,0.75);
-    }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
 
-    .hero h1 {
-        font-size: 56px;
-        margin: 0 0 12px 0;
-        letter-spacing: 1px;
-    }
+        /* 文章区 */
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
 
-    .hero p {
-        font-size: 22px;
-        color: #dcdcdc;
-        margin-top: 0;
-    }
+        .cards {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
 
-    /* ✨ 透明玻璃按钮 */
-    .glass-btn {
-        padding: 14px 34px;
-        font-size: 17px;
-        color: #fff;
-        border: 1px solid rgba(255,255,255,0.35);
-        background: rgba(255,255,255,0.1);
-        border-radius: 12px;
-        backdrop-filter: blur(8px);
-        cursor: pointer;
-        transition: 0.35s;
-        letter-spacing: 0.5px;
-        text-shadow: 0 0 10px rgba(0,0,0,0.6);
-        margin-top: 40px;
-    }
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: 0.3s;
+            background: white;
+        }
 
-    .glass-btn:hover {
-        background: rgba(255,255,255,0.25);
-        color: #000;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-    }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
 
-    /* 最新文章标题 */
-    .section-title {
-        text-align: center;
-        font-size: 28px;
-        margin-top: 30px;
-        color: #fff;
-        text-shadow: 0 0 10px rgba(0,0,0,0.65);
-    }
-
-    /* 卡片区域 */
-    .cards {
-        max-width: 960px;
-        margin: 40px auto;
-        padding: 0 22px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 24px;
-    }
-
-    .card {
-        background: rgba(20,20,25,0.75);
-        border-radius: 12px;
-        backdrop-filter: blur(6px);
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.15);
-        transition: 0.3s;
-    }
-
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 24px rgba(0,0,0,0.6);
-    }
-
-    .card img {
-        width: 100%;
-        height: 140px;
-        object-fit: cover;
-        background: #333;
-    }
-
-    .card-content {
-        padding: 18px 20px 24px;
-    }
-
-    .card-title {
-        font-size: 20px;
-        margin: 5px 0 10px;
-        color: #fff;
-    }
-
-    .card-desc {
-        color: #cccccc;
-        font-size: 15px;
-        line-height: 1.5;
-        margin-bottom: 18px;
-    }
-
-    .card a {
-        display: inline-block;
-        text-decoration: none;
-        padding: 8px 16px;
-        background: #fff;
-        color: #000;
-        font-size: 14px;
-        border-radius: 5px;
-    }
-</style>
-
+        .card-title {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<div class="overlay"></div>
+<!-- 顶部宇宙背景 -->
+<div class="hero">
+    <div class="menu-btn" onclick="openMenu()">☰</div>
 
-<!-- 顶部导航 -->
-<header>
-    <div class="menu-btn" onclick="toggleDrawer()">☰</div>
-</header>
-
-<!-- 抽屉菜单 -->
-<div id="drawer" class="drawer">
-    <h3>导航 Navigation</h3>
-    <a href="index.html">🏠 Home</a>
-    <a href="https://lightbonelife.blogspot.com/">📝 Blogger</a>
-    <a href="categories.html">📂 Categories</a>
-    <a href="archive.html">🗂 Archive</a>
-    <a href="about.html">👤 About</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
     <h1>Andrew’s Notes</h1>
     <p>探索的空间</p>
-    <button class="glass-btn" onclick="location.href='https://lightbonelife.blogspot.com/'">
-        进入博客 · Enter Blog
-    </button>
-</section>
 
-<!-- 最新文章 -->
-<h2 class="section-title">最新文章 / Recent Posts</h2>
+    <a href="https://lightbonelife.blogspot.com/" target="_blank">
+        <div class="center-btn">进入我的 Blogger 博客</div>
+    </a>
 
-<section class="cards">
+    <div class="down-arrow">⌄</div>
+</div>
 
-    <!-- 卡片 1 -->
-    <div class="card">
-        <img src="https://picsum.photos/400/200?random=11" />
-        <div class="card-content">
-            <div class="card-title">淬火 · Quenching</div>
-            <div class="card-desc">关于生活、写作、自我重建的随笔栏目。</div>
-            <a href="https://lightbonelife.blogspot.com/p/quenching.html" target="_blank">阅读 Read</a>
-        </div>
+<!-- 右侧分类菜单 -->
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="closeMenu()">×</div>
+    <a href="#articles">最新文章</a>
+    <a href="https://lightbonelife.blogspot.com/" target="_blank">全部文章（Blogger）</a>
+    <a href="#">随笔</a>
+    <a href="#">城市观察</a>
+    <a href="#">金融 · 思考</a>
+</div>
+
+<!-- 文章列表 -->
+<div class="section" id="articles">
+    <h2>最新文章</h2>
+
+    <div class="cards">
+        <!-- 卡片 1 -->
+        <a href="https://lightbonelife.blogspot.com/" target="_blank" class="card">
+            <div class="card-title">📌 Blogger 最新发布（自动入口）</div>
+        </a>
+
+        <!-- 你可以继续添加更多卡片 -->
+        <a href="https://lightbonelife.blogspot.com/2024/10/blog-post.html" target="_blank" class="card">
+            <div class="card-title">示例文章 1</div>
+        </a>
+
+        <a href="https://lightbonelife.blogspot.com/2024/09/blog-post.html" target="_blank" class="card">
+            <div class="card-title">示例文章 2</div>
+        </a>
     </div>
-
-    <!-- 卡片 2 -->
-    <div class="card">
-        <img src="https://picsum.photos/400/200?random=12" />
-        <div class="card-content">
-            <div class="card-title">食品与表象 Food & Appearance</div>
-            <div class="card-desc">从食物与表象进入日常经验的深层结构观察。</div>
-            <a href="https://lightbonelife.blogspot.com/p/blog-page.html" target="_blank">阅读 Read</a>
-        </div>
-    </div>
-
-    <!-- 卡片 3 -->
-    <div class="card">
-        <img src="https://picsum.photos/400/200?random=13" />
-        <div class="card-content">
-            <div class="card-title">空间叙事 Spatial Narrative</div>
-            <div class="card-desc">关于城市、空间叙事、现代性与地方性的观察。</div>
-            <a href="https://lightbonelife.blogspot.com/p/spatial.html" target="_blank">阅读 Read</a>
-        </div>
-    </div>
-
-</section>
+</div>
 
 <script>
-function toggleDrawer() {
-    document.getElementById("drawer").classList.toggle("open");
-}
+    function openMenu() {
+        document.getElementById("sideMenu").style.width = "260px";
+    }
+    function closeMenu() {
+        document.getElementById("sideMenu").style.width = "0";
+    }
 </script>
 
 </body>
