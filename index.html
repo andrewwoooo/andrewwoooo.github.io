@@ -6,14 +6,46 @@
     <title>Andrew’s Notes | 探索的空间</title>
 
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #0e0e0f;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, 
-                         Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            color: #eaeaea;
-        }
+   body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, 
+                 Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: #eaeaea;
+
+    /* 宇宙背景（深空渐变 + 星点） */
+    background: radial-gradient(circle at top, #1b1f35 0%, #0b0e1a 40%, #000 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 星空粒子层 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 70% 80%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 80% 20%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.25), transparent);
+    background-size: 600px 600px;
+    animation: moveStars 40s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* 星空微动 */
+@keyframes moveStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-600px); }
+}
+
 
         /* 顶部导航 */
         header {
