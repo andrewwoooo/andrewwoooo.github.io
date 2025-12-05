@@ -14,12 +14,30 @@
     background-attachment: fixed;
   }
 
-  /* 半透明遮罩，增加星空氛围 */
+  /* 半透明遮罩 */
   body::after {
     content:"";
     position:fixed; inset:0;
     background:rgba(0,0,0,0.45);
     pointer-events:none;
+  }
+
+  /* 返回箭头 */
+  .back-home {
+    position:fixed;
+    top:20px; left:20px;
+    z-index:2;
+    text-decoration:none;
+    color:#fff;
+    font-size:24px;
+    background:rgba(255,255,255,0.15);
+    padding:6px 10px;
+    border-radius:8px;
+    backdrop-filter:blur(6px);
+    transition:.2s;
+  }
+  .back-home:hover {
+    background:rgba(255,255,255,0.3);
   }
 
   /* 搜索框 */
@@ -85,6 +103,9 @@
 </head>
 <body>
 
+  <!-- 返回首页箭头 -->
+  <a href="https://andrewwoooo.github.io/" class="back-home">←</a>
+
   <!-- 搜索框 -->
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="搜索应用...">
@@ -92,7 +113,7 @@
 
   <!-- 应用网格 -->
   <div class="app-grid" id="appGrid">
-    <!自己的 HTML 应用 -->
+    <!-- 你的应用 -->
     <a class="app" href="https://andrewwoooo.github.io/macfocus.html" target="_blank">
       <div class="app-link"><img src="https://andrewwoooo.github.io/macfocus.png" alt="Macfocus"></div>
       <div class="app-name">Macfocus</div>
@@ -128,7 +149,7 @@
   </div>
 
 <script>
-  // 搜索功能：实时过滤应用
+  // 搜索功能
   const searchInput = document.getElementById('searchInput');
   const appGrid = document.getElementById('appGrid');
 
