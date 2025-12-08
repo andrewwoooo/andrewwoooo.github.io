@@ -1,25 +1,22 @@
-/* 颜色变量 */
+/* =========================================
+   1. 基础设置 & 电脑端样式 (默认)
+   ========================================= */
+
+/* 颜色变量 - 白色主题 */
 :root {
-    --bg-color: #f7f3ed;     
-    --page-bg: #fff;         
-    --primary-text: #1a1a1a;  
-    --secondary-text: #222;   /* 加深颜色以保证在透明背景上的可读性 */
-    --line-color: rgba(0,0,0,0.1); /* 分割线变淡 */
-    /* 卡片强调色 */
-    --accent-pink: #f06292;
-    --accent-yellow: #ffeb3b;
-    --accent-purple: #9575cd;
-    /* 字体 */
+    --bg-color: #1a1a1a;     /* 深黑色背景 */
+    --page-bg: #1a1a1a;      
+    --primary-text: #ffffff;  /* 纯白色 */
+    --secondary-text: #cccccc; 
+    --line-color: rgba(255, 255, 255, 0.15); 
+    --accent-pink: #91c7c9;   
+    --accent-yellow: #a0a0a0; 
+    --accent-purple: #c5a898; 
     --font-heading: 'Bebas Neue', sans-serif; 
     --font-body: 'Montserrat', sans-serif;
 }
 
-/* 全局重置 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: var(--font-body);
@@ -28,320 +25,181 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    
-    /* 背景图 */
     background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
     background-size: cover;
     position: relative; 
 }
 
-/* 背景遮罩 (保持 0.2，也就是 20% 的白雾，确保文字能看清) */
+/* 深色背景遮罩 (30% 不透明度) */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2); 
-    z-index: -1;
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); z-index: -1;
 }
 
-/* 页面主体容器 */
+/* 页面容器 - 电脑端宽度 */
 .page-container {
     width: 90%;
-    max-width: 1200px;
-    
-    /* ******** 关键修改：透明度提高 (0.25 -> 0.1) ******** */
-    background-color: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(12px); /* 保持模糊度，增加质感 */
-    -webkit-backdrop-filter: blur(12px); 
-    
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1); 
+    max-width: 1200px; /* 电脑最大宽度限制 */
+    background-color: rgba(255, 255, 255, 0.15); /* 玻璃通透感 */
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.08); 
     padding: 0 40px 80px 40px; 
     margin: 40px 0;
     min-height: 90vh; 
     z-index: 1; 
 }
 
-/* --- 头部导航 --- */
+/* 导航栏 - 电脑端横向排列 */
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.1); 
+    border-bottom: 1px solid var(--line-color);
     margin-bottom: 40px;
-    font-size: 0.95em;
+    font-size: 0.9em;
     background-color: transparent; 
 }
 
-.logo, .user-id {
-    font-weight: 700;
-    letter-spacing: 1px;
-}
+.logo, .user-id { font-weight: 700; letter-spacing: 1px; }
 
 .main-nav a {
-    text-decoration: none;
-    color: var(--primary-text);
-    margin: 0 15px;
-    transition: color 0.3s;
-    font-weight: 500;
+    text-decoration: none; color: var(--secondary-text); margin: 0 15px;
+    transition: color 0.3s; font-weight: 500;
 }
+.main-nav a:hover, .main-nav a.active { color: var(--primary-text); }
 
-.main-nav a:hover, .main-nav a.active {
-    color: #000;
-    text-shadow: 0 0 2px rgba(255,255,255,0.8);
-}
-
-/* --- 英雄区域：大标题 --- */
-.hero-section {
-    text-align: center;
-    padding: 50px 0;
-}
-
+/* 英雄标题 - 电脑端 */
+.hero-section { text-align: center; padding: 50px 0; }
 .main-title {
-    font-family: var(--font-heading);
-    font-weight: 900;
-    line-height: 1; 
-    letter-spacing: -1px;
-    margin-bottom: 25px; 
+    font-family: var(--font-heading); font-weight: 900; line-height: 1; 
+    letter-spacing: -1px; margin-bottom: 25px; 
 }
-
-/* 英文标题：3em */
 .main-title .line-english {
-    font-size: 3em; 
-    color: var(--primary-text);
-    white-space: nowrap; 
+    font-size: 3em; color: var(--primary-text);
+    white-space: nowrap; /* 电脑上强制不换行，保持气势 */
 }
-
-/* 中文标题：1.4em */
 .main-title .line-chinese {
-    font-size: 1.2em; 
-    font-family: var(--font-body); 
-    font-weight: 400; 
-    color: #4a4a4a; 
-    margin-top: 10px; 
-    letter-spacing: 0; 
-    display: block; 
+    font-size: 1.4em; font-family: var(--font-body); font-weight: 400; 
+    color: var(--secondary-text); margin-top: 10px; display: block; 
 }
-
 .subtitle {
-    color: #ffffff;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    font-size: 1.1em;
-    font-weight: 500;
+    color: var(--secondary-text); max-width: 600px; margin: 0 auto 30px;
+    font-size: 1.1em; font-weight: 500;
 }
-
 .action-buttons a {
-    text-decoration: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-    font-size: 1em;
-    font-weight: 700;
+    text-decoration: none; padding: 10px 20px; margin: 0 10px; border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; font-size: 1em; font-weight: 700;
 }
+.btn-primary { background-color: var(--primary-text); color: var(--bg-color); }
+.btn-primary:hover { background-color: var(--secondary-text); }
+.btn-secondary { background-color: transparent; color: var(--primary-text); border: 1px solid var(--primary-text); }
+.btn-secondary:hover { background-color: var(--primary-text); color: var(--bg-color); }
 
-.btn-primary {
-    background-color: var(--primary-text);
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background-color: #333;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-text);
-    border: 1px solid var(--primary-text);
-}
-
-.btn-secondary:hover {
-    background-color: var(--primary-text);
-    color: #fff;
-}
-
-/* --- 图片网格 --- */
-.image-grid-section {
-    padding: 40px 0;
-    overflow: hidden; 
-}
-
+/* 图片网格 - 电脑端 (5列) */
+.image-grid-section { padding: 40px 0; overflow: hidden; }
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr); /* 电脑上：一行 5 个 */
+    gap: 10px;
     max-width: 100%;
 }
-
-.img-wrapper {
-    overflow: hidden;
-    aspect-ratio: 1 / 1; 
-    border-radius: 8px; 
-}
-
+.img-wrapper { overflow: hidden; aspect-ratio: 1 / 1; border-radius: 8px; }
+.img-wrapper a { display: block; width: 100%; height: 100%; } /* 链接填满 */
 .img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s;
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.3s, filter 0.5s;
+    filter: grayscale(100%); /* 黑白滤镜 */
 }
+.img-wrapper img:hover { transform: scale(1.05); filter: grayscale(0%); }
 
-.img-wrapper img:hover {
-    transform: scale(1.05);
-}
-
-/* --- 底部功能卡片 --- */
-.function-cards-section {
-    padding-top: 50px;
-}
-
+/* 功能卡片 - 电脑端 (3列) */
+.function-cards-section { padding-top: 50px; }
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-    text-align: center;
+    display: grid; grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; text-align: center;
 }
-
 .function-card {
-    display: block;
-    text-decoration: none;
-    color: var(--primary-text);
-    padding: 40px 20px;
-    border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
+    display: block; text-decoration: none; color: var(--primary-text);
+    padding: 40px 20px; border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 8px; position: relative; overflow: hidden;
     transition: box-shadow 0.3s, background-color 0.3s;
-    
-    /* ******** 关键修改：卡片更透 (0.3 -> 0.2) ******** */
-    background-color: rgba(255, 255, 255, 0.2); 
-    backdrop-filter: blur(5px); 
+    background-color: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); 
 }
-
 .function-card:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.35); 
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15); 
 }
-
-.function-card h2 {
-    font-size: 1.8em;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.function-card p {
-    color: var(--secondary-text);
-}
-
-/* 卡片底部的几何形状 */
+.function-card h2 { font-size: 1.8em; font-weight: 700; margin-bottom: 10px; }
+.function-card p { color: var(--secondary-text); }
 .shape-bottom {
-    position: absolute;
-    bottom: -150px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 250px;
-    height: 250px;
+    position: absolute; bottom: -150px; left: 50%; transform: translateX(-50%);
+    width: 250px; height: 250px; opacity: 0.6; transition: bottom 0.5s;
     clip-path: polygon(50% 0%, 100% 100%, 0% 100%); 
-    opacity: 0.6;
-    transition: bottom 0.5s;
 }
-
-.function-card:hover .shape-bottom {
-    bottom: -100px;
-}
-
+.function-card:hover .shape-bottom { bottom: -100px; }
 .card-play .shape-bottom { background-color: var(--accent-pink); }
 .card-focus .shape-bottom { background-color: var(--accent-yellow); }
 .card-dream .shape-bottom { background-color: var(--accent-purple); }
 
-/* --- 通用内容页面样式 --- */
+/* 通用内容页样式 */
 .content-page-header {
-    padding: 40px 0 20px 0;
-    text-align: left;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 40px;
-    background-color: transparent; 
+    padding: 40px 0 20px 0; text-align: left; border-bottom: 1px solid var(--line-color);
+    margin-bottom: 40px; background-color: transparent; 
 }
-.content-page-header h1 {
-    font-family: var(--font-heading);
-    font-size: 3.5em;
-    line-height: 1;
-    margin-bottom: 10px;
-}
-.content-page-header p {
-    color: var(--secondary-text);
-    font-size: 1.1em;
-}
-.content-section {
-    padding: 20px 0;
-}
-.content-section h2 {
-    font-size: 1.5em;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    color: var(--primary-text);
-}
-.content-section p, .content-section ul {
-    color: var(--secondary-text);
-    margin-bottom: 20px;
-}
-.content-section ul {
-    list-style: none; 
-    padding-left: 0;
-}
-.content-section ul li {
-    margin-bottom: 10px;
-}
-.content-section a {
-    color: var(--primary-text);
-    font-weight: 700;
-    text-decoration: underline;
-}
+.content-page-header h1 { font-family: var(--font-heading); font-size: 3.5em; line-height: 1; margin-bottom: 10px; }
+.content-page-header p { color: var(--secondary-text); font-size: 1.1em; }
+.content-section { padding: 20px 0; }
+.content-section h2 { font-size: 1.5em; margin-top: 25px; margin-bottom: 10px; color: var(--primary-text); }
+.content-section p, .content-section ul { color: var(--secondary-text); margin-bottom: 20px; }
+.content-section ul { list-style: none; padding-left: 0; }
+.content-section ul li { margin-bottom: 10px; }
+.content-section a { color: var(--primary-text); font-weight: 700; text-decoration: underline; }
 
-/* --- 响应式设计 --- */
-@media (max-width: 1000px) {
-    .main-title {
-        font-size: 4em;
-    }
+
+/* =========================================
+   2. 响应式设计 (手机/平板 自动适配)
+   ========================================= */
+
+/* 平板端 (屏幕变窄了，但还没到手机那么窄) */
+@media (max-width: 1024px) {
     .image-grid {
-        grid-template-columns: repeat(4, 1fr); 
+        /* 5列太挤了，改成 3列 (第一行3个，第二行2个) */
+        grid-template-columns: repeat(3, 1fr); 
     }
 }
 
+/* 手机端 (真正的手机竖屏模式) */
 @media (max-width: 768px) {
     .page-container {
-        padding: 0 20px 40px 20px;
-        margin: 0;
-        width: 100%;
-        min-height: 100vh;
+        width: 95%; /* 手机上尽量宽一点 */
+        padding: 30px 20px;
+        margin: 10px auto;
     }
-    .main-header {
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
-    }
-    .logo, .user-id {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .main-nav {
-        order: 3;
-    }
+
+    /* 1. 导航栏变竖排 */
+    .main-header { flex-direction: column; gap: 15px; }
+    .main-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .nav-item { margin: 0; padding: 5px; font-size: 1.1em; }
+
+    /* 2. 标题适配：防止撑破屏幕 */
     .main-title .line-english {
-        font-size: 3em;
+        font-size: 10vw; /* 随屏幕宽度缩放 */
+        white-space: normal; /* 允许换行 */
+        word-break: break-word; /* 防止单词太长 */
+        line-height: 1.1;
     }
-    .main-title .line-chinese {
-        font-size: 1.5em;
-    }
+    .main-title .line-chinese { font-size: 1.2em; }
+
+    /* 3. 图片变大：手机上一行只放 1 张图 */
     .image-grid {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: 1fr; /* 单列模式 */
+        gap: 15px;
     }
-    .card-grid {
-        grid-template-columns: 1fr; 
-    }
+
+    /* 4. 卡片变单列 */
+    .card-grid { grid-template-columns: 1fr; }
+    
+    /* 调整装饰图形，防止挡住文字 */
+    .shape-bottom { opacity: 0.3; bottom: -180px; }
 }
