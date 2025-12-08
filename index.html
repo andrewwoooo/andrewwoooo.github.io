@@ -3,195 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrew’s Notes｜探索的空间</title>
-
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-     /* 顶部宇宙背景（恢复原图 + 上银河 + 下地球） */
-.hero {
-    height: 100vh;
-    background: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-    position: relative;
-}
-
-
-        /* 右上角汉堡菜单 */
-        .menu-btn {
-            position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 28px;
-            cursor: pointer;
-            color: white;
-        }
-
-        /* 侧边分类菜单 */
-        .side-menu {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background: rgba(0,0,0,0.85);
-            overflow-x: hidden;
-            transition: 0.4s;
-            padding-top: 60px;
-        }
-
-        .side-menu a {
-            padding: 12px 25px;
-            text-decoration: none;
-            font-size: 22px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .side-menu a:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 36px;
-            cursor: pointer;
-            color: white;
-        }
-
-        /* 中间透明按钮 */
-        .center-btn {
-            margin-top: 20px;
-            padding: 12px 28px;
-            border: 0px solid white;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(3px);
-            color: white;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .center-btn:hover {
-            background: rgba(255,255,255,0.35);
-        }
-
-        /* 下拉箭头 */
-        .down-arrow {
-            position: absolute;
-            bottom: 25px;
-            font-size: 30px;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-
-        /* 文章区 */
-        .section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .cards {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
-        }
-
-        .card {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: 0.3s;
-            background: white;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-        }
-
-        .card-title {
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    </style>
+    <title>WU - DA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- 顶部宇宙背景 -->
-<div class="hero">
-    <div class="menu-btn" onclick="openMenu()">☰</div>
+    <div class="page-container">
+        
+        <header class="main-header">
+            <div class="logo">低声说话的地方</div>
+            <nav class="main-nav">
+                <a href="https://andrewwoooo.github.io/index.html" class="nav-item active">主页</a>
+                <a href="https://lightbonelife.blogspot.com" class="nav-item">文章</a>
+                <a href="https://andrewwoooo.github.io/app.html" class="nav-item">应用</a>
+                <a href="https://andrewwoooo.github.io/resume.html" class="nav-item">关于</a>
+            </nav>
+            <div class="user-id">WUDA</div>
+        </header>
 
-    <h1>Andrew’s Notes</h1>
-    <p>探索的空间</p>
+        <section class="hero-section">
+            <h1 class="main-title">
+                <span class="line-english">THE PLACE OF WHISPER.</span>
+                <br>
+                <span class="line-chinese">低声说话的地方.</span>
+            </h1>
+            <p class="subtitle">
+                这里是我的精神之地，探索、创造、思考。
+            </p>
+            <div class="action-buttons">
+                <a href="articles.html" class="btn-primary">进入主页</a>
+                <a href="https://andrewwoooo.github.io/resume.html" class="btn-secondary">了解 WUDA</a>
+            </div>
+        </section>
 
-    <a href="https://lightbonelife.blogspot.com/" target="_blank">
-        <div class="center-btn">进入我的 Blogger 博客</div>
-    </a>
+       <section class="image-grid-section">
+    <div class="image-grid">
+        <div class="img-wrapper"><img src="https://andrewwoooo.github.io/1.jpg" alt="图片 1"></div>
+        <div class="img-wrapper"><img src="https://andrewwoooo.github.io/2.jpg" alt="图片 2"></div>
+        <div class="img-wrapper"><img src="https://andrewwoooo.github.io/3.jpg" alt="图片 3"></div>
+        <div class="img-wrapper"><img src="https://andrewwoooo.github.io/4.jpg" alt="图片 4"></div>
+        <div class="img-wrapper"><img src="https://andrewwoooo.github.io/5.jpg" alt="图片 5"></div>
+        
+        </div>
+</section>
 
-    <div class="down-arrow">⌄</div>
-</div>
+        <section class="function-cards-section">
+            <div class="card-grid">
+                
+                <a href="https://lightbonelife.blogspot.com" class="function-card card-play">
+                    <h2>文章</h2>
+                    <p>分享我的思考和生活</p>
+                    <div class="shape-bottom"></div>
+                </a>
 
-<!-- 右侧分类菜单 -->
-<div id="sideMenu" class="side-menu">
-    <div class="close-btn" onclick="closeMenu()">×</div>
-    <a href="#articles">最新文章</a>
-    <a href="https://lightbonelife.blogspot.com/" target="_blank">全部文章（Blogger）</a>
-    <a href="https://andrewwoooo.github.io/app.html">我的应用-MyAPP</a>
-    <a href="#">城市观察</a>
-    <a href="https://andrewwoooo.github.io/resume.html">关于-About</a>
-</div>
+                <a href="https://andrewwoooo.github.io/app.html" class="function-card card-focus">
+                    <h2>应用</h2>
+                    <p>展示我所有的创意作品</p>
+                    <div class="shape-bottom"></div>
+                </a>
 
-<!-- 文章列表 -->
-<div class="section" id="articles">
-    <h2>最新文章</h2>
+                <a href="https://andrewwoooo.github.io/resume.html" class="function-card card-dream">
+                    <h2>关于</h2>
+                    <p>了解 WUDA 的理念</p>
+                    <div class="shape-bottom"></div>
+                </a>
 
-    <div class="cards">
-        <!-- 卡片 1 -->
-        <a href="https://lightbonelife.blogspot.com/" target="_blank" class="card">
-            <div class="card-title">📌 Blogger 最新发布（自动入口）</div>
-        </a>
+            </div>
+        </section>
 
-        <!-- 你可以继续添加更多卡片 -->
-        <a href="https://lightbonelife.blogspot.com/2024/10/blog-post.html" target="_blank" class="card">
-            <div class="card-title">示例文章 1</div>
-        </a>
-
-        <a href="https://lightbonelife.blogspot.com/2024/09/blog-post.html" target="_blank" class="card">
-            <div class="card-title">示例文章 2</div>
-        </a>
     </div>
-</div>
-
-<script>
-    function openMenu() {
-        document.getElementById("sideMenu").style.width = "260px";
-    }
-    function closeMenu() {
-        document.getElementById("sideMenu").style.width = "0";
-    }
-</script>
-
 </body>
 </html>
