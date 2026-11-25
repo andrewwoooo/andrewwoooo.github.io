@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="小酌记录" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
   <title>小酌记录 · 低声说话的地方 | SCA 咖啡风味图鉴</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -38,12 +39,14 @@
 
     input, textarea {
       user-select: text;
+      -webkit-appearance: none;
     }
 
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
+      max-width: 100vw;
       height: 100%;
       background-color: #EAE4D7;
       color: var(--ink-primary);
@@ -71,12 +74,14 @@
     /* 顶部出版印章风标题栏 */
     .top-header {
       flex-shrink: 0;
-      padding: max(10px, env(safe-area-inset-top)) 14px 8px;
+      width: 100%;
+      padding: max(10px, env(safe-area-inset-top)) 12px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       border-bottom: 1px solid var(--border-subtle);
-      background: rgba(245, 241, 232, 0.92);
+      background: rgba(245, 241, 232, 0.94);
       backdrop-filter: blur(8px);
       z-index: 20;
     }
@@ -84,14 +89,15 @@
     .brand-block {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       min-width: 0;
+      flex: 1;
     }
 
     .brand-seal-wrap {
       position: relative;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -116,25 +122,26 @@
       flex-direction: column;
       gap: 2px;
       min-width: 0;
+      flex: 1;
     }
 
     .brand-title-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .brand-vert-tag {
       writing-mode: vertical-rl;
       text-orientation: upright;
       font-family: var(--font-serif);
-      font-size: 7.5px;
+      font-size: 7px;
       line-height: 1;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--accent-rust);
       border-right: 1px solid rgba(158, 74, 54, 0.35);
-      padding-right: 4px;
-      height: 22px;
+      padding-right: 3px;
+      height: 21px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -143,24 +150,22 @@
 
     .brand-title {
       font-family: var(--font-serif);
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       color: var(--ink-primary);
       line-height: 1.08;
-      display: flex;
-      align-items: baseline;
+      white-space: nowrap;
     }
 
     .brand-title .char-accent {
       color: var(--accent-rust);
-      font-weight: 700;
     }
 
     .brand-sub {
       font-family: var(--font-mono);
-      font-size: 8.5px;
-      letter-spacing: 0.08em;
+      font-size: 8px;
+      letter-spacing: 0.05em;
       color: var(--ink-muted);
       text-transform: uppercase;
       white-space: nowrap;
@@ -171,23 +176,24 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex-shrink: 0;
     }
 
     .icon-btn {
-      height: 30px;
-      padding: 0 9px;
+      height: 29px;
+      padding: 0 8px;
       border-radius: 6px;
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
       color: var(--ink-secondary);
-      font-size: 11.5px;
+      font-size: 11px;
       font-family: var(--font-sans);
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
+      white-space: nowrap;
       transition: all 0.16s ease;
     }
 
@@ -219,8 +225,9 @@
     /* 三步工作流指示条 */
     .stepper-bar {
       flex-shrink: 0;
+      width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(250, 247, 240, 0.85);
       z-index: 18;
@@ -234,18 +241,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 11.5px;
+      gap: 4px;
+      font-size: 11px;
       font-family: var(--font-sans);
       color: var(--ink-muted);
       cursor: pointer;
-      transition: all 0.18s ease;
       padding: 0 4px;
+      min-width: 0;
+      white-space: nowrap;
     }
 
     .step-tab .step-num {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       padding: 1px 4px;
       border-radius: 4px;
@@ -268,8 +276,8 @@
       content: "";
       position: absolute;
       bottom: 0;
-      left: 16%;
-      right: 16%;
+      left: 14%;
+      right: 14%;
       height: 2px;
       background: var(--accent-rust);
     }
@@ -283,6 +291,7 @@
     .step-view {
       display: none;
       flex: 1;
+      width: 100%;
       flex-direction: column;
       overflow: hidden;
       min-height: 0;
@@ -295,17 +304,20 @@
     /* STEP 1: 冲煮工具与手法页面 */
     .setup-scroll {
       flex: 1;
+      width: 100%;
       overflow-y: auto;
-      padding: 14px 16px 24px;
+      overflow-x: hidden;
+      padding: 12px 12px 24px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .setup-intro-card {
+      width: 100%;
       background: var(--bg-elevated);
       border: 1px solid var(--border-strong);
       border-radius: 12px;
-      padding: 14px;
+      padding: 12px;
       box-shadow: var(--shadow-card);
-      margin-bottom: 12px;
     }
 
     .section-head-row {
@@ -313,14 +325,15 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 10px;
-      gap: 8px;
+      gap: 6px;
     }
 
     .section-title {
       font-family: var(--font-serif);
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       color: var(--ink-primary);
+      white-space: nowrap;
     }
 
     .mode-switch {
@@ -328,12 +341,13 @@
       background: #E8E1D3;
       padding: 3px;
       border-radius: 8px;
+      flex-shrink: 0;
     }
 
     .mode-tab {
-      padding: 4px 11px;
+      padding: 4px 10px;
       border-radius: 6px;
-      font-size: 11.5px;
+      font-size: 11px;
       border: none;
       background: transparent;
       color: var(--ink-secondary);
@@ -348,15 +362,18 @@
     }
 
     .form-grid {
+      width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
     }
 
     .form-field {
       display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
+      width: 100%;
     }
 
     .form-field.full {
@@ -368,23 +385,26 @@
       align-items: center;
       justify-content: space-between;
       gap: 4px;
+      min-width: 0;
     }
 
     .form-label {
       font-size: 11px;
       color: var(--ink-secondary);
       font-weight: 500;
+      white-space: nowrap;
     }
 
     .save-preset-inline {
       font-size: 10px;
-      padding: 1px 6px;
+      padding: 1px 5px;
       border-radius: 4px;
       border: 1px solid var(--accent-olive);
       background: rgba(88, 107, 81, 0.12);
       color: #3E5237;
       cursor: pointer;
       display: none;
+      flex-shrink: 0;
     }
 
     .save-preset-inline.visible {
@@ -393,13 +413,14 @@
 
     .form-input {
       width: 100%;
+      min-width: 0;
       height: 36px;
-      padding: 0 10px;
+      padding: 0 9px;
       border-radius: 8px;
       border: 1px solid var(--border-strong);
       background: var(--bg-card);
       color: var(--ink-primary);
-      font-size: 12.5px;
+      font-size: 13px;
       font-family: var(--font-sans);
       outline: none;
       transition: border-color 0.15s ease, background 0.15s ease;
@@ -411,12 +432,14 @@
     }
 
     .preset-pills {
+      width: 100%;
       display: flex;
       align-items: center;
       gap: 5px;
       overflow-x: auto;
       scrollbar-width: none;
       padding-top: 2px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .preset-pills::-webkit-scrollbar {
@@ -451,11 +474,13 @@
       cursor: pointer;
       text-decoration: underline;
       padding: 0;
+      white-space: nowrap;
     }
 
     .step-footer-dock {
       flex-shrink: 0;
-      padding: 10px 16px max(14px, env(safe-area-inset-bottom));
+      width: 100%;
+      padding: 9px 12px max(12px, env(safe-area-inset-bottom));
       background: rgba(245, 241, 232, 0.96);
       border-top: 1px solid var(--border-subtle);
     }
@@ -476,7 +501,6 @@
       gap: 6px;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(38, 32, 27, 0.16);
-      transition: transform 0.15s ease;
     }
 
     .cta-primary-btn:active {
@@ -486,8 +510,9 @@
     /* STEP 2: 风味轮与参数摘要条 */
     .recipe-context-strip {
       flex-shrink: 0;
-      padding: 6px 14px;
-      background: rgba(255, 253, 249, 0.85);
+      width: 100%;
+      padding: 6px 12px;
+      background: rgba(255, 253, 249, 0.88);
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -498,10 +523,11 @@
     }
 
     .recipe-strip-text {
+      min-width: 0;
+      flex: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-family: var(--font-sans);
     }
 
     .recipe-edit-chip {
@@ -519,7 +545,8 @@
     /* 三级面包屑导航 */
     .breadcrumb-bar {
       flex-shrink: 0;
-      padding: 6px 14px;
+      width: 100%;
+      padding: 6px 12px;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -546,7 +573,6 @@
       border: 1px solid transparent;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
     .crumb-item.active {
@@ -567,6 +593,7 @@
     .wheel-stage {
       position: relative;
       flex: 1;
+      width: 100%;
       min-height: 220px;
       display: flex;
       align-items: center;
@@ -578,11 +605,12 @@
     .wheel-hint {
       position: absolute;
       top: 7px;
-      left: 14px;
-      right: 14px;
+      left: 12px;
+      right: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
       pointer-events: none;
       z-index: 5;
     }
@@ -590,18 +618,17 @@
     .hint-pill {
       font-size: 10px;
       color: var(--ink-muted);
-      background: rgba(250, 247, 240, 0.88);
+      background: rgba(250, 247, 240, 0.9);
       border: 1px solid var(--border-subtle);
       padding: 2px 8px;
       border-radius: 99px;
       backdrop-filter: blur(4px);
+      white-space: nowrap;
     }
 
     #flavorSvg {
       width: 100%;
       height: 100%;
-      max-width: 430px;
-      max-height: 430px;
       overflow: visible;
     }
 
@@ -636,16 +663,18 @@
     /* 底部检视与捕获面板 */
     .inspector-dock {
       flex-shrink: 0;
-      padding: 6px 14px max(12px, env(safe-area-inset-bottom));
+      width: 100%;
+      padding: 6px 12px max(12px, env(safe-area-inset-bottom));
       background: linear-gradient(to top, rgba(245, 241, 232, 0.98) 82%, rgba(245, 241, 232, 0));
       z-index: 15;
     }
 
     .inspector-card {
+      width: 100%;
       background: var(--bg-elevated);
       border: 1px solid var(--border-strong);
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 10px 11px;
       box-shadow: var(--shadow-card);
     }
 
@@ -653,7 +682,7 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
     }
 
     .flavor-meta-left {
@@ -664,7 +693,7 @@
     .flavor-tag-row {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       margin-bottom: 2px;
       flex-wrap: wrap;
     }
@@ -703,7 +732,7 @@
     .flavor-name-row {
       display: flex;
       align-items: baseline;
-      gap: 7px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -724,7 +753,7 @@
     .capture-btn {
       flex-shrink: 0;
       height: 32px;
-      padding: 0 11px;
+      padding: 0 10px;
       border-radius: 8px;
       border: 1px solid var(--ink-primary);
       background: var(--ink-primary);
@@ -770,12 +799,14 @@
 
     .captured-chips {
       flex: 1;
+      min-width: 0;
       display: flex;
       align-items: center;
       gap: 5px;
       overflow-x: auto;
       scrollbar-width: none;
       min-height: 28px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .captured-chips::-webkit-scrollbar {
@@ -786,13 +817,14 @@
       font-size: 11px;
       color: var(--ink-muted);
       font-style: italic;
+      white-space: nowrap;
     }
 
     .flavor-chip {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 3px 8px;
+      gap: 4px;
+      padding: 3px 7px;
       border-radius: 6px;
       background: var(--bg-card);
       border: 1px solid var(--border-strong);
@@ -805,7 +837,7 @@
     .poster-trigger-btn {
       flex-shrink: 0;
       height: 32px;
-      padding: 0 12px;
+      padding: 0 11px;
       border-radius: 7px;
       border: 1px solid var(--accent-rust);
       background: var(--accent-rust);
@@ -822,11 +854,15 @@
     /* STEP 3: 3:4 风味小卡与导出页面 */
     .result-scroll {
       flex: 1;
+      width: 100%;
       overflow-y: auto;
-      padding: 12px 16px max(24px, env(safe-area-inset-bottom));
+      overflow-x: hidden;
+      padding: 12px 12px max(24px, env(safe-area-inset-bottom));
+      -webkit-overflow-scrolling: touch;
     }
 
     .poster-preview-wrap {
+      width: 100%;
       background: #DFD8C8;
       border-radius: 12px;
       padding: 12px;
@@ -834,21 +870,37 @@
       flex-direction: column;
       align-items: center;
       border: 1px solid var(--border-subtle);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
+    /* 隐藏离屏高清渲染画布，前台展示可长按直存 iPhone 相册的 img */
     #posterCanvas {
+      display: none;
+    }
+
+    #posterImgPreview {
       width: 100%;
       max-width: 310px;
       aspect-ratio: 3 / 4;
       border-radius: 6px;
       box-shadow: 0 10px 28px rgba(32, 25, 18, 0.18);
       background: #F6F2E9;
+      display: block;
+      -webkit-touch-callout: default;
+      user-select: auto;
+    }
+
+    .save-photo-tip {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-secondary);
+      text-align: center;
     }
 
     .action-row {
+      width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
       margin-bottom: 9px;
     }
@@ -859,13 +911,14 @@
       border: 1px solid var(--ink-primary);
       background: var(--ink-primary);
       color: #FFFDF9;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
+      padding: 0 8px;
     }
 
     .btn-secondary {
@@ -874,13 +927,14 @@
       border: 1px solid var(--border-strong);
       background: var(--bg-elevated);
       color: var(--ink-primary);
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
+      padding: 0 8px;
     }
 
     .btn-archive {
@@ -910,10 +964,13 @@
       resize: none;
     }
 
-    /* 抽屉与弹窗遮罩 */
+    /* 抽屉与弹窗遮罩（严格适配手机屏宽） */
     .modal-backdrop {
-      position: absolute;
+      position: fixed;
       inset: 0;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
       background: rgba(28, 22, 16, 0.52);
       backdrop-filter: blur(3px);
       z-index: 40;
@@ -946,17 +1003,18 @@
 
     .sheet-header {
       flex-shrink: 0;
-      padding: 13px 16px;
+      padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
       border-bottom: 1px solid var(--border-subtle);
       background: var(--bg-card);
     }
 
     .sheet-title {
       font-family: var(--font-serif);
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--ink-primary);
     }
@@ -973,12 +1031,40 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .sheet-body {
       flex: 1;
+      width: 100%;
       overflow-y: auto;
-      padding: 14px 16px max(20px, env(safe-area-inset-bottom));
+      overflow-x: hidden;
+      padding: 12px 14px max(20px, env(safe-area-inset-bottom));
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .archive-toolbar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .archive-tool-btn {
+      height: 32px;
+      padding: 0 6px;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      font-size: 11px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
     .preset-section-title {
@@ -1028,12 +1114,14 @@
       padding: 3px 8px;
       border-radius: 5px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .add-preset-bar {
       display: flex;
       gap: 6px;
       margin-bottom: 14px;
+      width: 100%;
     }
 
     .log-card {
@@ -1057,12 +1145,14 @@
       font-size: 14.5px;
       font-weight: 700;
       color: var(--ink-primary);
+      word-break: break-word;
     }
 
     .log-date {
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--ink-muted);
+      flex-shrink: 0;
     }
 
     .log-params {
@@ -1070,6 +1160,7 @@
       color: var(--ink-secondary);
       line-height: 1.45;
       margin-bottom: 7px;
+      word-break: break-word;
     }
 
     .log-flavors {
@@ -1093,11 +1184,11 @@
     }
 
     .toast {
-      position: absolute;
-      top: 56px;
+      position: fixed;
+      top: max(56px, calc(env(safe-area-inset-top) + 46px));
       left: 50%;
       transform: translateX(-50%) translateY(-10px);
-      background: rgba(38, 32, 27, 0.92);
+      background: rgba(38, 32, 27, 0.94);
       color: #FFFDF9;
       font-size: 12px;
       padding: 6px 14px;
@@ -1107,6 +1198,9 @@
       transition: all 0.22s ease;
       z-index: 90;
       white-space: nowrap;
+      max-width: 90vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .toast.show {
@@ -1121,7 +1215,7 @@
     <header class="top-header">
       <div class="brand-block">
         <div class="brand-seal-wrap" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
             <rect x="2.5" y="2.5" width="23" height="23" rx="3" stroke="#26201B" stroke-width="1.2"/>
             <polygon points="14,5 20.36,7.64 23,14 20.36,20.36 14,23 7.64,20.36 5,14 7.64,7.64" stroke="#8E8275" stroke-width="0.85" stroke-dasharray="1.5 1"/>
             <rect x="9" y="9" width="10" height="10" transform="rotate(45 14 14)" stroke="#26201B" stroke-width="0.95"/>
@@ -1134,7 +1228,7 @@
             <span class="brand-vert-tag">低声说话</span>
             <span class="brand-title">小酌<span class="char-accent">记录</span></span>
           </div>
-          <span class="brand-sub">QUIET SIP ARCHIVE · SCA SENSORY WHEEL</span>
+          <span class="brand-sub">QUIET SIP ARCHIVE · SCA WHEEL</span>
         </div>
       </div>
 
@@ -1195,7 +1289,7 @@
                 <label class="form-label">研磨器具</label>
                 <button type="button" id="saveGrinderPresetBtn" class="save-preset-inline">+ 存常用</button>
               </div>
-              <input id="inpGrinder" class="form-input" type="text" placeholder="选择或输入磨豆机" />
+              <input id="inpGrinder" class="form-input" type="text" placeholder="选择磨豆机" />
               <div id="grinderPresetPills" class="preset-pills"></div>
             </div>
 
@@ -1242,8 +1336,8 @@
             </div>
           </div>
 
-          <div style="margin-top:12px; padding-top:10px; border-top:1px dashed var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:11px; color:var(--ink-muted);">点选磨豆机自动带出默认刻度</span>
+          <div style="margin-top:12px; padding-top:10px; border-top:1px dashed var(--border-subtle); display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <span style="font-size:11px; color:var(--ink-muted);">点选磨豆机自动带出刻度</span>
             <button type="button" id="openPresetModalBtn" class="gear-manage-link">⚙ 管理常用设备与手法</button>
           </div>
         </div>
@@ -1271,7 +1365,7 @@
           <span class="hint-pill" id="stageHintLeft">点选大类展开或直接点选外圈风味</span>
           <span class="hint-pill" id="stageHintRight">9 大类 · 84 细分</span>
         </div>
-        <svg id="flavorSvg" viewBox="-210 -210 420 420">
+        <svg id="flavorSvg" viewBox="-210 -210 420 420" preserveAspectRatio="xMidYMid meet">
           <defs>
             <filter id="hubShadow" x="-30%" y="-30%" width="160%" height="160%">
               <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#26201B" flood-opacity="0.16"/>
@@ -1279,8 +1373,8 @@
           </defs>
           <g id="wheelRotor" class="wheel-rotor"></g>
           <g id="centerHub" class="center-hub" filter="url(#hubShadow)">
-            <circle cx="0" cy="0" r="38" fill="#FFFDF9" stroke="#26201B" stroke-width="1.3"/>
-            <circle cx="0" cy="0" r="33" fill="none" stroke="rgba(158,74,54,0.35)" stroke-width="0.7" stroke-dasharray="2 2"/>
+            <circle id="hubOuterCircle" cx="0" cy="0" r="38" fill="#FFFDF9" stroke="#26201B" stroke-width="1.3"/>
+            <circle id="hubInnerCircle" cx="0" cy="0" r="33" fill="none" stroke="rgba(158,74,54,0.35)" stroke-width="0.7" stroke-dasharray="2 2"/>
             <text id="hubTitle" x="0" y="-3" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="11.5" font-weight="700" fill="#26201B">SCA 2016</text>
             <text id="hubSub" x="0" y="11" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8E8275">ALL WHEEL</text>
           </g>
@@ -1324,17 +1418,19 @@
     <!-- ================= STEP 03: 生成 3:4 风味小卡与打卡文案 ================= -->
     <section id="stepView3" class="step-view">
       <div class="result-scroll">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;">
           <button type="button" id="backToStep2Btn" class="icon-btn">← 继续补充风味</button>
-          <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--ink-muted);">3:4 ARCHIVE POSTER · 900×1200</span>
+          <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-muted);">3:4 POSTER · 900×1200</span>
         </div>
 
         <div class="poster-preview-wrap">
           <canvas id="posterCanvas" width="900" height="1200"></canvas>
+          <img id="posterImgPreview" alt="小酌记录风味小卡" />
+          <div class="save-photo-tip">📱 iPhone 提示：长按上方海报图片可直接「存储到“照片”」相册</div>
         </div>
 
         <div class="action-row">
-          <button type="button" id="downloadPngBtn" class="btn-primary">导出高清 PNG 小卡</button>
+          <button type="button" id="shareOrSaveBtn" class="btn-primary">存至相册 / 分享图片</button>
           <button type="button" id="copyNoteBtn" class="btn-secondary">复制小酌打卡文案</button>
         </div>
 
@@ -1377,14 +1473,22 @@
       </div>
     </div>
 
-    <!-- 本地品鉴记录抽屉 -->
+    <!-- 本地品鉴记录抽屉（含导出 JSON / CSV 表格与导入恢复） -->
     <div id="logsModal" class="modal-backdrop">
       <div class="sheet-panel">
         <div class="sheet-header">
           <span class="sheet-title">小酌档案 · 本地品鉴记录</span>
           <button type="button" id="closeLogsModalBtn" class="close-btn" aria-label="关闭">✕</button>
         </div>
-        <div class="sheet-body" id="logsListContainer"></div>
+        <div class="sheet-body">
+          <div class="archive-toolbar">
+            <button type="button" id="exportCsvBtn" class="archive-tool-btn">导出 CSV 表格</button>
+            <button type="button" id="exportJsonBtn" class="archive-tool-btn">导出 JSON 备份</button>
+            <button type="button" id="importJsonBtn" class="archive-tool-btn">导入恢复备份</button>
+            <input type="file" id="importJsonFileInput" accept=".json,application/json" style="display:none;" />
+          </div>
+          <div id="logsListContainer"></div>
+        </div>
       </div>
     </div>
 
@@ -1392,6 +1496,54 @@
   </div>
 
   <script>
+    /*****************************************************************
+     * 0. 动态生成 iPhone 主屏幕专属高清矢量图标 (apple-touch-icon)
+     *****************************************************************/
+    (function generateAppleTouchIcon() {
+      const c = document.createElement("canvas");
+      c.width = 180;
+      c.height = 180;
+      const ctx = c.getContext("2d");
+
+      ctx.fillStyle = "#F5F1E8";
+      ctx.fillRect(0, 0, 180, 180);
+
+      // 外框
+      ctx.strokeStyle = "#26201B";
+      ctx.lineWidth = 5;
+      ctx.strokeRect(22, 22, 136, 136);
+
+      // 藻井旋转方框
+      ctx.save();
+      ctx.translate(90, 90);
+      ctx.rotate(Math.PI / 4);
+      ctx.strokeStyle = "#8E8275";
+      ctx.lineWidth = 3.5;
+      ctx.strokeRect(-42, -42, 84, 84);
+      ctx.restore();
+
+      // 咖啡萃滴
+      ctx.beginPath();
+      ctx.moveTo(90, 52);
+      ctx.quadraticCurveTo(118, 86, 118, 102);
+      ctx.arc(90, 102, 28, 0, Math.PI, false);
+      ctx.quadraticCurveTo(62, 86, 90, 52);
+      ctx.fillStyle = "rgba(158, 74, 54, 0.22)";
+      ctx.fill();
+      ctx.strokeStyle = "#9E4A36";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+
+      // 右上朱红印点
+      ctx.beginPath();
+      ctx.arc(140, 40, 7, 0, Math.PI * 2);
+      ctx.fillStyle = "#9E4A36";
+      ctx.fill();
+
+      const iconLink = document.getElementById("appleTouchIcon");
+      if (iconLink) iconLink.href = c.toDataURL("image/png");
+    })();
+
     /*****************************************************************
      * 1. SCA 2016 标准三级风味轮数据集（9 大类 · 84 细分风味）
      *****************************************************************/
@@ -1800,7 +1952,7 @@
     }
 
     /*****************************************************************
-     * 4. 应用状态与本地持久化（设备与手法预设 v4 + 品鉴档案）
+     * 4. 应用状态与本地持久化
      *****************************************************************/
     const STORAGE_KEYS = {
       GEAR_PRESETS: "quiet_sip_gear_presets_v4",
@@ -2117,7 +2269,7 @@
     });
 
     /*****************************************************************
-     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮（支持点击直接选中/取消 + 滑动拨盘）
+     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮（大字号放大视图 + 点选即捕获）
      *****************************************************************/
     const wheelSvg = document.getElementById("flavorSvg");
     const wheelRotor = document.getElementById("wheelRotor");
@@ -2125,16 +2277,27 @@
 
     function updateLabelOrientations() {
       const labels = wheelRotor.querySelectorAll(".wedge-label");
+      const isZoomed = state.zoomLevel === 1;
       labels.forEach(txt => {
         const origMid = parseFloat(txt.dataset.mid);
         const lx = txt.dataset.lx;
         const ly = txt.dataset.ly;
+        const ring = txt.dataset.ring;
         const worldDeg = normalize360(origMid + state.rotationDeg);
         let localRot = origMid;
         if (worldDeg > 90 && worldDeg < 270) {
           localRot += 180;
         }
         txt.setAttribute("transform", `rotate(${localRot.toFixed(1)} ${lx} ${ly})`);
+
+        // 展开模式下大幅提高字体字号，方便在手机屏幕上清晰阅读
+        if (ring === "cat") {
+          txt.setAttribute("font-size", isZoomed ? "10.5" : "9.5");
+        } else if (ring === "group") {
+          txt.setAttribute("font-size", isZoomed ? "9.5" : "7.8");
+        } else if (ring === "leaf") {
+          txt.setAttribute("font-size", isZoomed ? "8.2" : "6.2");
+        }
       });
     }
 
@@ -2155,10 +2318,10 @@
 
     function renderWheel() {
       wheelRotor.innerHTML = "";
-      const r0 = 40;
-      const r1 = 84;
+      const r0 = 38;
+      const r1 = 82;
       const r2 = 136;
-      const r3 = 198;
+      const r3 = 202;
 
       SCA_WHEEL_DATA.forEach(cat => {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -2189,6 +2352,7 @@
         txt.setAttribute("font-size", "9.5");
         txt.setAttribute("font-weight", "600");
         txt.setAttribute("class", "wedge-label");
+        txt.dataset.ring = "cat";
         txt.dataset.mid = cat.midDeg;
         txt.dataset.lx = lx;
         txt.dataset.ly = ly;
@@ -2226,6 +2390,7 @@
           txt.setAttribute("font-size", "7.8");
           txt.setAttribute("font-weight", "500");
           txt.setAttribute("class", "wedge-label");
+          txt.dataset.ring = "group";
           txt.dataset.mid = grp.midDeg;
           txt.dataset.lx = lx;
           txt.dataset.ly = ly;
@@ -2245,7 +2410,6 @@
         path.dataset.id = item.id;
         path.addEventListener("click", (e) => {
           e.stopPropagation();
-          // 点击外圈具体风味时：直接展开定位并切换选中/取消状态
           selectLeaf(item.id, false, true);
         });
         wheelRotor.appendChild(path);
@@ -2264,6 +2428,7 @@
         txt.setAttribute("font-size", "6.2");
         txt.setAttribute("font-weight", "500");
         txt.setAttribute("class", "wedge-label");
+        txt.dataset.ring = "leaf";
         txt.dataset.mid = item.midDeg;
         txt.dataset.lx = lx;
         txt.dataset.ly = ly;
@@ -2275,15 +2440,22 @@
     }
 
     function syncVisualState() {
+      const hubOuter = document.getElementById("hubOuterCircle");
+      const hubInner = document.getElementById("hubInnerCircle");
       if (state.zoomLevel === 0) {
-        wheelSvg.setAttribute("viewBox", "-210 -210 420 420");
+        wheelSvg.setAttribute("viewBox", "-212 -212 424 424");
+        hubOuter.setAttribute("r", "36");
+        hubInner.setAttribute("r", "31");
         document.getElementById("hubTitle").textContent = "SCA 2016";
         document.getElementById("hubSub").textContent = "ALL WHEEL";
         document.getElementById("stageHintLeft").textContent = "点选大类展开或直接点选外圈风味";
       } else {
-        wheelSvg.setAttribute("viewBox", "-235 -148 296 296");
+        // 大幅收紧视口，让左侧扇区的二、三级风味字样在手机上清晰放大呈现
+        wheelSvg.setAttribute("viewBox", "-224 -116 232 232");
+        hubOuter.setAttribute("r", "30");
+        hubInner.setAttribute("r", "25");
         document.getElementById("hubTitle").textContent = "← 返回";
-        document.getElementById("hubSub").textContent = "OVERVIEW";
+        document.getElementById("hubSub").textContent = "ALL";
         document.getElementById("stageHintLeft").textContent = "点击扇区直接选中 · 滑动拨盘浏览";
       }
 
@@ -2299,9 +2471,9 @@
         let strokeWidth = t === "leaf" ? "0.75" : "1";
 
         if (state.zoomLevel === 1 && state.activeCatId) {
-          if (t === "cat" && id !== state.activeCatId) opacity = 0.28;
-          if (t === "group" && GROUP_MAP[id].parentCat.id !== state.activeCatId) opacity = 0.22;
-          if (t === "leaf" && LEAF_MAP[id].parentCat.id !== state.activeCatId) opacity = 0.18;
+          if (t === "cat" && id !== state.activeCatId) opacity = 0.25;
+          if (t === "group" && GROUP_MAP[id].parentCat.id !== state.activeCatId) opacity = 0.18;
+          if (t === "leaf" && LEAF_MAP[id].parentCat.id !== state.activeCatId) opacity = 0.14;
         }
 
         if (t === "leaf") {
@@ -2880,6 +3052,10 @@
       ctx.font = "500 11px 'JetBrains Mono', monospace";
       ctx.fillText("SENSORY LOG", sealX - 14, 1098);
       ctx.textAlign = "left";
+
+      // 同步将高清画布输出到可长按保存相册的 <img> 标签
+      const imgPreview = document.getElementById("posterImgPreview");
+      imgPreview.src = canvas.toDataURL("image/png");
     }
 
     function generateSocialCopy() {
@@ -2915,19 +3091,39 @@
     }
 
     /*****************************************************************
-     * 9. 导出 PNG、复制文案、本地档案与预设管理弹窗
+     * 9. iOS 相册存储/分享、复制文案、本地档案导出与导入恢复
      *****************************************************************/
     const presetModal = document.getElementById("presetModal");
     const logsModal = document.getElementById("logsModal");
 
-    document.getElementById("downloadPngBtn").addEventListener("click", () => {
+    document.getElementById("shareOrSaveBtn").addEventListener("click", async () => {
       const canvas = document.getElementById("posterCanvas");
-      const link = document.createElement("a");
       const beanSlug = (inpBean.value.trim() || "小酌记录").replace(/[\\/:*?"<>|]/g, "_");
-      link.download = `${beanSlug}_风味小卡.png`;
+      const fileName = `${beanSlug}_风味小卡.png`;
+
+      // iPhone Safari / 主屏幕 WebApp 优先唤起原生系统分享表（可直接点选“存储图像”进相册）
+      if (navigator.canShare && canvas.toBlob) {
+        try {
+          const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
+          const file = new File([blob], fileName, { type: "image/png" });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: "小酌记录 · 风味小卡"
+            });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+
+      // 降级为常规浏览器文件下载
+      const link = document.createElement("a");
+      link.download = fileName;
       link.href = canvas.toDataURL("image/png");
       link.click();
-      showToast("已导出 900×1200 高清风味小卡");
+      showToast("已导出图片，iPhone 也可直接长按海报存入相册");
     });
 
     document.getElementById("copyNoteBtn").addEventListener("click", async () => {
@@ -2964,6 +3160,102 @@
       saveLogs(state.logs);
       refreshPosterAndNote();
       showToast("已归档至本地《小酌档案》");
+    });
+
+    // 本地档案导出 CSV 表格
+    document.getElementById("exportCsvBtn").addEventListener("click", () => {
+      if (state.logs.length === 0) {
+        showToast("当前暂无可导出的档案记录");
+        return;
+      }
+      const headers = ["日期时间", "模式", "豆名/批次", "产区/处理法/烘焙", "研磨器具", "研磨刻度", "萃取设备", "萃取时间", "冲煮手法", "水温/粉水比", "捕捉风味"];
+      const escapeCsv = (val) => `"${String(val || "").replace(/"/g, '""')}"`;
+
+      const rows = state.logs.map(log => {
+        const flavors = (log.capturedIds || []).map(id => LEAF_MAP[id] ? LEAF_MAP[id].cn : id).join(" / ");
+        return [
+          log.date,
+          log.mode === "espresso" ? "意式" : "手冲",
+          log.bean,
+          log.origin,
+          log.grinder,
+          log.grindSize,
+          log.brewer,
+          log.brewTime,
+          log.method,
+          log.tempRatio,
+          flavors
+        ].map(escapeCsv).join(",");
+      });
+
+      const csvContent = "\uFEFF" + [headers.map(escapeCsv).join(","), ...rows].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const today = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `小酌档案_${today}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("已导出 CSV 表格文件");
+    });
+
+    // 本地档案导出 JSON 完整备份
+    document.getElementById("exportJsonBtn").addEventListener("click", () => {
+      const payload = {
+        app: "QuietSipArchive",
+        exportedAt: new Date().toISOString(),
+        gearPresets: state.gearPresets,
+        logs: state.logs
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const today = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `小酌档案备份_${today}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("已导出 JSON 完整备份");
+    });
+
+    // 本地档案导入恢复
+    const importFileInput = document.getElementById("importJsonFileInput");
+    document.getElementById("importJsonBtn").addEventListener("click", () => {
+      importFileInput.click();
+    });
+
+    importFileInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          const incomingLogs = Array.isArray(parsed) ? parsed : (parsed.logs || []);
+          if (!Array.isArray(incomingLogs)) throw new Error("格式无效");
+          const existingIds = new Set(state.logs.map(l => l.id));
+          let added = 0;
+          incomingLogs.forEach(item => {
+            if (item && item.bean && !existingIds.has(item.id)) {
+              state.logs.push(item);
+              added++;
+            }
+          });
+          if (parsed.gearPresets) {
+            state.gearPresets = parsed.gearPresets;
+            saveGearPresets(state.gearPresets);
+            renderGearPresetPills();
+          }
+          saveLogs(state.logs);
+          renderLogsDrawer();
+          showToast(`成功恢复 ${added} 条小酌记录`);
+        } catch (err) {
+          showToast("备份文件格式无法识别");
+        }
+        importFileInput.value = "";
+      };
+      reader.readAsText(file);
     });
 
     function renderManageLists() {
