@@ -1268,7 +1268,7 @@
 
       <main class="wheel-stage" id="wheelStage">
         <div class="wheel-hint">
-          <span class="hint-pill" id="stageHintLeft">点选大类展开二级风味</span>
+          <span class="hint-pill" id="stageHintLeft">点选大类展开或直接点选外圈风味</span>
           <span class="hint-pill" id="stageHintRight">9 大类 · 84 细分</span>
         </div>
         <svg id="flavorSvg" viewBox="-210 -210 420 420">
@@ -1297,7 +1297,7 @@
                 <span class="valence-badge valence-pos" id="inspValence" style="display:none;">正向风味</span>
               </div>
               <div class="flavor-name-row">
-                <span class="flavor-cn" id="inspCn">转动或点选风味扇区</span>
+                <span class="flavor-cn" id="inspCn">点选或转动风味扇区</span>
                 <span class="flavor-en" id="inspEn">SCA Coffee Taster's Flavor Wheel</span>
               </div>
             </div>
@@ -1306,7 +1306,7 @@
             </button>
           </div>
           <p class="sensory-note" id="inspNote">
-            点击任意大类扇区可放大展开二、三级风味；展开后支持上下滑动转盘切换并伴随机械拨盘反馈。
+            点击外圈具体风味可直接收入本杯（再次点击取消）；点击内圈大类可放大展开，支持上下滑动拨盘切换。
           </p>
 
           <div class="tray-bar">
@@ -2117,7 +2117,7 @@
     });
 
     /*****************************************************************
-     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮（含动态世界角度文字正向校准）
+     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮（支持点击直接选中/取消 + 滑动拨盘）
      *****************************************************************/
     const wheelSvg = document.getElementById("flavorSvg");
     const wheelRotor = document.getElementById("wheelRotor");
@@ -2129,15 +2129,28 @@
         const origMid = parseFloat(txt.dataset.mid);
         const lx = txt.dataset.lx;
         const ly = txt.dataset.ly;
-        // 计算在当前轮盘旋转角度下的实际屏幕世界角度（0°=正右，90°=正下，180°=正左，270°=正上）
         const worldDeg = normalize360(origMid + state.rotationDeg);
-        // 只要处于左半圆（90° < worldDeg < 270°），就翻转 180° 保证文字永远正向朝上阅读
         let localRot = origMid;
         if (worldDeg > 90 && worldDeg < 270) {
           localRot += 180;
         }
         txt.setAttribute("transform", `rotate(${localRot.toFixed(1)} ${lx} ${ly})`);
       });
+    }
+
+    function toggleCaptureFlavor(leafId) {
+      const leaf = LEAF_MAP[leafId];
+      if (!leaf) return;
+      const idx = state.capturedIds.indexOf(leafId);
+      if (idx === -1) {
+        state.capturedIds.push(leafId);
+        dialAudio.playSelect();
+        showToast(`已收入「${leaf.cn}」`);
+      } else {
+        state.capturedIds.splice(idx, 1);
+        dialAudio.playTick(0.85);
+        showToast(`已取消「${leaf.cn}」`);
+      }
     }
 
     function renderWheel() {
@@ -2232,7 +2245,8 @@
         path.dataset.id = item.id;
         path.addEventListener("click", (e) => {
           e.stopPropagation();
-          selectLeaf(item.id, true);
+          // 点击外圈具体风味时：直接展开定位并切换选中/取消状态
+          selectLeaf(item.id, false, true);
         });
         wheelRotor.appendChild(path);
 
@@ -2265,12 +2279,12 @@
         wheelSvg.setAttribute("viewBox", "-210 -210 420 420");
         document.getElementById("hubTitle").textContent = "SCA 2016";
         document.getElementById("hubSub").textContent = "ALL WHEEL";
-        document.getElementById("stageHintLeft").textContent = "点选大类展开二级风味";
+        document.getElementById("stageHintLeft").textContent = "点选大类展开或直接点选外圈风味";
       } else {
         wheelSvg.setAttribute("viewBox", "-235 -148 296 296");
         document.getElementById("hubTitle").textContent = "← 返回";
         document.getElementById("hubSub").textContent = "OVERVIEW";
-        document.getElementById("stageHintLeft").textContent = "上下滑动拨盘切换风味";
+        document.getElementById("stageHintLeft").textContent = "点击扇区直接选中 · 滑动拨盘浏览";
       }
 
       wheelRotor.setAttribute("transform", `rotate(${state.rotationDeg.toFixed(2)})`);
@@ -2291,14 +2305,15 @@
         }
 
         if (t === "leaf") {
-          if (id === state.activeLeafId) {
+          const isCaptured = state.capturedIds.includes(id);
+          if (isCaptured) {
             opacity = 1;
             stroke = "#26201B";
             strokeWidth = "2.2";
-          } else if (state.capturedIds.includes(id)) {
+          } else if (id === state.activeLeafId) {
             opacity = 1;
             stroke = "#FFFDF9";
-            strokeWidth = "1.6";
+            strokeWidth = "1.8";
           }
         } else if (t === "group" && id === state.activeGroupId && !state.activeLeafId) {
           stroke = "#26201B";
@@ -2348,7 +2363,7 @@
       syncVisualState();
     }
 
-    function selectLeaf(leafId, playSound = true) {
+    function selectLeaf(leafId, playSound = true, autoToggleCapture = false) {
       const item = LEAF_MAP[leafId];
       if (!item) return;
       if (playSound) dialAudio.playSelect();
@@ -2357,6 +2372,9 @@
       state.activeGroupId = item.parentGroup.id;
       state.activeLeafId = item.id;
       rotateTargetToLeft(item.midDeg);
+      if (autoToggleCapture) {
+        toggleCaptureFlavor(item.id);
+      }
       syncVisualState();
     }
 
@@ -2380,6 +2398,7 @@
 
     const wheelStage = document.getElementById("wheelStage");
     let isDragging = false;
+    let hasMoved = false;
     let dragStartY = 0;
     let dragStartRot = 0;
 
@@ -2414,6 +2433,7 @@
       if (state.zoomLevel === 0) return;
       if (e.target.closest("#centerHub")) return;
       isDragging = true;
+      hasMoved = false;
       dragStartY = e.clientY;
       dragStartRot = state.rotationDeg;
       wheelRotor.classList.add("dragging");
@@ -2422,6 +2442,8 @@
     window.addEventListener("pointermove", (e) => {
       if (!isDragging) return;
       const dy = e.clientY - dragStartY;
+      if (Math.abs(dy) > 5) hasMoved = true;
+      if (!hasMoved) return;
       state.rotationDeg = dragStartRot - dy * 0.48;
       wheelRotor.setAttribute("transform", `rotate(${state.rotationDeg.toFixed(2)})`);
       updateLabelOrientations();
@@ -2432,7 +2454,7 @@
       if (!isDragging) return;
       isDragging = false;
       wheelRotor.classList.remove("dragging");
-      if (state.activeLeafId) {
+      if (hasMoved && state.activeLeafId) {
         rotateTargetToLeft(LEAF_MAP[state.activeLeafId].midDeg);
         syncVisualState();
       }
@@ -2514,9 +2536,9 @@
         dot.style.background = "#D94E5D";
         pathEl.textContent = "00 · 全景图谱";
         valEl.style.display = "none";
-        cnEl.textContent = "转动或点选风味扇区";
+        cnEl.textContent = "点选或转动风味扇区";
         enEl.textContent = "SCA Coffee Taster's Flavor Wheel";
-        noteEl.textContent = "点击任意大类扇区可放大展开二、三级风味；展开后支持上下滑动转盘切换并伴随机械拨盘反馈。";
+        noteEl.textContent = "点击外圈具体风味可直接收入本杯（再次点击取消）；点击内圈大类可放大展开，支持上下滑动拨盘切换。";
         capBtn.disabled = true;
         capBtn.classList.remove("captured");
         capText.textContent = "+ 收入本杯";
@@ -2556,15 +2578,7 @@
 
     document.getElementById("captureBtn").addEventListener("click", () => {
       if (!state.activeLeafId) return;
-      const idx = state.capturedIds.indexOf(state.activeLeafId);
-      if (idx === -1) {
-        state.capturedIds.push(state.activeLeafId);
-        dialAudio.playSelect();
-        showToast(`已记录「${LEAF_MAP[state.activeLeafId].cn}」`);
-      } else {
-        state.capturedIds.splice(idx, 1);
-        dialAudio.playTick(0.8);
-      }
+      toggleCaptureFlavor(state.activeLeafId);
       syncVisualState();
     });
 
@@ -2577,7 +2591,6 @@
       const W = 900;
       const H = 1200;
 
-      // 1. 复古暖白纸基 + 细腻建筑方格暗纹
       ctx.fillStyle = "#F6F2E8";
       ctx.fillRect(0, 0, W, H);
 
@@ -2596,7 +2609,6 @@
         ctx.stroke();
       }
 
-      // 2. 建筑制图双层外框
       ctx.strokeStyle = "#26201B";
       ctx.lineWidth = 2.2;
       ctx.strokeRect(44, 44, W - 88, H - 88);
@@ -2605,7 +2617,6 @@
       ctx.lineWidth = 1;
       ctx.strokeRect(52, 52, W - 104, H - 104);
 
-      // 3. 顶部图签表头
       const now = new Date();
       const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}`;
       const modeBadge = state.brewMode === "espresso" ? "ESPRESSO / 意式浓缩" : "POUR-OVER / 手冲滤泡";
@@ -2649,7 +2660,6 @@
       ctx.lineTo(W - 52, 162);
       ctx.stroke();
 
-      // 4. 中部双栏主体
       const splitX = 335;
       ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
       ctx.lineWidth = 1;
@@ -2696,7 +2706,6 @@
         });
       }
 
-      // 右侧风味轮
       const cx = 618;
       const cy = 478;
       const r0 = 35;
@@ -2768,7 +2777,6 @@
       ctx.fillText(`${capturedItems.length} NOTES`, cx, cy + 12);
       ctx.textAlign = "left";
 
-      // 5. 底部制表铭牌参数区
       ctx.strokeStyle = "#26201B";
       ctx.lineWidth = 1.6;
       ctx.beginPath();
