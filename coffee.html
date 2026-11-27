@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-title" content="小酌记录" />
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png" />
   <link rel="icon" type="image/png" href="./icon-180.png" />
-  <title>小酌记录 · 骨頭不重 | 风味轮与WCR品种图鉴</title>
+  <title>小酌记录 · 骨頭不重 | 风味手记 · CVA杯测 · 品种速查</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -72,78 +72,303 @@
       box-shadow: 0 0 40px rgba(28, 22, 16, 0.14);
     }
 
-    /* 顶部出版印章风标题栏 + 双核心模块切换 */
+    /* ================= 封面首页 (Cover Home) ================= */
+    .home-cover-view {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: max(22px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom));
+      background-color: #F6F2E9;
+      background-image:
+        linear-gradient(to bottom, rgba(246, 242, 233, 0.96) 0%, rgba(246, 242, 233, 0.82) 48%, rgba(246, 242, 233, 0.12) 78%, rgba(246, 242, 233, 0.05) 100%),
+        url("./cover-bg.jpg");
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      z-index: 30;
+    }
+
+    .home-cover-view.hidden {
+      display: none;
+    }
+
+    .cover-top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cover-brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cover-logo-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 253, 249, 0.92);
+      border: 1.5px solid var(--ink-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(38, 32, 27, 0.08);
+    }
+
+    .cover-title-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cover-title-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .cover-vert-seal {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-family: var(--font-serif);
+      font-size: 8.5px;
+      line-height: 1;
+      color: var(--accent-rust);
+      border-right: 1px solid rgba(158, 74, 54, 0.4);
+      padding-right: 4px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cover-main-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--ink-primary);
+      line-height: 1.1;
+    }
+
+    .cover-main-title span {
+      color: var(--accent-rust);
+    }
+
+    .cover-sub-en {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+
+    .cover-archive-pill {
+      height: 34px;
+      padding: 0 11px;
+      border-radius: 99px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 253, 249, 0.88);
+      backdrop-filter: blur(8px);
+      color: var(--ink-primary);
+      font-size: 11.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(38, 32, 27, 0.06);
+    }
+
+    /* 首页三大现代功能按键 */
+    .cover-actions-dock {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+      margin-bottom: auto;
+    }
+
+    .modern-entry-card {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(38, 32, 27, 0.16);
+      background: rgba(255, 253, 249, 0.84);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 8px 24px -8px rgba(38, 32, 27, 0.12);
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .modern-entry-card:active {
+      transform: scale(0.98);
+      background: rgba(255, 253, 249, 0.96);
+      border-color: var(--accent-rust);
+    }
+
+    .entry-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .entry-icon-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      color: #FFFDF9;
+    }
+
+    .entry-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .entry-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .entry-title {
+      font-family: var(--font-serif);
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .entry-en {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .entry-desc {
+      font-size: 11.5px;
+      color: var(--ink-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .entry-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(38, 32, 27, 0.06);
+      color: var(--ink-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .cover-bottom-caption {
+      align-self: flex-end;
+      background: rgba(255, 253, 249, 0.82);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--ink-secondary);
+    }
+
+    /* ================= 子功能工作区顶部栏（左上角放大 Logo 可返回首页） ================= */
+    .workspace-container {
+      display: none;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .workspace-container.active {
+      display: flex;
+    }
+
     .top-header {
       flex-shrink: 0;
       width: 100%;
-      padding: max(9px, env(safe-area-inset-top)) 10px 7px;
+      padding: max(8px, env(safe-area-inset-top)) 10px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 6px;
       border-bottom: 1px solid var(--border-subtle);
-      background: rgba(245, 241, 232, 0.95);
+      background: rgba(245, 241, 232, 0.96);
       backdrop-filter: blur(8px);
       z-index: 25;
     }
 
-    .brand-block {
-      display: flex;
+    /* 放大后的左上角返回首页 Logo 按钮 */
+    .home-back-brand {
+      display: inline-flex;
       align-items: center;
       gap: 7px;
-      min-width: 0;
+      padding: 3px 8px 3px 3px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .home-back-brand:hover, .home-back-brand:active {
+      background: var(--bg-elevated);
+      border-color: var(--border-strong);
     }
 
     .brand-seal-wrap {
-      position: relative;
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--bg-elevated);
-      border: 1px solid var(--border-strong);
-      border-radius: 7px;
-      box-shadow: 0 2px 6px rgba(38, 32, 27, 0.06);
+      border: 1.2px solid var(--ink-primary);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(38, 32, 27, 0.08);
     }
 
-    .brand-title-group {
+    .brand-title-col {
       display: flex;
       flex-direction: column;
-      gap: 1px;
-      min-width: 0;
-    }
-
-    .brand-title-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .brand-vert-tag {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      font-family: var(--font-serif);
-      font-size: 6.5px;
-      line-height: 1;
-      color: var(--accent-rust);
-      border-right: 1px solid rgba(158, 74, 54, 0.35);
-      padding-right: 2.5px;
-      height: 19px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      align-items: flex-start;
+      line-height: 1.1;
     }
 
     .brand-title {
       font-family: var(--font-serif);
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
       color: var(--ink-primary);
-      line-height: 1.08;
       white-space: nowrap;
     }
 
@@ -151,43 +376,41 @@
       color: var(--accent-rust);
     }
 
-    .brand-sub {
+    .brand-home-hint {
       font-family: var(--font-mono);
-      font-size: 7.5px;
-      letter-spacing: 0.04em;
-      color: var(--ink-muted);
-      white-space: nowrap;
+      font-size: 8.5px;
+      color: var(--accent-rust);
+      margin-top: 1px;
     }
 
     .main-nav-switch {
       display: inline-flex;
       background: #E4DDD0;
-      padding: 2.5px;
-      border-radius: 8px;
+      padding: 2px;
+      border-radius: 7px;
       border: 1px solid var(--border-subtle);
-      flex-shrink: 0;
+      flex-shrink: 1;
+      min-width: 0;
     }
 
     .main-nav-btn {
       height: 26px;
-      padding: 0 9px;
+      padding: 0 6.5px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       background: transparent;
       color: var(--ink-secondary);
-      font-size: 11.5px;
+      font-size: 10.5px;
       font-family: var(--font-sans);
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.16s ease;
     }
 
     .main-nav-btn.active {
       background: var(--ink-primary);
       color: #FFFDF9;
       font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
     }
 
     .header-actions {
@@ -199,22 +422,18 @@
 
     .icon-btn {
       height: 28px;
-      padding: 0 7px;
+      padding: 0 6.5px;
       border-radius: 6px;
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
       color: var(--ink-secondary);
-      font-size: 11px;
+      font-size: 10.5px;
       font-family: var(--font-sans);
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 2.5px;
       cursor: pointer;
       white-space: nowrap;
-    }
-
-    .icon-btn:active {
-      transform: scale(0.96);
     }
 
     .icon-btn.muted {
@@ -228,7 +447,7 @@
       justify-content: center;
       min-width: 14px;
       height: 14px;
-      padding: 0 3.5px;
+      padding: 0 3px;
       border-radius: 99px;
       background: var(--accent-rust);
       color: #FFFDF9;
@@ -250,7 +469,7 @@
       display: flex;
     }
 
-    /* ================= 模块一：小酌记录 ================= */
+    /* ================= 通用步骤条与滚动容器 ================= */
     .stepper-bar {
       flex-shrink: 0;
       width: 100%;
@@ -261,30 +480,34 @@
       z-index: 18;
     }
 
+    .stepper-bar.four-cols {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .step-tab {
       position: relative;
-      height: 35px;
+      height: 34px;
       border: none;
       background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      font-size: 11px;
+      gap: 3px;
+      font-size: 10.5px;
       font-family: var(--font-sans);
       color: var(--ink-muted);
       cursor: pointer;
-      padding: 0 4px;
+      padding: 0 3px;
       min-width: 0;
       white-space: nowrap;
     }
 
     .step-tab .step-num {
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 600;
-      padding: 1px 4px;
-      border-radius: 4px;
+      padding: 1px 3.5px;
+      border-radius: 3px;
       background: rgba(68, 55, 42, 0.08);
       color: var(--ink-muted);
     }
@@ -304,8 +527,8 @@
       content: "";
       position: absolute;
       bottom: 0;
-      left: 14%;
-      right: 14%;
+      left: 12%;
+      right: 12%;
       height: 2px;
       background: var(--accent-rust);
     }
@@ -315,7 +538,7 @@
       color: #FFFDF9;
     }
 
-    .step-view {
+    .step-view, .cva-step-view {
       display: none;
       flex: 1;
       width: 100%;
@@ -324,7 +547,7 @@
       min-height: 0;
     }
 
-    .step-view.active {
+    .step-view.active, .cva-step-view.active {
       display: flex;
     }
 
@@ -337,91 +560,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .ref-compare-card {
-      width: 100%;
-      background: #FBF8F1;
-      border: 1px solid var(--accent-olive);
-      border-left: 3.5px solid var(--accent-olive);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-      box-shadow: 0 3px 12px rgba(88, 107, 81, 0.1);
-      display: none;
-    }
-
-    .ref-compare-card.active {
-      display: block;
-    }
-
-    .ref-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      margin-bottom: 5px;
-    }
-
-    .ref-badge {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--accent-olive);
-      background: rgba(88, 107, 81, 0.12);
-      padding: 1px 6px;
-      border-radius: 4px;
-    }
-
-    .ref-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ref-apply-btn {
-      border: 1px solid var(--accent-olive);
-      background: var(--accent-olive);
-      color: #FFFDF9;
-      font-size: 10.5px;
-      padding: 2px 7px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .ref-close-btn {
-      border: none;
-      background: transparent;
-      color: var(--ink-muted);
-      font-size: 13px;
-      cursor: pointer;
-      padding: 0 2px;
-    }
-
-    .ref-bean-title {
-      font-family: var(--font-serif);
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--ink-primary);
-      margin-bottom: 4px;
-    }
-
-    .ref-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 4px 8px;
-      font-size: 11px;
-      color: var(--ink-secondary);
-      line-height: 1.4;
-    }
-
-    .ref-flavors-line {
-      margin-top: 5px;
-      padding-top: 5px;
-      border-top: 1px dashed rgba(88, 107, 81, 0.25);
-      font-size: 11px;
-      color: var(--accent-rust);
-      font-weight: 500;
-    }
-
     .setup-intro-card {
       width: 100%;
       background: var(--bg-elevated);
@@ -429,6 +567,7 @@
       border-radius: 12px;
       padding: 12px;
       box-shadow: var(--shadow-card);
+      margin-bottom: 10px;
     }
 
     .section-head-row {
@@ -445,6 +584,15 @@
       font-weight: 700;
       color: var(--ink-primary);
       white-space: nowrap;
+    }
+
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent-rust);
+      background: rgba(158, 74, 54, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     .mode-switch {
@@ -643,26 +791,118 @@
       padding: 9px 12px max(12px, env(safe-area-inset-bottom));
       background: rgba(245, 241, 232, 0.96);
       border-top: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 8px;
     }
 
     .cta-primary-btn {
-      width: 100%;
-      height: 42px;
+      flex: 1;
+      height: 41px;
       border-radius: 10px;
       border: 1px solid var(--ink-primary);
       background: var(--ink-primary);
       color: #FFFDF9;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(38, 32, 27, 0.16);
+      box-shadow: 0 4px 14px rgba(38, 32, 27, 0.14);
     }
 
+    .cta-secondary-btn {
+      height: 41px;
+      padding: 0 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* 历史对照参考卡片 */
+    .ref-compare-card {
+      width: 100%;
+      background: #FBF8F1;
+      border: 1px solid var(--accent-olive);
+      border-left: 3.5px solid var(--accent-olive);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .ref-compare-card.active {
+      display: block;
+    }
+
+    .ref-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .ref-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent-olive);
+      background: rgba(88, 107, 81, 0.12);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .ref-apply-btn {
+      border: 1px solid var(--accent-olive);
+      background: var(--accent-olive);
+      color: #FFFDF9;
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .ref-close-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .ref-bean-title {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 8px;
+      font-size: 11px;
+      color: var(--ink-secondary);
+    }
+
+    .ref-flavors-line {
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px dashed rgba(88, 107, 81, 0.25);
+      font-size: 11px;
+      color: var(--accent-rust);
+      font-weight: 500;
+    }
+
+    /* ================= 模块一 STEP 2: 风味轮 ================= */
     .recipe-context-strip {
       flex-shrink: 0;
       width: 100%;
@@ -747,7 +987,7 @@
       position: relative;
       flex: 1;
       width: 100%;
-      min-height: 210px;
+      min-height: 200px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -796,7 +1036,7 @@
 
     .wedge-path {
       cursor: pointer;
-      transition: opacity 0.25s ease, filter 0.2s ease;
+      transition: opacity 0.25s ease;
     }
 
     .wedge-label {
@@ -936,7 +1176,6 @@
       overflow: hidden;
     }
 
-    /* 自定义小类描述快捷输入栏 */
     .custom-note-row {
       margin-top: 6px;
       display: flex;
@@ -956,11 +1195,6 @@
       font-size: 11.5px;
       font-family: var(--font-sans);
       outline: none;
-    }
-
-    .custom-note-input:focus {
-      border-color: var(--accent-rust);
-      background: var(--bg-elevated);
     }
 
     .custom-note-add-btn {
@@ -1038,15 +1272,7 @@
       box-shadow: 0 2px 8px rgba(158, 74, 54, 0.25);
     }
 
-    .result-scroll {
-      flex: 1;
-      width: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 12px 12px max(24px, env(safe-area-inset-bottom));
-      -webkit-overflow-scrolling: touch;
-    }
-
+    /* ================= 海报预览与公共按钮 ================= */
     .poster-preview-wrap {
       width: 100%;
       background: #DFD8C8;
@@ -1059,11 +1285,11 @@
       margin-bottom: 10px;
     }
 
-    #posterCanvas, #varPosterCanvas {
+    #posterCanvas, #cvaPosterCanvas {
       display: none;
     }
 
-    #posterImgPreview, #varPosterImgPreview {
+    #posterImgPreview, #cvaPosterImg {
       width: 100%;
       max-width: 310px;
       aspect-ratio: 3 / 4;
@@ -1149,12 +1375,311 @@
       resize: none;
     }
 
-    /* ================= 模块二：WCR 咖啡品种速查 ================= */
+    /* ================= 模块二：SCA CVA 杯测 ================= */
+    .stage-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .stage-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 2px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+
+    .stage-pill .st-cn {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .stage-pill .st-sub {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      opacity: 0.78;
+      margin-top: 1px;
+    }
+
+    .stage-pill .st-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: transparent;
+      margin-top: 3px;
+    }
+
+    .stage-pill.has-data .st-dot {
+      background: var(--accent-olive);
+    }
+
+    .stage-pill.active {
+      background: var(--ink-primary);
+      color: #FFFDF9;
+      border-color: var(--ink-primary);
+    }
+
+    .stage-pill.active .st-dot {
+      background: #F3C677;
+    }
+
+    .intensity-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .intensity-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent-rust);
+      height: 4px;
+      background: #DFD7C8;
+      border-radius: 4px;
+    }
+
+    .intensity-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-rust);
+      min-width: 34px;
+      text-align: right;
+    }
+
+    .cata-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .cata-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 8px;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      color: var(--ink-primary);
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .cata-chip .c-swatch {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .cata-chip.selected {
+      background: var(--ink-primary);
+      color: #FFFDF9;
+      border-color: var(--ink-primary);
+      font-weight: 600;
+    }
+
+    .sub-hints-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+
+    .sub-hint-btn {
+      font-size: 10.5px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      border: 1px dashed var(--border-strong);
+      background: var(--bg-paper);
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+
+    .mouthfeel-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .mf-chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+
+    .mf-chip.selected {
+      background: var(--accent-olive);
+      color: #FFFDF9;
+      border-color: var(--accent-olive);
+      font-weight: 600;
+    }
+
+    .timeline-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border-left: 3px solid var(--border-strong);
+      font-size: 11.5px;
+    }
+
+    .tl-item.filled {
+      border-left-color: var(--accent-rust);
+    }
+
+    .tl-stage-name {
+      font-weight: 700;
+      color: var(--ink-primary);
+      width: 48px;
+      flex-shrink: 0;
+    }
+
+    .tl-desc {
+      flex: 1;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+    }
+
+    .score-item-card {
+      padding: 9px 10px;
+      border-radius: 9px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 8px;
+    }
+
+    .score-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .score-dim-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-primary);
+    }
+
+    .score-dim-en {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-muted);
+      margin-left: 4px;
+    }
+
+    .score-anchor-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--accent-rust);
+      background: rgba(158, 74, 54, 0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .score-9-grid {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 3px;
+    }
+
+    .s9-btn {
+      height: 28px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .s9-btn.active {
+      background: var(--accent-rust);
+      color: #FFFDF9;
+      border-color: var(--accent-rust);
+    }
+
+    .defect-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .defect-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 7px 6px;
+      text-align: center;
+    }
+
+    .defect-title {
+      font-size: 10.5px;
+      color: var(--ink-secondary);
+      margin-bottom: 4px;
+    }
+
+    .counter-ctrl {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cnt-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cnt-val {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ================= 模块三：WCR 咖啡品种速查（名录 + 三品种对比） ================= */
     .var-sub-bar {
       flex-shrink: 0;
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(250, 247, 240, 0.9);
     }
@@ -1163,7 +1688,7 @@
       height: 35px;
       border: none;
       background: transparent;
-      font-size: 11.5px;
+      font-size: 12px;
       font-family: var(--font-sans);
       color: var(--ink-muted);
       cursor: pointer;
@@ -1181,8 +1706,8 @@
       content: "";
       position: absolute;
       bottom: 0;
-      left: 18%;
-      right: 18%;
+      left: 20%;
+      right: 20%;
       height: 2px;
       background: var(--accent-olive);
     }
@@ -1285,11 +1810,6 @@
       margin-bottom: 9px;
       box-shadow: 0 2px 8px rgba(38, 32, 27, 0.04);
       cursor: pointer;
-      transition: transform 0.14s ease;
-    }
-
-    .var-card:active {
-      transform: scale(0.985);
     }
 
     .var-card-top {
@@ -1357,82 +1877,10 @@
       overflow: hidden;
     }
 
-    .tree-stage {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      overflow: hidden;
-      touch-action: none;
-      background-image: radial-gradient(rgba(92, 75, 58, 0.14) 1px, transparent 1px);
-      background-size: 18px 18px;
-    }
-
-    .tree-toolbar {
-      position: absolute;
-      top: 10px;
-      left: 12px;
-      right: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .tree-filter-group, .tree-zoom-group {
-      pointer-events: auto;
-      display: inline-flex;
-      background: rgba(255, 253, 249, 0.92);
-      border: 1px solid var(--border-strong);
-      border-radius: 7px;
-      padding: 2px;
-      backdrop-filter: blur(4px);
-    }
-
-    .tree-f-btn, .tree-z-btn {
-      border: none;
-      background: transparent;
-      font-size: 10.5px;
-      padding: 3px 8px;
-      border-radius: 5px;
-      color: var(--ink-secondary);
-      cursor: pointer;
-    }
-
-    .tree-f-btn.active {
-      background: var(--ink-primary);
-      color: #FFFDF9;
-      font-weight: 600;
-    }
-
-    .tree-legend {
-      position: absolute;
-      bottom: 10px;
-      left: 12px;
-      right: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      background: rgba(255, 253, 249, 0.9);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 10px;
-      color: var(--ink-secondary);
-      z-index: 10;
-    }
-
-    .legend-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
     .compare-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 12px max(24px, env(safe-area-inset-bottom));
+      padding: 12px 10px max(24px, env(safe-area-inset-bottom));
       -webkit-overflow-scrolling: touch;
     }
 
@@ -1448,76 +1896,88 @@
       display: none;
     }
 
-    .vs-slots-box {
+    .vs-slots-3-box {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
-      align-items: center;
-      gap: 6px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
       margin-bottom: 10px;
+    }
+
+    .vs-slot-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .vs-slot-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      text-align: center;
+      padding: 1px 0;
+      border-radius: 4px;
+      color: #FFFDF9;
     }
 
     .vs-slot-select {
       width: 100%;
-      height: 36px;
-      padding: 0 8px;
-      border-radius: 8px;
+      height: 34px;
+      padding: 0 20px 0 6px;
+      border-radius: 7px;
       border: 1px solid var(--border-strong);
-      background: var(--bg-elevated);
+      background-color: var(--bg-elevated);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%235C5248' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 5px center;
+      background-size: 10px 10px;
       color: var(--ink-primary);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       font-family: var(--font-sans);
-    }
-
-    .vs-swap-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-card);
-      color: var(--accent-rust);
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .vs-summary-banner {
       background: rgba(158, 74, 54, 0.08);
       border-left: 3px solid var(--accent-rust);
-      padding: 9px 11px;
+      padding: 8px 10px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1.5;
       color: var(--ink-primary);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .vs-table {
+    .vs-table-3 {
       width: 100%;
+      table-layout: fixed;
       border-collapse: collapse;
       background: var(--bg-elevated);
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border-strong);
-      font-size: 11.5px;
+      font-size: 11px;
     }
 
-    .vs-table th, .vs-table td {
-      padding: 8px 9px;
+    .vs-table-3 th, .vs-table-3 td {
+      padding: 7px 6px;
       border-bottom: 1px solid var(--border-subtle);
+      border-right: 1px solid rgba(68, 55, 42, 0.07);
       text-align: left;
       vertical-align: top;
-      line-height: 1.4;
+      line-height: 1.38;
+      word-break: break-word;
     }
 
-    .vs-table th {
+    .vs-table-3 th {
       background: var(--bg-card);
       color: var(--ink-muted);
       font-weight: 600;
-      width: 74px;
-      font-size: 10.5px;
+      width: 54px;
+      font-size: 10px;
     }
 
     /* 抽屉与弹窗遮罩 */
@@ -1599,6 +2059,67 @@
       -webkit-overflow-scrolling: touch;
     }
 
+    /* 档案分类标签条（全部 / 冲煮手记 / CVA 杯测） */
+    .archive-filter-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      background: #E6DFD2;
+      padding: 3px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      gap: 3px;
+    }
+
+    .arch-tab-btn {
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink-secondary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .arch-tab-btn.active {
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .archive-toolbar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .archive-tool-btn {
+      height: 33px;
+      padding: 0 8px;
+      border-radius: 7px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      font-size: 11.5px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .archive-tool-btn.primary-import {
+      background: var(--accent-olive);
+      color: #FFFDF9;
+      border-color: var(--accent-olive);
+      font-weight: 600;
+    }
+
     .lineage-flow {
       display: flex;
       flex-direction: column;
@@ -1665,37 +2186,6 @@
       font-size: 12.5px;
       font-weight: 600;
       color: var(--ink-primary);
-    }
-
-    .archive-toolbar {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .archive-tool-btn {
-      height: 33px;
-      padding: 0 8px;
-      border-radius: 7px;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-elevated);
-      color: var(--ink-primary);
-      font-size: 11.5px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .archive-tool-btn.primary-import {
-      background: var(--accent-olive);
-      color: #FFFDF9;
-      border-color: var(--accent-olive);
-      font-weight: 600;
     }
 
     .preset-section-title {
@@ -1786,6 +2276,24 @@
       flex-shrink: 0;
     }
 
+    .log-type-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .log-type-tag.cva {
+      background: rgba(158, 74, 54, 0.14);
+      color: var(--accent-rust);
+    }
+
+    .log-type-tag.brew {
+      background: rgba(88, 107, 81, 0.14);
+      color: #3E5237;
+    }
+
     .log-params {
       font-size: 11.5px;
       color: var(--ink-secondary);
@@ -1848,347 +2356,662 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- 顶部品牌印章与双模块导航 -->
-    <header class="top-header">
-      <div class="brand-block">
-        <div class="brand-seal-wrap" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
-            <rect x="2.5" y="2.5" width="23" height="23" rx="3" stroke="#26201B" stroke-width="1.2"/>
-            <polygon points="14,5 20.36,7.64 23,14 20.36,20.36 14,23 7.64,20.36 5,14 7.64,7.64" stroke="#8E8275" stroke-width="0.85" stroke-dasharray="1.5 1"/>
-            <rect x="9" y="9" width="10" height="10" transform="rotate(45 14 14)" stroke="#26201B" stroke-width="0.95"/>
-            <path d="M14 9.2C14 9.2 17.4 13.1 17.4 15.6C17.4 17.48 15.88 19 14 19C12.12 19 10.6 17.48 10.6 15.6C10.6 13.1 14 9.2 14 9.2Z" fill="#9E4A36" fill-opacity="0.16" stroke="#9E4A36" stroke-width="1.2"/>
-            <circle cx="22.5" cy="5.5" r="1.4" fill="#9E4A36"/>
-          </svg>
-        </div>
-        <div class="brand-title-group">
-          <div class="brand-title-row">
-            <span class="brand-vert-tag">骨頭不重</span>
-            <span class="brand-title">小酌<span class="char-accent">记录</span></span>
+    <!-- ================================================================
+         封面首页：咖啡角水彩钢笔艺术底图 + 三大现代功能入口
+         ================================================================ -->
+    <section id="homeCoverView" class="home-cover-view">
+      <div class="cover-top-bar">
+        <div class="cover-brand-lockup">
+          <div class="cover-logo-box" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="2.5" y="2.5" width="23" height="23" rx="3" stroke="#26201B" stroke-width="1.2"/>
+              <polygon points="14,5 20.36,7.64 23,14 20.36,20.36 14,23 7.64,20.36 5,14 7.64,7.64" stroke="#8E8275" stroke-width="0.85" stroke-dasharray="1.5 1"/>
+              <rect x="9" y="9" width="10" height="10" transform="rotate(45 14 14)" stroke="#26201B" stroke-width="0.95"/>
+              <path d="M14 9.2C14 9.2 17.4 13.1 17.4 15.6C17.4 17.48 15.88 19 14 19C12.12 19 10.6 17.48 10.6 15.6C10.6 13.1 14 9.2 14 9.2Z" fill="#9E4A36" fill-opacity="0.18" stroke="#9E4A36" stroke-width="1.2"/>
+              <circle cx="22.5" cy="5.5" r="1.5" fill="#9E4A36"/>
+            </svg>
           </div>
-          <span class="brand-sub">QUIET SIP ARCHIVE</span>
+          <div class="cover-title-stack">
+            <div class="cover-title-line">
+              <span class="cover-vert-seal">骨頭不重</span>
+              <span class="cover-main-title">小酌<span>记录</span></span>
+            </div>
+            <span class="cover-sub-en">QUIET SIP COFFEE LAB · SENSORY ARCHIVE</span>
+          </div>
         </div>
-      </div>
 
-      <div class="main-nav-switch">
-        <button type="button" class="main-nav-btn active" data-module="brew">风味手记</button>
-        <button type="button" class="main-nav-btn" data-module="variety">品种速查</button>
-      </div>
-
-      <div class="header-actions">
-        <button id="soundToggleBtn" class="icon-btn" title="切换拨盘音效">
-          <span id="soundIcon">🔊</span>
-        </button>
-        <button id="logsDrawerBtn" class="icon-btn" title="查看或导入小酌档案">
+        <button type="button" id="coverArchiveBtn" class="cover-archive-pill">
           <span>档案</span>
-          <span id="logsCountBadge" class="badge-count">0</span>
+          <span id="coverLogsBadge" class="badge-count">0</span>
         </button>
       </div>
-    </header>
+
+      <!-- 三个现代毛玻璃风格功能入口按键 -->
+      <div class="cover-actions-dock">
+        <button type="button" class="modern-entry-card" onclick="enterModuleFromHome('brew')">
+          <div class="entry-left">
+            <div class="entry-icon-badge" style="background:var(--accent-rust);">☕</div>
+            <div class="entry-text-group">
+              <div class="entry-title-row">
+                <span class="entry-title">风味手记</span>
+                <span class="entry-en">BREWING & FLAVOR WHEEL</span>
+              </div>
+              <span class="entry-desc">手冲/意式参数记录 · SCA 风味轮标注 · 3:4 图签小卡</span>
+            </div>
+          </div>
+          <span class="entry-arrow">➔</span>
+        </button>
+
+        <button type="button" class="modern-entry-card" onclick="enterModuleFromHome('cupping')">
+          <div class="entry-left">
+            <div class="entry-icon-badge" style="background:var(--ink-primary);">📋</div>
+            <div class="entry-text-group">
+              <div class="entry-title-row">
+                <span class="entry-title">CVA 杯测</span>
+                <span class="entry-en">SCA VALUE ASSESSMENT</span>
+              </div>
+              <span class="entry-desc">样豆溯源 · 干湿香与高中低温演变 · 9分制雷达报告</span>
+            </div>
+          </div>
+          <span class="entry-arrow">➔</span>
+        </button>
+
+        <button type="button" class="modern-entry-card" onclick="enterModuleFromHome('variety')">
+          <div class="entry-left">
+            <div class="entry-icon-badge" style="background:var(--accent-olive);">🌱</div>
+            <div class="entry-text-group">
+              <div class="entry-title-row">
+                <span class="entry-title">品种速查</span>
+                <span class="entry-en">WCR VARIETY CATALOG</span>
+              </div>
+              <span class="entry-desc">WCR 品种名录检索 · 三品种同屏参数与风味对比</span>
+            </div>
+          </div>
+          <span class="entry-arrow">➔</span>
+        </button>
+      </div>
+
+      <div class="cover-bottom-caption">MY COFFEE CORNER · 骨頭不重</div>
+    </section>
 
     <!-- ================================================================
-         模块一：小酌记录（Step 1 工具手法 -> Step 2 风味轮 -> Step 3 出小卡）
+         子功能工作区（左上角放大版 Logo 按钮可随时返回封面首页）
          ================================================================ -->
-    <div id="moduleBrew" class="module-view active">
-      <div class="stepper-bar" id="stepperBar">
-        <button class="step-tab active" data-step="1">
-          <span class="step-num">01</span>
-          <span>工具与手法</span>
-        </button>
-        <button class="step-tab" data-step="2">
-          <span class="step-num">02</span>
-          <span>风味轮探索</span>
-        </button>
-        <button class="step-tab" data-step="3">
-          <span class="step-num">03</span>
-          <span>生成小卡</span>
-        </button>
-      </div>
-
-      <!-- STEP 01: 冲煮工具与手法 -->
-      <section id="stepView1" class="step-view active">
-        <div class="setup-scroll">
-          <!-- 历史方案对照参考卡片 -->
-          <div id="refCompareCard" class="ref-compare-card">
-            <div class="ref-head">
-              <span class="ref-badge" id="refBadgeText">历史方案对照参考</span>
-              <div class="ref-actions">
-                <button type="button" id="refApplyBtn" class="ref-apply-btn">一键套用参数</button>
-                <button type="button" id="refCloseBtn" class="ref-close-btn" title="收起对照">✕</button>
-              </div>
-            </div>
-            <div class="ref-bean-title" id="refBeanTitle"></div>
-            <div class="ref-grid" id="refGridBody"></div>
-            <div class="ref-flavors-line" id="refFlavorsLine"></div>
+    <div id="workspaceContainer" class="workspace-container">
+      <header class="top-header">
+        <!-- 放大后的左上角返回首页 Logo -->
+        <button type="button" id="backToHomeBtn" class="home-back-brand" title="返回封面首页">
+          <div class="brand-seal-wrap" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <rect x="2.5" y="2.5" width="23" height="23" rx="3" stroke="#26201B" stroke-width="1.25"/>
+              <polygon points="14,5 20.36,7.64 23,14 20.36,20.36 14,23 7.64,20.36 5,14 7.64,7.64" stroke="#8E8275" stroke-width="0.85" stroke-dasharray="1.5 1"/>
+              <rect x="9" y="9" width="10" height="10" transform="rotate(45 14 14)" stroke="#26201B" stroke-width="0.95"/>
+              <path d="M14 9.2C14 9.2 17.4 13.1 17.4 15.6C17.4 17.48 15.88 19 14 19C12.12 19 10.6 17.48 10.6 15.6C10.6 13.1 14 9.2 14 9.2Z" fill="#9E4A36" fill-opacity="0.18" stroke="#9E4A36" stroke-width="1.25"/>
+              <circle cx="22.5" cy="5.5" r="1.5" fill="#9E4A36"/>
+            </svg>
           </div>
-
-          <div class="setup-intro-card">
-            <div class="section-head-row">
-              <span class="section-title">本杯咖啡与冲煮方案</span>
-              <div style="display:flex; align-items:center; gap:5px;">
-                <button type="button" id="quickImportCsvBtn" class="icon-btn" style="height:26px; font-size:10.5px; color:var(--accent-olive); border-color:var(--accent-olive);">📥 导入CSV对照</button>
-                <div class="mode-switch">
-                  <button type="button" class="mode-tab active" data-mode="pourover">手冲</button>
-                  <button type="button" class="mode-tab" data-mode="espresso">意式</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-field full">
-                <div class="form-label-row">
-                  <label class="form-label">豆名 / 品种 / 批次</label>
-                  <button type="button" id="jumpToVarietySearchBtn" class="gear-manage-link" style="color:var(--accent-olive); text-decoration:none; font-weight:600;">🌱 查品种资料 ➔</button>
-                </div>
-                <input id="inpBean" class="form-input" type="text" placeholder="如：玻利维亚 永加斯美人庄园 瑰夏" />
-              </div>
-
-              <div class="form-field full">
-                <label class="form-label">产区 · 处理法 · 烘焙度</label>
-                <input id="inpOrigin" class="form-input" type="text" placeholder="如：水洗 · 浅烘" />
-              </div>
-
-              <!-- 研磨器具：下拉菜单 -->
-              <div class="form-field">
-                <div class="form-label-row">
-                  <label class="form-label">研磨器具</label>
-                  <button type="button" id="saveGrinderPresetBtn" class="save-preset-inline">+ 存常用</button>
-                </div>
-                <select id="selGrinder" class="form-select"></select>
-                <div id="customGrinderWrap" class="custom-input-wrap">
-                  <input id="inpGrinder" class="form-input" type="text" placeholder="输入磨豆机名称" />
-                  <button type="button" id="backGrinderSelBtn" class="back-select-btn" title="返回下拉选择">▾</button>
-                </div>
-              </div>
-
-              <!-- 研磨度 -->
-              <div class="form-field">
-                <label class="form-label">研磨度 / 刻度</label>
-                <input id="inpGrindSize" class="form-input" type="text" placeholder="如：24格 / 6.5格" />
-              </div>
-
-              <!-- 萃取设备：下拉菜单 -->
-              <div class="form-field">
-                <div class="form-label-row">
-                  <label class="form-label">萃取设备</label>
-                  <button type="button" id="saveBrewerPresetBtn" class="save-preset-inline">+ 存常用</button>
-                </div>
-                <select id="selBrewer" class="form-select"></select>
-                <div id="customBrewerWrap" class="custom-input-wrap">
-                  <input id="inpBrewer" class="form-input" type="text" placeholder="输入滤杯或意式机" />
-                  <button type="button" id="backBrewerSelBtn" class="back-select-btn" title="返回下拉选择">▾</button>
-                </div>
-              </div>
-
-              <!-- 萃取时间 -->
-              <div class="form-field">
-                <label class="form-label">萃取时间</label>
-                <input id="inpBrewTime" class="form-input" type="text" placeholder="如：2'10&quot; 或 28s" />
-              </div>
-
-              <!-- 冲煮手法 / 萃取策略 -->
-              <div class="form-field full">
-                <div class="form-label-row">
-                  <label class="form-label">冲煮手法 / 萃取策略</label>
-                  <button type="button" id="saveMethodPresetBtn" class="save-preset-inline">+ 存常用</button>
-                </div>
-                <input id="inpMethod" class="form-input" type="text" placeholder="如：三段式注水（闷蒸30s + 大小水流）" />
-                <div id="methodPresetPills" class="preset-pills"></div>
-              </div>
-
-              <div class="form-field">
-                <label class="form-label" id="lblTempRatio">水温 / 粉水比</label>
-                <input id="inpTempRatio" class="form-input" type="text" value="92°C · 1:15" />
-              </div>
-
-              <div class="form-field">
-                <label class="form-label">海报落款印章</label>
-                <input id="inpSignature" class="form-input" type="text" value="骨頭不重" placeholder="骨頭不重" />
-              </div>
-            </div>
-
-            <div style="margin-top:12px; padding-top:10px; border-top:1px dashed var(--border-subtle); display:flex; justify-content:space-between; align-items:center; gap:8px;">
-              <span style="font-size:11px; color:var(--ink-muted);">下拉选磨豆机自动带出默认刻度</span>
-              <button type="button" id="openPresetModalBtn" class="gear-manage-link">⚙ 管理常用设备与手法</button>
-            </div>
+          <div class="brand-title-col">
+            <span class="brand-title">小酌<span class="char-accent">记录</span></span>
+            <span class="brand-home-hint">⌂ 返回封面</span>
           </div>
+        </button>
+
+        <div class="main-nav-switch">
+          <button type="button" class="main-nav-btn active" data-module="brew">风味手记</button>
+          <button type="button" class="main-nav-btn" data-module="cupping">CVA杯测</button>
+          <button type="button" class="main-nav-btn" data-module="variety">品种速查</button>
         </div>
 
-        <div class="step-footer-dock">
-          <button type="button" id="goStep2Btn" class="cta-primary-btn">
-            <span>进入风味轮开始品鉴</span>
-            <span>➔</span>
+        <div class="header-actions">
+          <button id="soundToggleBtn" class="icon-btn" title="切换拨盘音效">
+            <span id="soundIcon">🔊</span>
+          </button>
+          <button id="logsDrawerBtn" class="icon-btn" title="查看或导入小酌档案">
+            <span>档案</span>
+            <span id="logsCountBadge" class="badge-count">0</span>
           </button>
         </div>
-      </section>
+      </header>
 
-      <!-- STEP 02: 交互式 SCA 风味轮（支持中类与小类直选 + 自定义小类描述） -->
-      <section id="stepView2" class="step-view">
-        <div class="recipe-context-strip">
-          <span class="recipe-strip-text" id="recipeSummaryStrip">手冲 · Comandante C40 · Hario V60 Neo</span>
-          <button type="button" id="backToStep1Btn" class="recipe-edit-chip">✎ 修改参数</button>
+      <!-- ================================================================
+           模块一：风味手记（Step 1 工具手法 -> Step 2 风味轮 -> Step 3 出小卡）
+           ================================================================ -->
+      <div id="moduleBrew" class="module-view active">
+        <div class="stepper-bar" id="stepperBar">
+          <button class="step-tab active" data-step="1">
+            <span class="step-num">01</span>
+            <span>工具与手法</span>
+          </button>
+          <button class="step-tab" data-step="2">
+            <span class="step-num">02</span>
+            <span>风味轮探索</span>
+          </button>
+          <button class="step-tab" data-step="3">
+            <span class="step-num">03</span>
+            <span>生成小卡</span>
+          </button>
         </div>
 
-        <nav class="breadcrumb-bar" id="breadcrumbBar" aria-label="风味层级导航"></nav>
+        <!-- STEP 01: 冲煮工具与手法 -->
+        <section id="stepView1" class="step-view active">
+          <div class="setup-scroll">
+            <div id="refCompareCard" class="ref-compare-card">
+              <div class="ref-head">
+                <span class="ref-badge" id="refBadgeText">历史方案对照参考</span>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <button type="button" id="refApplyBtn" class="ref-apply-btn">一键套用参数</button>
+                  <button type="button" id="refCloseBtn" class="ref-close-btn" title="收起对照">✕</button>
+                </div>
+              </div>
+              <div class="ref-bean-title" id="refBeanTitle"></div>
+              <div class="ref-grid" id="refGridBody"></div>
+              <div class="ref-flavors-line" id="refFlavorsLine"></div>
+            </div>
 
-        <main class="wheel-stage" id="wheelStage">
-          <div class="wheel-hint">
-            <span class="hint-pill" id="stageHintLeft">点选大类展开或直接点选外圈风味</span>
-            <span class="hint-pill" id="stageHintRight">9 大类 · 中类 · 84 细分</span>
+            <div class="setup-intro-card">
+              <div class="section-head-row">
+                <span class="section-title">本杯咖啡与冲煮方案</span>
+                <div style="display:flex; align-items:center; gap:5px;">
+                  <button type="button" id="quickImportCsvBtn" class="icon-btn" style="height:26px; font-size:10.5px; color:var(--accent-olive); border-color:var(--accent-olive);">📥 导入CSV对照</button>
+                  <div class="mode-switch">
+                    <button type="button" class="mode-tab active" data-mode="pourover">手冲</button>
+                    <button type="button" class="mode-tab" data-mode="espresso">意式</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-field full">
+                  <div class="form-label-row">
+                    <label class="form-label">豆名 / 品种 / 批次</label>
+                    <button type="button" id="jumpToVarietySearchBtn" class="gear-manage-link" style="color:var(--accent-olive); text-decoration:none; font-weight:600;">🌱 查品种资料 ➔</button>
+                  </div>
+                  <input id="inpBean" class="form-input" type="text" placeholder="如：玻利维亚 永加斯美人庄园 瑰夏" />
+                </div>
+
+                <div class="form-field full">
+                  <label class="form-label">产区 · 处理法 · 烘焙度</label>
+                  <input id="inpOrigin" class="form-input" type="text" placeholder="如：水洗 · 浅烘" />
+                </div>
+
+                <div class="form-field">
+                  <div class="form-label-row">
+                    <label class="form-label">研磨器具</label>
+                    <button type="button" id="saveGrinderPresetBtn" class="save-preset-inline">+ 存常用</button>
+                  </div>
+                  <select id="selGrinder" class="form-select"></select>
+                  <div id="customGrinderWrap" class="custom-input-wrap">
+                    <input id="inpGrinder" class="form-input" type="text" placeholder="输入磨豆机名称" />
+                    <button type="button" id="backGrinderSelBtn" class="back-select-btn" title="返回下拉选择">▾</button>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">研磨度 / 刻度</label>
+                  <input id="inpGrindSize" class="form-input" type="text" placeholder="如：24格 / 6.5格" />
+                </div>
+
+                <div class="form-field">
+                  <div class="form-label-row">
+                    <label class="form-label">萃取设备</label>
+                    <button type="button" id="saveBrewerPresetBtn" class="save-preset-inline">+ 存常用</button>
+                  </div>
+                  <select id="selBrewer" class="form-select"></select>
+                  <div id="customBrewerWrap" class="custom-input-wrap">
+                    <input id="inpBrewer" class="form-input" type="text" placeholder="输入滤杯或意式机" />
+                    <button type="button" id="backBrewerSelBtn" class="back-select-btn" title="返回下拉选择">▾</button>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">萃取时间</label>
+                  <input id="inpBrewTime" class="form-input" type="text" placeholder="如：2'10&quot; 或 28s" />
+                </div>
+
+                <div class="form-field full">
+                  <div class="form-label-row">
+                    <label class="form-label">冲煮手法 / 萃取策略</label>
+                    <button type="button" id="saveMethodPresetBtn" class="save-preset-inline">+ 存常用</button>
+                  </div>
+                  <input id="inpMethod" class="form-input" type="text" placeholder="如：三段式注水（闷蒸30s + 大小水流）" />
+                  <div id="methodPresetPills" class="preset-pills"></div>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label" id="lblTempRatio">水温 / 粉水比</label>
+                  <input id="inpTempRatio" class="form-input" type="text" value="92°C · 1:15" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">海报落款印章</label>
+                  <input id="inpSignature" class="form-input" type="text" value="骨頭不重" placeholder="骨頭不重" />
+                </div>
+              </div>
+
+              <div style="margin-top:12px; padding-top:10px; border-top:1px dashed var(--border-subtle); display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <span style="font-size:11px; color:var(--ink-muted);">下拉选磨豆机自动带出默认刻度</span>
+                <button type="button" id="openPresetModalBtn" class="gear-manage-link">⚙ 管理常用设备与手法</button>
+              </div>
+            </div>
           </div>
-          <svg id="flavorSvg" viewBox="-212 -212 424 424" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <filter id="hubShadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#26201B" flood-opacity="0.16"/>
-              </filter>
-            </defs>
-            <g id="wheelRotor" class="wheel-rotor"></g>
-            <!-- 中心返回按钮（展开时变为纯粹极简箭头，绝无文字截断） -->
-            <g id="centerHub" class="center-hub" filter="url(#hubShadow)">
-              <circle id="hubOuterCircle" cx="0" cy="0" r="36" fill="#FFFDF9" stroke="#26201B" stroke-width="1.3"/>
-              <circle id="hubInnerCircle" cx="0" cy="0" r="31" fill="none" stroke="rgba(158,74,54,0.35)" stroke-width="0.7" stroke-dasharray="2 2"/>
-              <g id="hubOverviewGroup">
-                <text x="0" y="-3" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="11.5" font-weight="700" fill="#26201B">SCA 2016</text>
-                <text x="0" y="11" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8E8275">ALL WHEEL</text>
-              </g>
-              <g id="hubBackArrowGroup" style="display:none;">
-                <path d="M 6 -7 L -6 0 L 6 7" fill="none" stroke="#26201B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                <line x1="-5" y1="0" x2="8" y2="0" stroke="#26201B" stroke-width="2.2" stroke-linecap="round"/>
-              </g>
-            </g>
-          </svg>
-        </main>
 
-        <section class="inspector-dock">
-          <div class="inspector-card">
-            <div class="inspector-top">
-              <div class="flavor-meta-left">
-                <div class="flavor-tag-row">
-                  <span class="swatch-dot" id="inspDot" style="background:#D94E5D;"></span>
-                  <span class="sca-path-tag" id="inspPath">00 · 全景图谱</span>
-                  <span class="valence-badge valence-pos" id="inspValence" style="display:none;">正向风味</span>
-                </div>
-                <div class="flavor-name-row">
-                  <span class="flavor-cn" id="inspCn">点选或转动风味扇区</span>
-                  <span class="flavor-en" id="inspEn">SCA Coffee Taster's Flavor Wheel</span>
-                </div>
-              </div>
-              <button type="button" id="captureBtn" class="capture-btn" disabled>
-                <span id="captureBtnText">+ 收入本杯</span>
-              </button>
-            </div>
-            <p class="sensory-note" id="inspNote">
-              点击中圈（中类）或外圈（小类）均可直接收入本杯，还可在下方补充自定义风味描述。
-            </p>
-
-            <!-- 小类自定义补充描述栏 -->
-            <div class="custom-note-row">
-              <input id="customFlavorInput" class="custom-note-input" type="text" placeholder="✎ 补充自定义风味描述（如：血橙 / 乌龙茶韵）..." />
-              <button type="button" id="addCustomFlavorBtn" class="custom-note-add-btn">+ 添加</button>
-            </div>
-
-            <div class="tray-bar">
-              <div class="captured-chips" id="capturedChips">
-                <span class="empty-tray-text">尚未捕捉风味（支持中类/小类/自定义多选）</span>
-              </div>
-              <button type="button" id="goStep3Btn" class="poster-trigger-btn">
-                <span>出小卡 ➔</span>
-              </button>
-            </div>
+          <div class="step-footer-dock">
+            <button type="button" id="goStep2Btn" class="cta-primary-btn">
+              <span>进入风味轮开始品鉴</span>
+              <span>➔</span>
+            </button>
           </div>
         </section>
-      </section>
 
-      <!-- STEP 03: 生成 3:4 工程引线图签小卡与打卡文案 -->
-      <section id="stepView3" class="step-view">
-        <div class="result-scroll">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;">
-            <button type="button" id="backToStep2Btn" class="icon-btn">← 继续补充风味</button>
-            <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-muted);">3:4 POSTER · 900×1200</span>
+        <!-- STEP 02: 交互式 SCA 风味轮 -->
+        <section id="stepView2" class="step-view">
+          <div class="recipe-context-strip">
+            <span class="recipe-strip-text" id="recipeSummaryStrip">手冲 · Comandante C40 · Hario V60 Neo</span>
+            <button type="button" id="backToStep1Btn" class="recipe-edit-chip">✎ 修改参数</button>
           </div>
 
-          <div class="poster-preview-wrap">
-            <canvas id="posterCanvas" width="900" height="1200"></canvas>
-            <img id="posterImgPreview" alt="小酌记录风味小卡" />
-            <div class="save-photo-tip">📱 iPhone 提示：长按上方海报图片可直接「存储到“照片”」相册</div>
+          <nav class="breadcrumb-bar" id="breadcrumbBar" aria-label="风味层级导航"></nav>
+
+          <main class="wheel-stage" id="wheelStage">
+            <div class="wheel-hint">
+              <span class="hint-pill" id="stageHintLeft">点选大类展开 · 点中圈或外圈直接收入</span>
+              <span class="hint-pill" id="stageHintRight">9 大类 · 中类 · 84 细分</span>
+            </div>
+            <svg id="flavorSvg" viewBox="-212 -212 424 424" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <filter id="hubShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#26201B" flood-opacity="0.16"/>
+                </filter>
+              </defs>
+              <g id="wheelRotor" class="wheel-rotor"></g>
+              <g id="centerHub" class="center-hub" filter="url(#hubShadow)">
+                <circle id="hubOuterCircle" cx="0" cy="0" r="36" fill="#FFFDF9" stroke="#26201B" stroke-width="1.3"/>
+                <circle id="hubInnerCircle" cx="0" cy="0" r="31" fill="none" stroke="rgba(158,74,54,0.35)" stroke-width="0.7" stroke-dasharray="2 2"/>
+                <g id="hubOverviewGroup">
+                  <text x="0" y="-3" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="11.5" font-weight="700" fill="#26201B">SCA 2016</text>
+                  <text x="0" y="11" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8E8275">ALL WHEEL</text>
+                </g>
+                <g id="hubBackArrowGroup" style="display:none;">
+                  <path d="M 6 -7 L -6 0 L 6 7" fill="none" stroke="#26201B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="-5" y1="0" x2="8" y2="0" stroke="#26201B" stroke-width="2.2" stroke-linecap="round"/>
+                </g>
+              </g>
+            </svg>
+          </main>
+
+          <section class="inspector-dock">
+            <div class="inspector-card">
+              <div class="inspector-top">
+                <div class="flavor-meta-left">
+                  <div class="flavor-tag-row">
+                    <span class="swatch-dot" id="inspDot" style="background:#D94E5D;"></span>
+                    <span class="sca-path-tag" id="inspPath">00 · 全景图谱</span>
+                    <span class="valence-badge valence-pos" id="inspValence" style="display:none;">正向风味</span>
+                  </div>
+                  <div class="flavor-name-row">
+                    <span class="flavor-cn" id="inspCn">点选或转动风味扇区</span>
+                    <span class="flavor-en" id="inspEn">SCA Coffee Taster's Flavor Wheel</span>
+                  </div>
+                </div>
+                <button type="button" id="captureBtn" class="capture-btn" disabled>
+                  <span id="captureBtnText">+ 收入本杯</span>
+                </button>
+              </div>
+              <p class="sensory-note" id="inspNote">
+                点击中圈（中类）或外圈（小类）均可直接收入本杯，还可在下方补充自定义风味描述。
+              </p>
+
+              <div class="custom-note-row">
+                <input id="customFlavorInput" class="custom-note-input" type="text" placeholder="✎ 补充自定义风味描述（如：血橙 / 乌龙茶韵）..." />
+                <button type="button" id="addCustomFlavorBtn" class="custom-note-add-btn">+ 添加</button>
+              </div>
+
+              <div class="tray-bar">
+                <div class="captured-chips" id="capturedChips">
+                  <span class="empty-tray-text">尚未捕捉风味（支持中类/小类/自定义多选）</span>
+                </div>
+                <button type="button" id="goStep3Btn" class="poster-trigger-btn">
+                  <span>出小卡 ➔</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- STEP 03: 生成 3:4 工程引线图签小卡与打卡文案 -->
+        <section id="stepView3" class="step-view">
+          <div class="setup-scroll">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;">
+              <button type="button" id="backToStep2Btn" class="icon-btn">← 继续补充风味</button>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-muted);">3:4 POSTER · 900×1200</span>
+            </div>
+
+            <div class="poster-preview-wrap">
+              <canvas id="posterCanvas" width="900" height="1200"></canvas>
+              <img id="posterImgPreview" alt="小酌记录风味小卡" />
+              <div class="save-photo-tip">📱 iPhone 提示：长按上方海报图片可直接「存储到“照片”」相册</div>
+            </div>
+
+            <div class="action-row">
+              <button type="button" id="shareOrSaveBtn" class="btn-primary">存至相册 / 分享图片</button>
+              <button type="button" id="copyNoteBtn" class="btn-secondary">复制小酌打卡文案</button>
+            </div>
+
+            <button type="button" id="saveArchiveBtn" class="btn-archive">+ 保存本杯至本地《小酌档案》</button>
+
+            <textarea id="notePreviewBox" class="copy-box" readonly></textarea>
           </div>
+        </section>
+      </div>
 
-          <div class="action-row">
-            <button type="button" id="shareOrSaveBtn" class="btn-primary">存至相册 / 分享图片</button>
-            <button type="button" id="copyNoteBtn" class="btn-secondary">复制小酌打卡文案</button>
-          </div>
-
-          <button type="button" id="saveArchiveBtn" class="btn-archive">+ 保存本杯至本地《小酌档案》</button>
-
-          <textarea id="notePreviewBox" class="copy-box" readonly></textarea>
+      <!-- ================================================================
+           模块二：SCA CVA 专业杯测（含完整导入/导出功能）
+           ================================================================ -->
+      <div id="moduleCupping" class="module-view">
+        <div class="stepper-bar four-cols">
+          <button type="button" class="step-tab cva-tab active" data-cstep="1">
+            <span class="step-num">01</span>
+            <span>生豆溯源</span>
+          </button>
+          <button type="button" class="step-tab cva-tab" data-cstep="2">
+            <span class="step-num">02</span>
+            <span>干湿与温区</span>
+          </button>
+          <button type="button" class="step-tab cva-tab" data-cstep="3">
+            <span class="step-num">03</span>
+            <span>CVA 评分</span>
+          </button>
+          <button type="button" class="step-tab cva-tab" data-cstep="4">
+            <span class="step-num">04</span>
+            <span>杯测报告</span>
+          </button>
         </div>
-      </section>
+
+        <!-- CVA STEP 01: 样豆外在溯源档案 + 导入导出 -->
+        <section id="cvaView1" class="cva-step-view active">
+          <div class="setup-scroll">
+            <div class="setup-intro-card">
+              <div class="section-head-row">
+                <span class="section-title">样豆溯源档案</span>
+                <div style="display:flex; align-items:center; gap:5px;">
+                  <button type="button" id="cvaImportBtn" class="icon-btn" style="height:25px; font-size:10px; color:var(--accent-olive); border-color:var(--accent-olive);">📥 导入</button>
+                  <button type="button" id="cvaExportBtn" class="icon-btn" style="height:25px; font-size:10px;">📤 导出</button>
+                  <span class="card-tag" id="cvaLiveBadge">CVA 86.25</span>
+                  <input type="file" id="cvaImportFileInput" accept=".json,.csv,application/json,text/csv" style="display:none;" />
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-field full">
+                  <label class="form-label">豆子名称 / 批次编号</label>
+                  <input id="cvaBeanName" class="form-input" type="text" placeholder="如：埃塞俄比亚 古吉 罕贝拉 书呆子" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">产地（国家 / 产区）</label>
+                  <input id="cvaCountry" class="form-input" type="text" placeholder="如：埃塞俄比亚 · 乌拉嘎" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">庄园 / 处理站</label>
+                  <input id="cvaFarm" class="form-input" type="text" placeholder="如：Buku Abel 处理站" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">进口商 / 生豆商</label>
+                  <input id="cvaImporter" class="form-input" type="text" placeholder="如：Collaborate / Nordic" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">咖啡品种（Variety）</label>
+                  <select id="cvaSelVariety" class="form-select"></select>
+                  <input id="cvaCustomVariety" class="form-input" type="text" placeholder="手动输入品种名称" style="display:none; margin-top:4px;" />
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">处理法（Process）</label>
+                  <select id="cvaSelProcess" class="form-select">
+                    <option value="水洗处理 (Washed)">水洗处理 (Washed)</option>
+                    <option value="日晒处理 (Natural)">日晒处理 (Natural)</option>
+                    <option value="蜜处理 (Honey)">蜜处理 (Honey)</option>
+                    <option value="厌氧日晒 (Anaerobic Natural)">厌氧日晒 (Anaerobic Natural)</option>
+                    <option value="厌氧水洗 (Anaerobic Washed)">厌氧水洗 (Anaerobic Washed)</option>
+                    <option value="湿刨法 (Wet-Hulled)">湿刨法 (Wet-Hulled)</option>
+                    <option value="特殊发酵 / 过桶">特殊发酵 / 过桶</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label class="form-label">烘焙度 / 杯测粉水比</label>
+                  <input id="cvaRoastProtocol" class="form-input" type="text" value="Agtron 72 · 93°C · 8.25g/150ml" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-footer-dock">
+            <button type="button" class="cta-primary-btn" onclick="goCvaStep(2)">
+              <span>下一步：干湿香与高/中/低温描述</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CVA STEP 02: 干香 / 湿香 / 高温 / 中温 / 低温 CATA 描述性评估 -->
+        <section id="cvaView2" class="cva-step-view">
+          <div class="setup-scroll">
+            <div class="setup-intro-card">
+              <div class="section-head-row">
+                <span class="section-title">分阶段香气与风味演变</span>
+                <span class="card-tag">SCA-103 CATA</span>
+              </div>
+
+              <div class="stage-tabs" id="cvaStageTabsBar">
+                <button type="button" class="stage-pill active" data-stage="fragrance">
+                  <span class="st-cn">干香</span>
+                  <span class="st-sub">DRY</span>
+                  <span class="st-dot"></span>
+                </button>
+                <button type="button" class="stage-pill" data-stage="aroma">
+                  <span class="st-cn">湿香</span>
+                  <span class="st-sub">BREAK</span>
+                  <span class="st-dot"></span>
+                </button>
+                <button type="button" class="stage-pill" data-stage="hot">
+                  <span class="st-cn">高温</span>
+                  <span class="st-sub">~70°C</span>
+                  <span class="st-dot"></span>
+                </button>
+                <button type="button" class="stage-pill" data-stage="warm">
+                  <span class="st-cn">中温</span>
+                  <span class="st-sub">~55°C</span>
+                  <span class="st-dot"></span>
+                </button>
+                <button type="button" class="stage-pill" data-stage="cool">
+                  <span class="st-cn">低温</span>
+                  <span class="st-sub">&lt;40°C</span>
+                  <span class="st-dot"></span>
+                </button>
+              </div>
+
+              <div class="intensity-row">
+                <span style="font-size:11px; color:var(--ink-secondary); white-space:nowrap;" id="cvaIntensityLabel">干香强度 (0–15)</span>
+                <input type="range" id="cvaIntensitySlider" min="0" max="15" step="0.5" value="9" />
+                <span class="intensity-num" id="cvaIntensityVal">9.0</span>
+              </div>
+
+              <div style="font-size:11px; color:var(--ink-secondary); margin-bottom:6px; font-weight:500;">
+                1. 勾选本阶段感知到的 SCA 香气类型（可多选）：
+              </div>
+              <div class="cata-grid" id="cvaCataGrid"></div>
+
+              <div id="cvaSubHintsWrap" class="sub-hints-wrap"></div>
+
+              <div class="form-field full" style="margin-bottom:10px;">
+                <label class="form-label" id="cvaStageNoteLabel">2. 具体风味词与感官描述（干香阶段）</label>
+                <input id="cvaStageNotesInput" class="form-input" type="text" placeholder="如：白桃、茉莉花、佛手柑皮油，香气上扬度高" />
+              </div>
+
+              <div id="cvaMouthfeelSection" style="display:none;">
+                <div style="font-size:11px; color:var(--ink-secondary); font-weight:500;">
+                  3. 口感触觉特征（Mouthfeel CATA）：
+                </div>
+                <div class="mouthfeel-wrap" id="cvaMouthfeelWrap"></div>
+              </div>
+            </div>
+
+            <div class="setup-intro-card">
+              <div class="section-head-row" style="margin-bottom:8px;">
+                <span class="section-title" style="font-size:13.5px;">全温度段演变总览</span>
+                <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-muted);">LIVE TIMELINE</span>
+              </div>
+              <div class="timeline-summary" id="cvaTimelineSummary"></div>
+            </div>
+          </div>
+
+          <div class="step-footer-dock">
+            <button type="button" class="cta-secondary-btn" onclick="goCvaStep(1)">← 溯源</button>
+            <button type="button" class="cta-primary-btn" onclick="goCvaStep(3)">
+              <span>下一步：CVA 9分制评分</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CVA STEP 03: SCA-104 情感性评估 -->
+        <section id="cvaView3" class="cva-step-view">
+          <div class="setup-scroll">
+            <div class="setup-intro-card">
+              <div class="section-head-row">
+                <span class="section-title">CVA 情感性印象评分（1–9 分）</span>
+                <span class="card-tag" id="cvaScoreTagStep3">总分 86.25</span>
+              </div>
+              <div style="font-size:11px; color:var(--ink-muted); margin-bottom:10px; line-height:1.45;">
+                最新 SCA CVA 标准采用 1–9 分情感标度（5=一般，6=尚可，7=良好，8=极佳，9=卓越），系统自动按官方公式换算为 100 分制。
+              </div>
+
+              <div id="cvaScoreDimensionsContainer"></div>
+
+              <div style="font-size:11.5px; font-weight:700; color:var(--ink-primary); margin:12px 0 6px;">
+                杯间一致性与瑕疵扣分（5 杯基准）
+              </div>
+              <div class="defect-grid">
+                <div class="defect-box">
+                  <div class="defect-title">非均匀杯 (-2/杯)</div>
+                  <div class="counter-ctrl">
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('nonUniform', -1)">-</button>
+                    <span class="cnt-val" id="cvaCntNonUniform">0</span>
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('nonUniform', 1)">+</button>
+                  </div>
+                </div>
+                <div class="defect-box">
+                  <div class="defect-title">轻微瑕疵 (-2/杯)</div>
+                  <div class="counter-ctrl">
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('taint', -1)">-</button>
+                    <span class="cnt-val" id="cvaCntTaint">0</span>
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('taint', 1)">+</button>
+                  </div>
+                </div>
+                <div class="defect-box">
+                  <div class="defect-title">严重瑕疵 (-4/杯)</div>
+                  <div class="counter-ctrl">
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('fault', -1)">-</button>
+                    <span class="cnt-val" id="cvaCntFault">0</span>
+                    <button type="button" class="cnt-btn" onclick="adjustCvaDefect('fault', 1)">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-field full" style="margin-top:10px;">
+                <label class="form-label">杯测师综合评语</label>
+                <input id="cvaCuppingSummary" class="form-input" type="text" placeholder="如：从高温到低温花果香清晰连贯，冷后甜感极佳" />
+              </div>
+            </div>
+          </div>
+
+          <div class="step-footer-dock">
+            <button type="button" class="cta-secondary-btn" onclick="goCvaStep(2)">← 温区</button>
+            <button type="button" class="cta-primary-btn" onclick="goCvaStep(4)">
+              <span>生成 CVA 杯测报告小卡</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- CVA STEP 04: 3:4 CVA 杯测报告小卡 -->
+        <section id="cvaView4" class="cva-step-view">
+          <div class="setup-scroll">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;">
+              <button type="button" class="icon-btn" onclick="goCvaStep(3)">← 返回调整评分</button>
+              <span style="font-family:var(--font-mono); font-size:10px; color:var(--ink-muted);">SCA CVA POSTER · 900×1200</span>
+            </div>
+
+            <div class="poster-preview-wrap">
+              <canvas id="cvaPosterCanvas" width="900" height="1200"></canvas>
+              <img id="cvaPosterImg" alt="SCA CVA 杯测报告小卡" />
+              <div class="save-photo-tip">📱 iPhone 提示：长按上方海报图片可直接「存储到“照片”」相册</div>
+            </div>
+
+            <div class="action-row">
+              <button type="button" id="shareCvaPosterBtn" class="btn-primary">存至相册 / 分享图片</button>
+              <button type="button" id="copyCvaTextBtn" class="btn-secondary">复制完整杯测记录</button>
+            </div>
+
+            <button type="button" id="saveCvaArchiveBtn" class="btn-archive">+ 保存本轮杯测至本地《小酌档案》</button>
+
+            <textarea id="cvaTextPreview" class="copy-box" readonly></textarea>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================================================================
+           模块三（最后一个大项）：WCR 咖啡品种速查（品种名录 + 三品种对比）
+           ================================================================ -->
+      <div id="moduleVariety" class="module-view">
+        <div class="var-sub-bar">
+          <button type="button" class="var-sub-btn active" data-vp="list">品种名录检索</button>
+          <button type="button" class="var-sub-btn" data-vp="compare">三品种对比 (A/B/C)</button>
+        </div>
+
+        <div id="varPaneList" class="var-pane active">
+          <div class="var-search-box">
+            <div class="search-input-wrap">
+              <input id="varSearchInput" type="text" placeholder="搜索中英文名、别名（如：瑰夏、艺伎、SL28、象豆）..." />
+              <button type="button" id="varSearchClearBtn" class="search-clear-btn">✕</button>
+            </div>
+            <div class="group-filter-pills" id="varGroupPills"></div>
+          </div>
+          <div class="var-list-scroll" id="varListContainer"></div>
+        </div>
+
+        <div id="varPaneCompare" class="var-pane">
+          <div class="compare-scroll">
+            <div style="font-size:11px; color:var(--ink-muted); margin-bottom:6px;">经典三品种同屏对照预设：</div>
+            <div class="vs-presets-row" id="vsPresetsRow"></div>
+
+            <div class="vs-slots-3-box">
+              <div class="vs-slot-col">
+                <span class="vs-slot-tag" style="background:var(--accent-rust);">品种 A</span>
+                <select id="vsSelectA" class="vs-slot-select"></select>
+              </div>
+              <div class="vs-slot-col">
+                <span class="vs-slot-tag" style="background:var(--accent-olive);">品种 B</span>
+                <select id="vsSelectB" class="vs-slot-select"></select>
+              </div>
+              <div class="vs-slot-col">
+                <span class="vs-slot-tag" style="background:var(--accent-gold);">品种 C</span>
+                <select id="vsSelectC" class="vs-slot-select"></select>
+              </div>
+            </div>
+
+            <div id="vsSummaryBanner" class="vs-summary-banner"></div>
+            <div id="vsTableContainer"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- ================================================================
-         模块二：WCR 咖啡品种速查（检索名录 / 全息血统族谱 / 双品种对比）
-         ================================================================ -->
-    <div id="moduleVariety" class="module-view">
-      <div class="var-sub-bar">
-        <button type="button" class="var-sub-btn active" data-vp="list">品种名录检索</button>
-        <button type="button" class="var-sub-btn" data-vp="tree">WCR 血统族谱</button>
-        <button type="button" class="var-sub-btn" data-vp="compare">双品种对比 VS</button>
-      </div>
-
-      <div id="varPaneList" class="var-pane active">
-        <div class="var-search-box">
-          <div class="search-input-wrap">
-            <input id="varSearchInput" type="text" placeholder="搜索中英文名、别名（如：瑰夏、艺伎、SL28、象豆）..." />
-            <button type="button" id="varSearchClearBtn" class="search-clear-btn">✕</button>
-          </div>
-          <div class="group-filter-pills" id="varGroupPills"></div>
-        </div>
-        <div class="var-list-scroll" id="varListContainer"></div>
-      </div>
-
-      <div id="varPaneTree" class="var-pane">
-        <div class="tree-stage" id="treeStage">
-          <div class="tree-toolbar">
-            <div class="tree-filter-group">
-              <button type="button" class="tree-f-btn active" data-tf="all">全景</button>
-              <button type="button" class="tree-f-btn" data-tf="arabica">阿拉比卡</button>
-              <button type="button" class="tree-f-btn" data-tf="robusta">罗布斯塔/杂交</button>
-            </div>
-            <div class="tree-zoom-group">
-              <button type="button" class="tree-z-btn" id="treeZoomOutBtn">－</button>
-              <button type="button" class="tree-z-btn" id="treeZoomResetBtn">归位</button>
-              <button type="button" class="tree-z-btn" id="treeZoomInBtn">＋</button>
-            </div>
-          </div>
-
-          <svg id="lineageSvg" width="100%" height="100%" viewBox="-320 -320 640 640">
-            <g id="lineageViewport">
-              <g id="lineageEdges"></g>
-              <g id="lineageNodes"></g>
-            </g>
-          </svg>
-
-          <div class="tree-legend" id="treeLegend"></div>
-        </div>
-      </div>
-
-      <div id="varPaneCompare" class="var-pane">
-        <div class="compare-scroll">
-          <div style="font-size:11px; color:var(--ink-muted); margin-bottom:6px;">高频易混品种快捷对比：</div>
-          <div class="vs-presets-row" id="vsPresetsRow"></div>
-
-          <div class="vs-slots-box">
-            <select id="vsSelectA" class="vs-slot-select"></select>
-            <button type="button" id="vsSwapBtn" class="vs-swap-btn" title="对调品种">⇄</button>
-            <select id="vsSelectB" class="vs-slot-select"></select>
-          </div>
-
-          <div id="vsSummaryBanner" class="vs-summary-banner"></div>
-          <div id="vsTableContainer"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 品种详情与 3:4 档案海报抽屉 -->
+    <!-- 品种详情抽屉 -->
     <div id="varDetailModal" class="modal-backdrop">
       <div class="sheet-panel">
         <div class="sheet-header">
@@ -2235,14 +3058,21 @@
       </div>
     </div>
 
-    <!-- 本地品鉴记录抽屉 -->
+    <!-- 本地品鉴与杯测记录抽屉（按「全部 / 冲煮手记 / CVA 杯测」分类展示） -->
     <div id="logsModal" class="modal-backdrop">
       <div class="sheet-panel">
         <div class="sheet-header">
-          <span class="sheet-title">小酌档案 · 历史冲煮与对照</span>
+          <span class="sheet-title">小酌档案 · 分类归档库</span>
           <button type="button" id="closeLogsModalBtn" class="close-btn">✕</button>
         </div>
         <div class="sheet-body">
+          <!-- 分类切换标签栏 -->
+          <div class="archive-filter-tabs" id="archiveFilterTabs">
+            <button type="button" class="arch-tab-btn active" data-af="all">全部 (0)</button>
+            <button type="button" class="arch-tab-btn" data-af="brew">冲煮手记 (0)</button>
+            <button type="button" class="arch-tab-btn" data-af="cupping">CVA 杯测 (0)</button>
+          </div>
+
           <div class="archive-toolbar">
             <button type="button" id="importCsvBtn" class="archive-tool-btn primary-import">📥 导入 CSV 档案</button>
             <button type="button" id="exportCsvBtn" class="archive-tool-btn">📤 导出 CSV 表格</button>
@@ -2260,50 +3090,6 @@
   </div>
 
   <script>
-    /*****************************************************************
-     * 0. 动态生成 iPhone 主屏幕专属高清矢量图标 (apple-touch-icon)
-     *****************************************************************/
-    (function generateAppleTouchIcon() {
-      const c = document.createElement("canvas");
-      c.width = 180;
-      c.height = 180;
-      const ctx = c.getContext("2d");
-
-      ctx.fillStyle = "#F5F1E8";
-      ctx.fillRect(0, 0, 180, 180);
-
-      ctx.strokeStyle = "#26201B";
-      ctx.lineWidth = 5;
-      ctx.strokeRect(22, 22, 136, 136);
-
-      ctx.save();
-      ctx.translate(90, 90);
-      ctx.rotate(Math.PI / 4);
-      ctx.strokeStyle = "#8E8275";
-      ctx.lineWidth = 3.5;
-      ctx.strokeRect(-42, -42, 84, 84);
-      ctx.restore();
-
-      ctx.beginPath();
-      ctx.moveTo(90, 52);
-      ctx.quadraticCurveTo(118, 86, 118, 102);
-      ctx.arc(90, 102, 28, 0, Math.PI, false);
-      ctx.quadraticCurveTo(62, 86, 90, 52);
-      ctx.fillStyle = "rgba(158, 74, 54, 0.22)";
-      ctx.fill();
-      ctx.strokeStyle = "#9E4A36";
-      ctx.lineWidth = 5;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(140, 40, 7, 0, Math.PI * 2);
-      ctx.fillStyle = "#9E4A36";
-      ctx.fill();
-
-      const iconLink = document.getElementById("appleTouchIcon");
-      if (iconLink) iconLink.href = c.toDataURL("image/png");
-    })();
-
     /*****************************************************************
      * 1. SCA 2016 标准三级风味轮数据集（9 大类 · 84 细分风味）
      *****************************************************************/
@@ -2533,64 +3319,27 @@
     ];
 
     /*****************************************************************
-     * 1B. WCR 咖啡品种与血统族谱数据库
+     * 1B. WCR 咖啡品种数据库
      *****************************************************************/
     const VARIETY_GROUPS = {
-      ethiopia: { label: "埃塞原生种", color: "#D97736", species: "arabica" },
-      typica: { label: "铁皮卡系", color: "#4E79A7", species: "arabica" },
-      bourbon: { label: "波旁系", color: "#B84A5A", species: "arabica" },
-      catimor: { label: "卡蒂姆群", color: "#598B68", species: "robusta" },
-      sarchimor: { label: "萨奇姆群", color: "#6A8D4E", species: "robusta" },
-      f1: { label: "F1 杂交", color: "#9B6B9E", species: "arabica" },
-      arabica_core: { label: "阿拉比卡主干", color: "#8C6D46", species: "arabica" },
-      robusta_hd: { label: "罗布斯塔/帝汶", color: "#6E7B8B", species: "robusta" }
+      ethiopia: { label: "埃塞原生种", color: "#D97736" },
+      typica: { label: "铁皮卡系", color: "#4E79A7" },
+      bourbon: { label: "波旁系", color: "#B84A5A" },
+      catimor: { label: "卡蒂姆群", color: "#598B68" },
+      sarchimor: { label: "萨奇姆群", color: "#6A8D4E" },
+      f1: { label: "F1 杂交", color: "#9B6B9E" },
+      arabica_core: { label: "阿拉比卡主干", color: "#8C6D46" },
+      robusta_hd: { label: "罗布斯塔/帝汶", color: "#6E7B8B" }
     };
 
     const COFFEE_VARIETIES = [
-      {
-        id: "arabica_wild", cn: "野生阿拉比卡", en: "Coffea arabica", aliases: ["原生阿拉比卡", "阿比西尼亚种"],
-        group: "arabica_core", parents: [],
-        origin: "埃塞俄比亚西南部 / 南苏丹", beanSize: "中等", altitude: "1300–2100m",
-        quality: "极高", rustResistance: "低（易感叶锈病）",
-        flavor: "花香、柑橘、优雅酸质与复杂层次",
-        desc: "由卡法果（C. eugenioides）与罗布斯塔（C. canephora）在埃塞俄比亚高原自然杂交形成的四倍体咖啡物种，占全球精品咖啡绝大部分。",
-        x: 0, y: 0
-      },
-      {
-        id: "robusta", cn: "罗布斯塔（中果咖啡）", en: "Coffea canephora", aliases: ["罗豆", "Robusta", "卡尼弗拉"],
-        group: "robusta_hd", parents: [],
-        origin: "非洲刚果盆地低海拔雨林", beanSize: "偏小、圆润", altitude: "200–800m",
-        quality: "低（高咖啡因醇厚）", rustResistance: "极高",
-        flavor: "黑巧克力、烘焙谷物、木质与厚重油脂",
-        desc: "二倍体咖啡物种，抗病虫害与耐高温能力极强，咖啡因含量约为阿拉比卡的两倍，也是现代抗叶锈病育种的重要基因来源。",
-        x: 195, y: 185
-      },
-      {
-        id: "typica", cn: "铁皮卡", en: "Typica", aliases: ["老品种", "蓝山种", "Criollo"],
-        group: "typica", parents: ["arabica_wild"],
-        origin: "也门 ➔ 爪哇 ➔ 美洲", beanSize: "大", altitude: "1300–2000m",
-        quality: "极高", rustResistance: "极低",
-        flavor: "清甜干净、柑橘花香、细腻茶感",
-        desc: "阿拉比卡两大最古老的栽培母系之一。树形高大呈圆锥状，新叶呈古铜色，产量低但杯测干净度与甜感极为出众。",
-        x: -115, y: -60
-      },
-      {
-        id: "bourbon", cn: "波旁", en: "Bourbon", aliases: ["波邦", "留尼汪波旁"],
-        group: "bourbon", parents: ["arabica_wild"],
-        origin: "也门 ➔ 留尼汪岛（波旁岛）", beanSize: "中等", altitude: "1200–2000m",
-        quality: "极高", rustResistance: "极低",
-        flavor: "焦糖、红糖甜感、圆润果酸、巧克力尾韵",
-        desc: "阿拉比卡另一大核心栽培母系。新叶多为绿色，果实较密集，相比铁皮卡具有更高的甜度与醇厚度。",
-        x: 110, y: -60
-      },
       {
         id: "geisha", cn: "瑰夏", en: "Geisha / Gesha", aliases: ["艺伎", "戈里瑰夏"],
         group: "ethiopia", parents: ["arabica_wild"],
         origin: "埃塞俄比亚 Gori Gesha 森林 ➔ 巴拿马", beanSize: "修长偏大", altitude: "1600–2200m",
         quality: "传奇级极高", rustResistance: "中等",
         flavor: "茉莉花、佛手柑、水蜜桃、橙花与蜜糖",
-        desc: "1931年采集自埃塞俄比亚瑰夏山，经肯尼亚、坦桑尼亚与哥斯达黎加引种至巴拿马翡翠庄园后震惊世界，是花果调性天花板。",
-        x: -175, y: 75
+        desc: "1931年采集自埃塞俄比亚瑰夏山，经肯尼亚、坦桑尼亚与哥斯达黎加引种至巴拿马翡翠庄园后震惊世界，是花果调性天花板。"
       },
       {
         id: "heirloom", cn: "埃塞俄比亚原生种", en: "Ethiopian Heirloom", aliases: ["古优种", "原生混合种", "74110/74112"],
@@ -2598,8 +3347,7 @@
         origin: "埃塞俄比亚耶加雪菲 / 古吉 / 西达摩", beanSize: "大小不一（偏小）", altitude: "1700–2300m",
         quality: "极高", rustResistance: "多样（含抗病选育系）",
         flavor: "白花、柠檬柑橘、莓果、伯爵红茶",
-        desc: "埃塞俄比亚数千种本地农家品种与吉马农业研究中心（JARC）选育单株的统称，风味谱系极其奔放多变。",
-        x: -135, y: 155
+        desc: "埃塞俄比亚数千种本地农家品种与吉马农业研究中心（JARC）选育单株的统称，风味谱系极其奔放多变。"
       },
       {
         id: "sl28", cn: "SL28", en: "SL28", aliases: ["斯科特实验室28号"],
@@ -2607,8 +3355,7 @@
         origin: "肯尼亚 Scott Laboratories（选育自坦桑尼亚抗旱种）", beanSize: "极大", altitude: "1400–2100m",
         quality: "极高", rustResistance: "低",
         flavor: "黑醋栗、圣女果、西柚、复杂酒香酸质",
-        desc: "20世纪30年代在肯尼亚选育的传奇品种，根系深厚耐干旱，颗粒饱满，以标志性的黑醋栗与明亮果汁感闻名。",
-        x: 195, y: -120
+        desc: "20世纪30年代在肯尼亚选育的传奇品种，根系深厚耐干旱，颗粒饱满，以标志性的黑醋栗与明亮果汁感闻名。"
       },
       {
         id: "sl34", cn: "SL34", en: "SL34", aliases: ["斯科特实验室34号"],
@@ -2616,53 +3363,23 @@
         origin: "肯尼亚 Scott Laboratories（选育自法国传教士波旁/铁皮卡系）", beanSize: "极大", altitude: "1400–2100m",
         quality: "极高", rustResistance: "低",
         flavor: "柑橘、红莓、厚重醇厚度与悠长回甘",
-        desc: "常与 SL28 混种于肯尼亚高海拔产区。适应高降雨量环境，相比 SL28 拥有更沉稳厚实的醇厚度（Body）。",
-        x: -210, y: -125
+        desc: "常与 SL28 混种于肯尼亚高海拔产区。适应高降雨量环境，相比 SL28 拥有更沉稳厚实的醇厚度（Body）。"
       },
       {
-        id: "caturra", cn: "卡杜拉", en: "Caturra", aliases: ["卡图拉"],
-        group: "bourbon", parents: ["bourbon"],
-        origin: "巴西米纳斯吉拉斯州（波旁自然矮化突变）", beanSize: "中等", altitude: "1200–1900m",
-        quality: "高", rustResistance: "极低",
-        flavor: "明亮柠檬酸、焦糖、干净平衡",
-        desc: "波旁的天然单基因矮化变种，节间紧密适合高密度种植，在中南美洲精品产区广泛栽培。",
-        x: 115, y: -155
+        id: "typica", cn: "铁皮卡", en: "Typica", aliases: ["老品种", "蓝山种", "Criollo"],
+        group: "typica", parents: ["arabica_wild"],
+        origin: "也门 ➔ 爪哇 ➔ 美洲", beanSize: "大", altitude: "1300–2000m",
+        quality: "极高", rustResistance: "极低",
+        flavor: "清甜干净、柑橘花香、细腻茶感",
+        desc: "阿拉比卡两大最古老的栽培母系之一。树形高大呈圆锥状，新叶呈古铜色，产量低但杯测干净度与甜感极为出众。"
       },
       {
-        id: "mundo_novo", cn: "新世界", en: "Mundo Novo", aliases: ["蒙多诺沃"],
-        group: "bourbon", parents: ["typica", "bourbon"],
-        origin: "巴西圣保罗州（苏门答腊铁皮卡 × 红波旁自然杂交）", beanSize: "中等偏大", altitude: "1000–1700m",
-        quality: "中高", rustResistance: "低",
-        flavor: "烤榛子、牛奶巧克力、顺滑低酸",
-        desc: "铁皮卡与波旁的自然杂交结晶，兼具双亲优点且抗风抗病能力更强，是巴西商业与精品咖啡的中流砥柱。",
-        x: 0, y: -135
-      },
-      {
-        id: "catuai", cn: "卡杜艾", en: "Catuai", aliases: ["卡图艾", "黄卡杜艾/红卡杜艾"],
-        group: "bourbon", parents: ["caturra", "mundo_novo"],
-        origin: "巴西坎皮纳斯农艺研究所（卡杜拉 × 新世界人工杂交）", beanSize: "中等", altitude: "1200–1800m",
-        quality: "高", rustResistance: "低",
-        flavor: "蜂蜜甜感、红苹果、坚果可可",
-        desc: "1949年育成，继承了卡杜拉的矮化株型与新世界的高产抗风特性，果实挂枝牢固不易被风雨打落。",
-        x: 55, y: -225
-      },
-      {
-        id: "maragogipe", cn: "马拉戈日佩", en: "Maragogipe", aliases: ["象豆", "Elephant Bean"],
-        group: "typica", parents: ["typica"],
-        origin: "巴西巴伊亚州 Maragogipe（铁皮卡自然巨粒突变）", beanSize: "特大（象豆）", altitude: "1200–1800m",
-        quality: "高", rustResistance: "极低",
-        flavor: "清雅花香、哈密瓜、柔和果酸",
-        desc: "铁皮卡的天然巨型突变体，生豆体积是普通咖啡豆的 1.5 至 2 倍，产量极低但风味细腻清甜。",
-        x: -175, y: -195
-      },
-      {
-        id: "pacamara", cn: "帕卡马拉", en: "Pacamara", aliases: ["帕卡玛拉"],
-        group: "bourbon", parents: ["maragogipe", "bourbon"],
-        origin: "萨尔瓦多 ISIC 研究所（帕卡斯 × 象豆人工杂交）", beanSize: "特大", altitude: "1400–2000m",
-        quality: "极高", rustResistance: "低",
-        flavor: "热带水果、百香果、草本香料、奶油感",
-        desc: "由波旁矮化种帕卡斯（Pacas）与铁皮卡象豆杂交而成，颗粒巨大且风味极具冲击力，多次斩获 COE 卓越杯冠军。",
-        x: -55, y: -230
+        id: "bourbon", cn: "波旁", en: "Bourbon", aliases: ["波邦", "留尼汪波旁"],
+        group: "bourbon", parents: ["arabica_wild"],
+        origin: "也门 ➔ 留尼汪岛（波旁岛）", beanSize: "中等", altitude: "1200–2000m",
+        quality: "极高", rustResistance: "极低",
+        flavor: "焦糖、红糖甜感、圆润果酸、巧克力尾韵",
+        desc: "阿拉比卡另一大核心栽培母系。新叶多为绿色，果实较密集，相比铁皮卡具有更高的甜度与醇厚度。"
       },
       {
         id: "pink_bourbon", cn: "粉红波旁", en: "Pink Bourbon", aliases: ["粉波旁"],
@@ -2670,8 +3387,47 @@
         origin: "哥伦比亚乌伊拉省（基因检测证实为埃塞原生种 × 波旁杂交）", beanSize: "中等", altitude: "1500–2100m",
         quality: "极高", rustResistance: "中等",
         flavor: "粉红西柚、橙花、水蜜桃、蔗糖回甘",
-        desc: "近年WCR基因测序揭示其并非单纯红黄波旁杂交，而是含有埃塞俄比亚地方原生种基因，兼具花果爆发力与波旁甜感。",
-        x: -35, y: 115
+        desc: "近年WCR基因测序揭示其并非单纯红黄波旁杂交，而是含有埃塞俄比亚地方原生种基因，兼具花果爆发力与波旁甜感。"
+      },
+      {
+        id: "caturra", cn: "卡杜拉", en: "Caturra", aliases: ["卡图拉"],
+        group: "bourbon", parents: ["bourbon"],
+        origin: "巴西米纳斯吉拉斯州（波旁自然矮化突变）", beanSize: "中等", altitude: "1200–1900m",
+        quality: "高", rustResistance: "极低",
+        flavor: "明亮柠檬酸、焦糖、干净平衡",
+        desc: "波旁的天然单基因矮化变种，节间紧密适合高密度种植，在中南美洲精品产区广泛栽培。"
+      },
+      {
+        id: "catuai", cn: "卡杜艾", en: "Catuai", aliases: ["卡图艾", "黄卡杜艾/红卡杜艾"],
+        group: "bourbon", parents: ["caturra", "mundo_novo"],
+        origin: "巴西坎皮纳斯农艺研究所（卡杜拉 × 新世界人工杂交）", beanSize: "中等", altitude: "1200–1800m",
+        quality: "高", rustResistance: "低",
+        flavor: "蜂蜜甜感、红苹果、坚果可可",
+        desc: "1949年育成，继承了卡杜拉的矮化株型与新世界的高产抗风特性，果实挂枝牢固不易被风雨打落。"
+      },
+      {
+        id: "mundo_novo", cn: "新世界", en: "Mundo Novo", aliases: ["蒙多诺沃"],
+        group: "bourbon", parents: ["typica", "bourbon"],
+        origin: "巴西圣保罗州（苏门答腊铁皮卡 × 红波旁自然杂交）", beanSize: "中等偏大", altitude: "1000–1700m",
+        quality: "中高", rustResistance: "低",
+        flavor: "烤榛子、牛奶巧克力、顺滑低酸",
+        desc: "铁皮卡与波旁的自然杂交结晶，兼具双亲优点且抗风抗病能力更强，是巴西商业与精品咖啡的中流砥柱。"
+      },
+      {
+        id: "maragogipe", cn: "马拉戈日佩", en: "Maragogipe", aliases: ["象豆", "Elephant Bean"],
+        group: "typica", parents: ["typica"],
+        origin: "巴西巴伊亚州 Maragogipe（铁皮卡自然巨粒突变）", beanSize: "特大（象豆）", altitude: "1200–1800m",
+        quality: "高", rustResistance: "极低",
+        flavor: "清雅花香、哈密瓜、柔和果酸",
+        desc: "铁皮卡的天然巨型突变体，生豆体积是普通咖啡豆的 1.5 至 2 倍，产量极低但风味细腻清甜。"
+      },
+      {
+        id: "pacamara", cn: "帕卡马拉", en: "Pacamara", aliases: ["帕卡玛拉"],
+        group: "bourbon", parents: ["maragogipe", "bourbon"],
+        origin: "萨尔瓦多 ISIC 研究所（帕卡斯 × 象豆人工杂交）", beanSize: "特大", altitude: "1400–2000m",
+        quality: "极高", rustResistance: "低",
+        flavor: "热带水果、百香果、草本香料、奶油感",
+        desc: "由波旁矮化种帕卡斯（Pacas）与铁皮卡象豆杂交而成，颗粒巨大且风味极具冲击力，多次斩获 COE 卓越杯冠军。"
       },
       {
         id: "timor_hybrid", cn: "帝汶杂交种", en: "Timor Hybrid (HdT)", aliases: ["帝汶种", "Híbrido de Timor"],
@@ -2679,8 +3435,7 @@
         origin: "东帝汶岛（铁皮卡 × 罗布斯塔自然杂交）", beanSize: "中等", altitude: "1000–1700m",
         quality: "中等", rustResistance: "极高",
         flavor: "草本、可可、香料与扎实醇度",
-        desc: "20世纪20年代在东帝汶发现的里程碑式自然杂交种，拥有罗布斯塔抗叶锈病基因且保持四倍体可与阿拉比卡自由杂交。",
-        x: 115, y: 120
+        desc: "20世纪20年代在东帝汶发现的里程碑式自然杂交种，拥有罗布斯塔抗叶锈病基因且保持四倍体可与阿拉比卡自由杂交。"
       },
       {
         id: "catimor", cn: "卡蒂姆", en: "Catimor", aliases: ["卡提姆", "云南小粒高产抗病种"],
@@ -2688,8 +3443,7 @@
         origin: "葡萄牙 CIFC 咖啡锈病研究中心（卡杜拉 × 帝汶杂交种）", beanSize: "中等偏大", altitude: "1000–1600m",
         quality: "中至中高（高海拔精细处理表现优异）", rustResistance: "高",
         flavor: "焦糖、烤坚果、微草本与梅子酸",
-        desc: "1959年育成的经典抗锈病品种群，在中国云南及东南亚广泛种植；高海拔精细水洗或发酵处理下可呈现惊艳果甜。",
-        x: 225, y: 20
+        desc: "1959年育成的经典抗锈病品种群，在中国云南及东南亚广泛种植；高海拔精细水洗或发酵处理下可呈现惊艳果甜。"
       },
       {
         id: "sarchimor", cn: "萨奇姆", en: "Sarchimor", aliases: ["萨奇莫", "Parainema / Obata"],
@@ -2697,8 +3451,7 @@
         origin: "葡萄牙 CIFC（维拉萨奇 Villa Sarchi × 帝汶杂交种）", beanSize: "大", altitude: "1100–1750m",
         quality: "中高至高", rustResistance: "高",
         flavor: "甜橙、蜂蜜、杏仁与顺滑醇厚度",
-        desc: "以哥斯达黎加波旁矮化变种维拉萨奇为母本与帝汶杂交，整体杯测洁净度与果酸细腻度普遍优于传统卡蒂姆。",
-        x: 190, y: 95
+        desc: "以哥斯达黎加波旁矮化变种维拉萨奇为母本与帝汶杂交，整体杯测洁净度与果酸细腻度普遍优于传统卡蒂姆。"
       },
       {
         id: "centroamericano", cn: "中美洲 F1", en: "Centroamericano (H1)", aliases: ["H1杂交种", "F1杂交一代"],
@@ -2706,20 +3459,34 @@
         origin: "中美洲 PROMECAFE / CATIE（萨奇姆 × 埃塞原生种 Rume Sudan）", beanSize: "大", altitude: "1300–1900m",
         quality: "极高", rustResistance: "高",
         flavor: "茉莉花、热带水果、蜂蜜与丝滑质感",
-        desc: "现代 F1 一代杂交育种代表作，打破了“抗病高产品种风味平庸”的魔咒，多次在国际生豆竞赛中获得高分。",
-        x: 75, y: 195
+        desc: "现代 F1 一代杂交育种代表作，打破了“抗病高产品种风味平庸”的魔咒，多次在国际生豆竞赛中获得高分。"
+      },
+      {
+        id: "arabica_wild", cn: "野生阿拉比卡", en: "Coffea arabica", aliases: ["原生阿拉比卡", "阿比西尼亚种"],
+        group: "arabica_core", parents: [],
+        origin: "埃塞俄比亚西南部 / 南苏丹", beanSize: "中等", altitude: "1300–2100m",
+        quality: "极高", rustResistance: "低（易感叶锈病）",
+        flavor: "花香、柑橘、优雅酸质与复杂层次",
+        desc: "由卡法果（C. eugenioides）与罗布斯塔（C. canephora）在埃塞俄比亚高原自然杂交形成的四倍体咖啡物种，占全球精品咖啡绝大部分。"
+      },
+      {
+        id: "robusta", cn: "罗布斯塔（中果咖啡）", en: "Coffea canephora", aliases: ["罗豆", "Robusta", "卡尼弗拉"],
+        group: "robusta_hd", parents: [],
+        origin: "非洲刚果盆地低海拔雨林", beanSize: "偏小、圆润", altitude: "200–800m",
+        quality: "低（高咖啡因醇厚）", rustResistance: "极高",
+        flavor: "黑巧克力、烘焙谷物、木质与厚重油脂",
+        desc: "二倍体咖啡物种，抗病虫害与耐高温能力极强，咖啡因含量约为阿拉比卡的两倍，也是现代抗叶锈病育种的重要基因来源。"
       }
     ];
 
     const VARIETY_MAP = {};
     COFFEE_VARIETIES.forEach(v => { VARIETY_MAP[v.id] = v; });
 
-    const VS_PRESETS = [
-      { label: "SL28 vs SL34", a: "sl28", b: "sl34", summary: "同为肯尼亚经典选育种：SL28 源自抗旱波旁系，黑醋栗与果汁酸质更锐利；SL34 源自铁皮卡/波旁系，适应多雨环境，醇厚度更扎实。" },
-      { label: "卡杜拉 vs 卡杜艾", a: "caturra", b: "catuai", summary: "卡杜拉是波旁的天然单基因矮化突变，酸质明亮；卡杜艾是卡杜拉与新世界的人工杂交后代，抗风抗雨且甜感更圆润。" },
-      { label: "卡蒂姆 vs 萨奇姆", a: "catimor", b: "sarchimor", summary: "两者均携带帝汶抗叶锈病基因：卡蒂姆母本为卡杜拉，早熟高产；萨奇姆母本为维拉萨奇，高海拔下果酸与纯净度更胜一筹。" },
-      { label: "铁皮卡 vs 波旁", a: "typica", b: "bourbon", summary: "阿拉比卡两大古老母系：铁皮卡豆粒修长、清甜茶感突出；波旁豆粒偏圆、焦糖甜感与醇厚度更饱满。" },
-      { label: "瑰夏 vs 粉红波旁", a: "geisha", b: "pink_bourbon", summary: "瑰夏为纯正埃塞森林原生种，白花与佛手柑香气极致飘逸；粉红波旁含埃塞原生种与波旁双血统，果汁感与甜度更饱满。" }
+    const VS_3_PRESETS = [
+      { label: "SL28 vs SL34 vs 瑰夏", a: "sl28", b: "sl34", c: "geisha", summary: "精品高分三巨头：SL28 黑醋栗果汁感最爆裂；SL34 醇厚度与甜感更稳重；瑰夏则以白花、佛手柑与水蜜桃香气独树一帜。" },
+      { label: "卡杜拉 vs 卡杜艾 vs 波旁", a: "caturra", b: "catuai", c: "bourbon", summary: "波旁家族三代演进：波旁为原生高大母本，甜感厚实；卡杜拉为其天然矮化突变，酸质更明亮；卡杜艾由卡杜拉×新世界杂交，抗风高产且蜂蜜甜感均衡。" },
+      { label: "卡蒂姆 vs 萨奇姆 vs 中美洲F1", a: "catimor", b: "sarchimor", c: "centroamericano", summary: "抗叶锈病育种三阶梯：卡蒂姆高产抗病；萨奇姆在洁净度与果酸细腻度上更进一步；中美洲 F1 融合埃塞原生种基因，杯测潜力媲美瑰夏。" },
+      { label: "铁皮卡 vs 象豆 vs 帕卡马拉", a: "typica", b: "maragogipe", c: "pacamara", summary: "大粒风味演进链：铁皮卡清甜干净；象豆（马拉戈日佩）是其天然巨粒突变，风味清雅；帕卡马拉为象豆×帕卡斯杂交，颗粒巨大且热带果香极具冲击力。" }
     ];
 
     /*****************************************************************
@@ -2794,7 +3561,7 @@
     const dialAudio = new MechanicalDialAudio();
 
     /*****************************************************************
-     * 3. 几何扇形计算工具 & 全层级风味索引构建（支持中类 + 小类 + 自定义）
+     * 3. 几何扇形计算工具 & 全层级风味索引构建
      *****************************************************************/
     const LEAF_LIST = [];
     const CAT_MAP = {};
@@ -2966,48 +3733,60 @@
       updateLogsBadge();
     }
 
-    // 统一捕获风味条目数据结构：{ key, type: 'leaf'|'group'|'custom', id, cn, en, color, midDeg, catCn, customDesc }
     const state = {
-      activeModule: "brew",
+      viewMode: "home", // home | workspace
+      activeModule: "brew", // brew | cupping | variety
       currentStep: 1,
       zoomLevel: 0,
       activeCatId: null,
       activeGroupId: null,
       activeLeafId: null,
-      inspectMode: "none", // none | group | leaf
+      inspectMode: "none",
       rotationDeg: 0,
       capturedFlavors: [],
       brewMode: "pourover",
       gearPresets: loadGearPresets(),
       logs: loadLogs(),
+      archiveFilter: "all", // all | brew | cupping
       referenceLog: null,
       lastStepIndex: -1,
       varPane: "list",
       varQuery: "",
       varGroupFilter: "all",
-      treeFilter: "all",
-      treeSelectedId: "geisha",
-      treeZoom: 1,
-      treePanX: 0,
-      treePanY: 0,
       vsA: "sl28",
       vsB: "sl34",
+      vsC: "geisha",
       detailVarId: null
     };
 
     /*****************************************************************
-     * 5. 顶部主模块切换（风味手记 vs 品种速查）
+     * 5. 封面首页与三大子功能工作区切换
      *****************************************************************/
+    function enterModuleFromHome(mod) {
+      dialAudio.playSelect();
+      state.viewMode = "workspace";
+      document.getElementById("homeCoverView").classList.add("hidden");
+      document.getElementById("workspaceContainer").classList.add("active");
+      switchMainModule(mod);
+    }
+
+    function backToHomeCover() {
+      dialAudio.playTick(0.9);
+      state.viewMode = "home";
+      document.getElementById("workspaceContainer").classList.remove("active");
+      document.getElementById("homeCoverView").classList.remove("hidden");
+    }
+
+    document.getElementById("backToHomeBtn").addEventListener("click", backToHomeCover);
+
     function switchMainModule(mod) {
       state.activeModule = mod;
       document.querySelectorAll(".main-nav-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.module === mod);
       });
       document.getElementById("moduleBrew").classList.toggle("active", mod === "brew");
+      document.getElementById("moduleCupping").classList.toggle("active", mod === "cupping");
       document.getElementById("moduleVariety").classList.toggle("active", mod === "variety");
-      if (mod === "variety" && state.varPane === "tree") {
-        renderLineageTree();
-      }
     }
 
     document.querySelectorAll(".main-nav-btn").forEach(btn => {
@@ -3027,7 +3806,7 @@
      *****************************************************************/
     function goToStep(stepNum) {
       state.currentStep = stepNum;
-      document.querySelectorAll(".step-tab").forEach(tab => {
+      document.querySelectorAll("#stepperBar .step-tab").forEach(tab => {
         const s = Number(tab.dataset.step);
         tab.classList.toggle("active", s === stepNum);
         tab.classList.toggle("completed", s < stepNum);
@@ -3042,7 +3821,7 @@
       }
     }
 
-    document.querySelectorAll(".step-tab").forEach(tab => {
+    document.querySelectorAll("#stepperBar .step-tab").forEach(tab => {
       tab.addEventListener("click", () => {
         dialAudio.playTick(0.8);
         goToStep(Number(tab.dataset.step));
@@ -3300,7 +4079,7 @@
         : "当时风味表现：未记录具体风味";
 
       card.classList.add("active");
-      switchMainModule("brew");
+      enterModuleFromHome("brew");
       goToStep(1);
     }
 
@@ -3320,7 +4099,7 @@
       inpBrewTime.value = log.brewTime || "";
       inpMethod.value = log.method || "";
       inpTempRatio.value = log.tempRatio || "";
-      if (log.mode) switchBrewMode(log.mode);
+      if (log.mode && log.mode !== "cupping") switchBrewMode(log.mode);
       renderGearSelectors();
       showToast("已将历史方案参数一键填入表单");
     });
@@ -3372,7 +4151,7 @@
     });
 
     /*****************************************************************
-     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮（支持中类+小类直选与自定义）
+     * 7. STEP 2 渲染 SVG 交互式三环 SCA 风味轮
      *****************************************************************/
     const wheelSvg = document.getElementById("flavorSvg");
     const wheelRotor = document.getElementById("wheelRotor");
@@ -3403,7 +4182,6 @@
       });
     }
 
-    // 切换中类或小类的选中状态
     function toggleCaptureFlavorItem(type, id) {
       const key = `${type}:${id}`;
       const idx = state.capturedFlavors.findIndex(f => f.key === key);
@@ -3434,12 +4212,10 @@
       }
     }
 
-    // 添加自定义风味描述（或将其附加到当前选中的中类/小类上）
     function handleAddCustomFlavor() {
       const raw = document.getElementById("customFlavorInput").value.trim();
       if (!raw) return;
 
-      // 如果当前正在检视某个中类或小类，优先把自定义描述附加到该条上；若未加入则自动加入并附加描述
       if (state.inspectMode === "leaf" && state.activeLeafId && LEAF_MAP[state.activeLeafId]) {
         const leaf = LEAF_MAP[state.activeLeafId];
         const key = `leaf:${leaf.id}`;
@@ -3471,7 +4247,6 @@
         dialAudio.playSelect();
         showToast(`已标注「${grp.cn} · ${raw}」`);
       } else {
-        // 独立自定义风味
         const activeCat = state.activeCatId ? CAT_MAP[state.activeCatId] : null;
         const midDeg = activeCat ? activeCat.midDeg : (-90 + state.capturedFlavors.length * 32);
         const color = activeCat ? activeCat.color : "#9E4A36";
@@ -3546,7 +4321,6 @@
         wheelRotor.appendChild(txt);
       });
 
-      // 中圈：二级分组（点击可直接展开并选中中类！）
       SCA_WHEEL_DATA.forEach(cat => {
         cat.groups.forEach(grp => {
           const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -3586,7 +4360,6 @@
         });
       });
 
-      // 外圈：具体小类风味
       LEAF_LIST.forEach(item => {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", createAnnularSectorPath(r2 + 0.6, r3, item.startDeg + 0.15, item.endDeg - 0.15));
@@ -3643,7 +4416,6 @@
         hubBackArrowGroup.style.display = "none";
         document.getElementById("stageHintLeft").textContent = "点选大类展开 · 点中圈或外圈直接收入";
       } else {
-        // 放大视口，同时把圆心返回徽章向左微移到 (-16, 0)，使其完整呈现在视野内，绝不被右边缘切断！
         wheelSvg.setAttribute("viewBox", "-222 -114 234 228");
         hubOuter.setAttribute("r", "22");
         hubInner.setAttribute("r", "18");
@@ -3991,7 +4763,6 @@
       const W = 900;
       const H = 1200;
 
-      // 1. 复古暖白纸基 + 细腻建筑方格暗纹
       ctx.fillStyle = "#F6F2E8";
       ctx.fillRect(0, 0, W, H);
 
@@ -4004,7 +4775,6 @@
         ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(W - 44, y); ctx.stroke();
       }
 
-      // 2. 建筑制图双层外框
       ctx.strokeStyle = "#26201B";
       ctx.lineWidth = 2.2;
       ctx.strokeRect(44, 44, W - 88, H - 88);
@@ -4013,7 +4783,6 @@
       ctx.lineWidth = 1;
       ctx.strokeRect(52, 52, W - 104, H - 104);
 
-      // 3. 顶部图签表头
       const now = new Date();
       const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}`;
       const modeBadge = state.brewMode === "espresso" ? "ESPRESSO / 意式浓缩" : "POUR-OVER / 手冲滤泡";
@@ -4052,7 +4821,6 @@
       ctx.lineWidth = 1.6;
       ctx.beginPath(); ctx.moveTo(52, 158); ctx.lineTo(W - 52, 158); ctx.stroke();
 
-      // 4. 上半区：居中风味图谱 + 工程制图引线标注风味文字 (Y: 158 ~ 668)
       ctx.fillStyle = "#8E8275";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("01 / SENSORY CALLOUT DIAGRAM · 感官风味引线图谱", 74, 184);
@@ -4064,7 +4832,6 @@
       const r2 = 128;
       const r3 = 186;
 
-      // 十字准星参考线
       ctx.strokeStyle = "rgba(158, 74, 54, 0.16)";
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -4072,7 +4839,6 @@
       ctx.moveTo(cx, cy - 205); ctx.lineTo(cx, cy + 205);
       ctx.stroke();
 
-      // 收集需要点亮的大类、中类、小类
       const activeCats = new Set();
       const activeGroups = new Set();
       const activeLeaves = new Set();
@@ -4110,20 +4876,17 @@
           const grpLit = activeGroups.has(grp.id);
           drawCanvasSector(r1, r2, grp.startDeg, grp.endDeg, grp.color, grpLit);
           grp.items.forEach(leaf => {
-            // 若该中类被直接选中，则外圈默认保持微灰，突出中圈高亮；若具体小类被选中，则点亮该小类
             const leafLit = activeLeaves.has(leaf.id);
             drawCanvasSector(r2, r3, leaf.startDeg, leaf.endDeg, leaf.color, leafLit);
           });
         });
       });
 
-      // 绘制从对应扇区发出的工程折线引线（左右双侧智能防重叠布局）
       const leftLabels = [];
       const rightLabels = [];
 
       state.capturedFlavors.forEach(f => {
         const mid = degToRad(f.midDeg);
-        // 锚点半径：中类从 r2 外缘引出，小类/自定义从 r3 外缘引出
         const anchorR = f.type === "group" ? r2 : r3;
         const ax = cx + anchorR * Math.cos(mid);
         const ay = cy + anchorR * Math.sin(mid);
@@ -4140,12 +4903,10 @@
         const minY = 216;
         const maxY = 636;
 
-        // 向下推挤防重叠
         for (let i = 0; i < list.length; i++) {
           if (i === 0) list[i].y = Math.max(minY, list[i].targetY);
           else list[i].y = Math.max(list[i].targetY, list[i - 1].y + minGap);
         }
-        // 若超出底部边界则向上回推
         if (list[list.length - 1].y > maxY) {
           list[list.length - 1].y = maxY;
           for (let i = list.length - 2; i >= 0; i--) {
@@ -4159,7 +4920,6 @@
           const ex = cx + elbowR * Math.cos(item.mid);
           const ey = item.y;
 
-          // 引线起点小圆点
           ctx.beginPath();
           ctx.arc(item.ax, item.ay, 4, 0, Math.PI * 2);
           ctx.fillStyle = item.f.color;
@@ -4168,7 +4928,6 @@
           ctx.lineWidth = 1.2;
           ctx.stroke();
 
-          // 建筑引线折线：锚点 -> 拐点 -> 水平文字下划线
           ctx.strokeStyle = item.f.color;
           ctx.lineWidth = 1.6;
           ctx.beginPath();
@@ -4177,7 +4936,6 @@
           ctx.lineTo(labelX, ey);
           ctx.stroke();
 
-          // 引线末端色标与风味文字
           const titleText = formatCapturedFlavorLabel(item.f);
           const subText = `${item.f.catCn} · ${item.f.en}`;
 
@@ -4198,7 +4956,6 @@
       layoutSideCallouts(leftLabels, false);
       layoutSideCallouts(rightLabels, true);
 
-      // 轮盘中心印章
       ctx.beginPath();
       ctx.arc(cx, cy, r0 - 2, 0, Math.PI * 2);
       ctx.fillStyle = "#F6F2E8";
@@ -4216,7 +4973,6 @@
       ctx.fillText(`${state.capturedFlavors.length} NOTES`, cx, cy + 11);
       ctx.textAlign = "left";
 
-      // 5. 下半区：高信息密度冲煮方案铭牌区 (Y: 668 ~ 1148，占整张海报近 45% 面积！)
       ctx.strokeStyle = "#26201B";
       ctx.lineWidth = 1.8;
       ctx.beginPath(); ctx.moveTo(52, 668); ctx.lineTo(W - 52, 668); ctx.stroke();
@@ -4230,7 +4986,6 @@
       const tempRatioText = inpTempRatio.value.trim() || "—";
       const methodText = inpMethod.value.trim() || "常规分段萃取";
 
-      // 02 / 咖啡豆与产区信息区
       ctx.fillStyle = "#9E4A36";
       ctx.font = "600 11.5px 'JetBrains Mono', monospace";
       ctx.fillText("02 / BREWING SPECIFICATION · 冲煮方案与器具铭牌", 74, 696);
@@ -4243,19 +4998,16 @@
       ctx.font = "500 15.5px 'Noto Sans SC', sans-serif";
       ctx.fillText(`产区与处理：${originInfo}`, 74, 762);
 
-      // 分割线
       ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
       ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(52, 780); ctx.lineTo(W - 52, 780); ctx.stroke();
 
-      // 双栏四格高密度参数矩阵 (Y: 780 ~ 946)
       const midColX = 450;
       ctx.beginPath();
       ctx.moveTo(midColX, 780); ctx.lineTo(midColX, 946);
       ctx.moveTo(52, 863); ctx.lineTo(W - 52, 863);
       ctx.stroke();
 
-      // 左上格：研磨器具与刻度
       ctx.fillStyle = "#8E8275";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("GRINDER & SETTING / 研磨系统", 74, 804);
@@ -4263,7 +5015,6 @@
       ctx.font = "700 18px 'Noto Sans SC', sans-serif";
       ctx.fillText(`${grinderName}  ·  ${grindSize}`, 74, 836);
 
-      // 右上格：萃取设备与时间
       ctx.fillStyle = "#8E8275";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("BREWER & TIME / 萃取器具与时长", midColX + 22, 804);
@@ -4271,7 +5022,6 @@
       ctx.font = "700 18px 'Noto Sans SC', sans-serif";
       ctx.fillText(`${brewerName}  ·  ${brewTime}`, midColX + 22, 836);
 
-      // 左下格：水温与粉水比
       ctx.fillStyle = "#8E8275";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("TEMP & RATIO / 水温与粉水比", 74, 887);
@@ -4279,7 +5029,6 @@
       ctx.font = "700 18px 'Noto Sans SC', sans-serif";
       ctx.fillText(tempRatioText, 74, 919);
 
-      // 右下格：冲煮手法策略
       ctx.fillStyle = "#9E4A36";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("POURING TECHNIQUE / 冲煮手法", midColX + 22, 887);
@@ -4287,11 +5036,9 @@
       ctx.font = "700 17px 'Noto Sans SC', sans-serif";
       ctx.fillText(methodText, midColX + 22, 919);
 
-      // 分割线
       ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
       ctx.beginPath(); ctx.moveTo(52, 946); ctx.lineTo(W - 52, 946); ctx.stroke();
 
-      // 03 / 感官风味汇总行 (Y: 946 ~ 1036)
       ctx.fillStyle = "#8E8275";
       ctx.font = "600 11px 'JetBrains Mono', monospace";
       ctx.fillText("03 / SENSORY SUMMARY · 本杯风味记录", 74, 974);
@@ -4303,7 +5050,6 @@
       ctx.font = "600 16.5px 'Noto Serif SC', serif";
       ctx.fillText(summaryFlavors, 74, 1008);
 
-      // 底栏落款印章 (Y: 1036 ~ 1148)
       ctx.strokeStyle = "rgba(38, 32, 27, 0.22)";
       ctx.beginPath(); ctx.moveTo(52, 1036); ctx.lineTo(W - 52, 1036); ctx.stroke();
 
@@ -4373,7 +5119,777 @@
     }
 
     /*****************************************************************
-     * 9. 模块二：WCR 咖啡品种速查
+     * 9. 模块二：SCA CVA 专业杯测逻辑（含导入/导出/快照恢复）
+     *****************************************************************/
+    const CVA_MOUTHFEEL_TAGS = [
+      "丝滑 (Silky)", "果汁感 (Juicy)", "奶油感 (Creamy)", "茶感清透 (Tea-like)",
+      "醇厚饱满 (Full-bodied)", "糖浆感 (Syrupy)", "单宁微涩 (Astringent)", "干净顺滑 (Clean)"
+    ];
+
+    const CVA_STAGE_META = {
+      fragrance: { cn: "干香", en: "Fragrance", temp: "干粉研磨后", hasMouthfeel: false },
+      aroma: { cn: "湿香", en: "Aroma", temp: "注水破渣时", hasMouthfeel: false },
+      hot: { cn: "高温段", en: "Hot (~70°C)", temp: "风味与酸质初显", hasMouthfeel: true },
+      warm: { cn: "中温段", en: "Warm (~55°C)", temp: "甜感与主体巅峰", hasMouthfeel: true },
+      cool: { cn: "低温段", en: "Cool (<40°C)", temp: "余韵与冷后表现", hasMouthfeel: true }
+    };
+
+    const CVA_SCORE_DIMENSIONS = [
+      { key: "fragrance", cn: "干香", en: "Fragrance" },
+      { key: "aroma", cn: "湿香", en: "Aroma" },
+      { key: "flavor", cn: "风味", en: "Flavor" },
+      { key: "aftertaste", cn: "余韵", en: "Aftertaste" },
+      { key: "acidity", cn: "酸质", en: "Acidity" },
+      { key: "sweetness", cn: "甜感", en: "Sweetness" },
+      { key: "mouthfeel", cn: "口感", en: "Mouthfeel" },
+      { key: "overall", cn: "整体印象", en: "Overall" }
+    ];
+
+    const CVA_ANCHORS = {
+      1: "极差", 2: "很差", 3: "较差", 4: "偏弱", 5: "一般",
+      6: "尚可", 7: "良好", 8: "极佳", 9: "卓越"
+    };
+
+    const cvaState = {
+      step: 1,
+      activeStage: "fragrance",
+      stages: {
+        fragrance: { intensity: 9.0, cata: ["floral", "fruity"], notes: "茉莉花、白桃、佛手柑皮油", mouthfeel: [] },
+        aroma: { intensity: 9.5, cata: ["floral", "fruity", "sweet"], notes: "湿香甜桃果酱感增强，伴随橙花香气", mouthfeel: [] },
+        hot: { intensity: 8.5, cata: ["fruity", "sour_fermented"], notes: "明亮柠檬酸与甜橙果酸，入口清新", mouthfeel: ["果汁感 (Juicy)"] },
+        warm: { intensity: 9.0, cata: ["fruity", "sweet", "floral"], notes: "水蜜桃与蜂蜜甜感达到峰值，伯爵茶韵明显", mouthfeel: ["丝滑 (Silky)", "茶感清透 (Tea-like)"] },
+        cool: { intensity: 8.5, cata: ["sweet", "floral"], notes: "冷后无杂味，蔗糖回甘持久，余韵干净", mouthfeel: ["干净顺滑 (Clean)"] }
+      },
+      scores: {
+        fragrance: 8, aroma: 8, flavor: 8, aftertaste: 7,
+        acidity: 8, sweetness: 8, mouthfeel: 7, overall: 8
+      },
+      defects: { nonUniform: 0, taint: 0, fault: 0 }
+    };
+
+    (function initCvaVarietySelect() {
+      const sel = document.getElementById("cvaSelVariety");
+      sel.innerHTML = [
+        ...COFFEE_VARIETIES.map(v => `<option value="${v.cn} (${v.en})">${v.cn} (${v.en})</option>`),
+        `<option value="__custom__">✎ 手动输入其他品种...</option>`
+      ].join("");
+      sel.value = "瑰夏 (Geisha / Gesha)";
+      sel.addEventListener("change", () => {
+        const customInp = document.getElementById("cvaCustomVariety");
+        if (sel.value === "__custom__") {
+          customInp.style.display = "block";
+          customInp.focus();
+        } else {
+          customInp.style.display = "none";
+        }
+      });
+    })();
+
+    function getCvaSelectedVariety() {
+      const sel = document.getElementById("cvaSelVariety");
+      return sel.value === "__custom__"
+        ? (document.getElementById("cvaCustomVariety").value.trim() || "未注明品种")
+        : sel.value;
+    }
+
+    function calculateCvaScore() {
+      const sum8 = Object.values(cvaState.scores).reduce((acc, v) => acc + Number(v), 0);
+      const raw100 = 58 + (sum8 * 42) / 72;
+      const penalty = cvaState.defects.nonUniform * 2 + cvaState.defects.taint * 2 + cvaState.defects.fault * 4;
+      return Math.max(0, Math.min(100, raw100 - penalty)).toFixed(2);
+    }
+
+    function syncCvaScoreBadges() {
+      const sc = calculateCvaScore();
+      document.getElementById("cvaLiveBadge").textContent = `CVA ${sc}`;
+      document.getElementById("cvaScoreTagStep3").textContent = `总分 ${sc}`;
+    }
+
+    function buildCvaSnapshot() {
+      return {
+        type: "QuietSipCVA",
+        exportedAt: new Date().toISOString(),
+        beanName: document.getElementById("cvaBeanName").value.trim(),
+        country: document.getElementById("cvaCountry").value.trim(),
+        farm: document.getElementById("cvaFarm").value.trim(),
+        importer: document.getElementById("cvaImporter").value.trim(),
+        varietySelect: document.getElementById("cvaSelVariety").value,
+        customVariety: document.getElementById("cvaCustomVariety").value.trim(),
+        process: document.getElementById("cvaSelProcess").value,
+        roastProtocol: document.getElementById("cvaRoastProtocol").value.trim(),
+        summary: document.getElementById("cvaCuppingSummary").value.trim(),
+        totalScore: calculateCvaScore(),
+        stages: JSON.parse(JSON.stringify(cvaState.stages)),
+        scores: JSON.parse(JSON.stringify(cvaState.scores)),
+        defects: JSON.parse(JSON.stringify(cvaState.defects))
+      };
+    }
+
+    function applyCvaSnapshot(data) {
+      if (!data) return;
+      document.getElementById("cvaBeanName").value = data.beanName || "";
+      document.getElementById("cvaCountry").value = data.country || "";
+      document.getElementById("cvaFarm").value = data.farm || "";
+      document.getElementById("cvaImporter").value = data.importer || "";
+      if (data.varietySelect) {
+        const sel = document.getElementById("cvaSelVariety");
+        const exists = Array.from(sel.options).some(o => o.value === data.varietySelect);
+        sel.value = exists ? data.varietySelect : "__custom__";
+        if (!exists || data.varietySelect === "__custom__") {
+          document.getElementById("cvaCustomVariety").style.display = "block";
+          document.getElementById("cvaCustomVariety").value = data.customVariety || data.varietySelect || "";
+        } else {
+          document.getElementById("cvaCustomVariety").style.display = "none";
+        }
+      }
+      if (data.process) document.getElementById("cvaSelProcess").value = data.process;
+      if (data.roastProtocol) document.getElementById("cvaRoastProtocol").value = data.roastProtocol;
+      document.getElementById("cvaCuppingSummary").value = data.summary || "";
+
+      if (data.stages) {
+        ["fragrance", "aroma", "hot", "warm", "cool"].forEach(k => {
+          if (data.stages[k]) {
+            cvaState.stages[k] = {
+              intensity: Number(data.stages[k].intensity ?? 8),
+              cata: Array.isArray(data.stages[k].cata) ? data.stages[k].cata : [],
+              notes: data.stages[k].notes || "",
+              mouthfeel: Array.isArray(data.stages[k].mouthfeel) ? data.stages[k].mouthfeel : []
+            };
+          }
+        });
+      }
+      if (data.scores) {
+        Object.keys(cvaState.scores).forEach(k => {
+          if (data.scores[k] !== undefined) cvaState.scores[k] = Number(data.scores[k]);
+        });
+      }
+      if (data.defects) {
+        cvaState.defects = {
+          nonUniform: Number(data.defects.nonUniform || 0),
+          taint: Number(data.defects.taint || 0),
+          fault: Number(data.defects.fault || 0)
+        };
+      }
+
+      syncCvaScoreBadges();
+      renderCvaStageEditor();
+      renderCvaTimelineSummary();
+      renderCvaScoreDimensions();
+    }
+
+    // CVA 单独导出 JSON
+    document.getElementById("cvaExportBtn").addEventListener("click", () => {
+      const snap = buildCvaSnapshot();
+      const slug = (snap.beanName || "CVA杯测").replace(/[\\/:*?"<>|]/g, "_");
+      const today = new Date().toISOString().slice(0, 10);
+      const blob = new Blob([JSON.stringify(snap, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${slug}_CVA杯测备份_${today}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("已导出本轮 CVA 杯测数据文件");
+    });
+
+    // CVA 单独导入 JSON / CSV
+    const cvaImportInput = document.getElementById("cvaImportFileInput");
+    document.getElementById("cvaImportBtn").addEventListener("click", () => {
+      cvaImportInput.click();
+    });
+
+    cvaImportInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const rawText = String(reader.result || "").trim();
+          if (rawText.startsWith("{")) {
+            const parsed = JSON.parse(rawText);
+            const target = parsed.cvaPayload ? parsed.cvaPayload : parsed;
+            applyCvaSnapshot(target);
+            showToast(`已导入杯测方案「${target.beanName || "未命名"}」`);
+          } else {
+            const rows = parseCsvText(rawText);
+            if (rows.length >= 2) {
+              const cols = rows[1];
+              document.getElementById("cvaBeanName").value = (cols[2] || "").replace(/\s*\[CVA.*?\]/, "");
+              document.getElementById("cvaCountry").value = cols[3] || "";
+              document.getElementById("cvaRoastProtocol").value = cols[9] || "Agtron 72 · 93°C · 8.25g/150ml";
+              showToast("已从 CSV 载入基础样豆信息");
+            }
+          }
+        } catch (err) {
+          showToast("杯测文件格式无法识别");
+        }
+        cvaImportInput.value = "";
+      };
+      reader.readAsText(file, "UTF-8");
+    });
+
+    function goCvaStep(stepNum) {
+      cvaState.step = stepNum;
+      document.querySelectorAll(".cva-tab").forEach(tab => {
+        const s = Number(tab.dataset.cstep);
+        tab.classList.toggle("active", s === stepNum);
+        tab.classList.toggle("completed", s < stepNum);
+      });
+      document.querySelectorAll(".cva-step-view").forEach(v => v.classList.remove("active"));
+      document.getElementById(`cvaView${stepNum}`).classList.add("active");
+
+      if (stepNum === 2) {
+        renderCvaStageEditor();
+        renderCvaTimelineSummary();
+      } else if (stepNum === 3) {
+        renderCvaScoreDimensions();
+      } else if (stepNum === 4) {
+        renderCvaReport();
+      }
+    }
+
+    document.querySelectorAll(".cva-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        dialAudio.playTick(0.8);
+        goCvaStep(Number(tab.dataset.cstep));
+      });
+    });
+
+    document.querySelectorAll("#cvaStageTabsBar .stage-pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        dialAudio.playTick(0.8);
+        cvaState.activeStage = pill.dataset.stage;
+        renderCvaStageEditor();
+      });
+    });
+
+    const cvaSlider = document.getElementById("cvaIntensitySlider");
+    const cvaSliderVal = document.getElementById("cvaIntensityVal");
+    cvaSlider.addEventListener("input", () => {
+      const val = parseFloat(cvaSlider.value);
+      cvaState.stages[cvaState.activeStage].intensity = val;
+      cvaSliderVal.textContent = val.toFixed(1);
+      renderCvaTimelineSummary();
+    });
+
+    const cvaStageNotesInput = document.getElementById("cvaStageNotesInput");
+    cvaStageNotesInput.addEventListener("input", () => {
+      cvaState.stages[cvaState.activeStage].notes = cvaStageNotesInput.value;
+      updateCvaStageDots();
+      renderCvaTimelineSummary();
+    });
+
+    function updateCvaStageDots() {
+      document.querySelectorAll("#cvaStageTabsBar .stage-pill").forEach(pill => {
+        const stKey = pill.dataset.stage;
+        const stObj = cvaState.stages[stKey];
+        const hasContent = stObj.cata.length > 0 || (stObj.notes && stObj.notes.trim().length > 0);
+        pill.classList.toggle("has-data", hasContent);
+        pill.classList.toggle("active", stKey === cvaState.activeStage);
+      });
+    }
+
+    function renderCvaStageEditor() {
+      const stKey = cvaState.activeStage;
+      const meta = CVA_STAGE_META[stKey];
+      const stData = cvaState.stages[stKey];
+
+      updateCvaStageDots();
+
+      document.getElementById("cvaIntensityLabel").textContent = `${meta.cn}强度 (0–15)`;
+      cvaSlider.value = stData.intensity;
+      cvaSliderVal.textContent = Number(stData.intensity).toFixed(1);
+
+      document.getElementById("cvaStageNoteLabel").textContent = `2. 具体风味词与感官描述（${meta.cn} · ${meta.temp}）`;
+      cvaStageNotesInput.value = stData.notes || "";
+
+      const cataGrid = document.getElementById("cvaCataGrid");
+      cataGrid.innerHTML = SCA_WHEEL_DATA.map(cat => {
+        const isSel = stData.cata.includes(cat.id);
+        return `
+          <button type="button" class="cata-chip ${isSel ? "selected" : ""}" data-cid="${cat.id}">
+            <span class="c-swatch" style="background:${cat.color};"></span>
+            <span>${cat.cn}</span>
+          </button>
+        `;
+      }).join("");
+
+      cataGrid.querySelectorAll(".cata-chip").forEach(btn => {
+        btn.addEventListener("click", () => {
+          dialAudio.playTick(0.8);
+          const cid = btn.dataset.cid;
+          const idx = stData.cata.indexOf(cid);
+          if (idx === -1) stData.cata.push(cid);
+          else stData.cata.splice(idx, 1);
+          renderCvaStageEditor();
+          renderCvaTimelineSummary();
+        });
+      });
+
+      const hintsWrap = document.getElementById("cvaSubHintsWrap");
+      const activeCats = SCA_WHEEL_DATA.filter(c => stData.cata.includes(c.id));
+      if (activeCats.length === 0) {
+        hintsWrap.innerHTML = "";
+      } else {
+        const allHints = activeCats.flatMap(c => c.groups.flatMap(g => g.items.slice(0, 2).map(it => it.cn)));
+        hintsWrap.innerHTML = allHints.map(h => `<button type="button" class="sub-hint-btn" data-hint="${h}">+ ${h}</button>`).join("");
+        hintsWrap.querySelectorAll(".sub-hint-btn").forEach(hb => {
+          hb.addEventListener("click", () => {
+            const word = hb.dataset.hint;
+            const cur = cvaStageNotesInput.value.trim();
+            if (!cur) cvaStageNotesInput.value = word;
+            else if (!cur.includes(word)) cvaStageNotesInput.value = `${cur}、${word}`;
+            stData.notes = cvaStageNotesInput.value;
+            renderCvaTimelineSummary();
+          });
+        });
+      }
+
+      const mfSec = document.getElementById("cvaMouthfeelSection");
+      const mfWrap = document.getElementById("cvaMouthfeelWrap");
+      if (meta.hasMouthfeel) {
+        mfSec.style.display = "block";
+        mfWrap.innerHTML = CVA_MOUTHFEEL_TAGS.map(tag => {
+          const isSel = (stData.mouthfeel || []).includes(tag);
+          return `<button type="button" class="mf-chip ${isSel ? "selected" : ""}" data-mf="${tag}">${tag}</button>`;
+        }).join("");
+        mfWrap.querySelectorAll(".mf-chip").forEach(mb => {
+          mb.addEventListener("click", () => {
+            dialAudio.playTick(0.8);
+            const tag = mb.dataset.mf;
+            stData.mouthfeel = stData.mouthfeel || [];
+            const idx = stData.mouthfeel.indexOf(tag);
+            if (idx === -1) stData.mouthfeel.push(tag);
+            else stData.mouthfeel.splice(idx, 1);
+            renderCvaStageEditor();
+            renderCvaTimelineSummary();
+          });
+        });
+      } else {
+        mfSec.style.display = "none";
+      }
+    }
+
+    function renderCvaTimelineSummary() {
+      const container = document.getElementById("cvaTimelineSummary");
+      container.innerHTML = Object.keys(CVA_STAGE_META).map(key => {
+        const meta = CVA_STAGE_META[key];
+        const d = cvaState.stages[key];
+        const catNames = d.cata.map(cid => CAT_MAP[cid]?.cn).filter(Boolean).join("/");
+        const mfText = (d.mouthfeel && d.mouthfeel.length > 0) ? ` [${d.mouthfeel.map(m => m.split(" ")[0]).join("·")}]` : "";
+        const text = [catNames ? `【${catNames}】` : "", d.notes, mfText].filter(Boolean).join(" ");
+        return `
+          <div class="tl-item ${text ? "filled" : ""}">
+            <span class="tl-stage-name">${meta.cn}</span>
+            <span class="tl-desc">${text || "待记录..."}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderCvaScoreDimensions() {
+      const container = document.getElementById("cvaScoreDimensionsContainer");
+      container.innerHTML = CVA_SCORE_DIMENSIONS.map(dim => {
+        const curVal = cvaState.scores[dim.key];
+        const btns = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n =>
+          `<button type="button" class="s9-btn ${curVal === n ? "active" : ""}" data-dim="${dim.key}" data-val="${n}">${n}</button>`
+        ).join("");
+        return `
+          <div class="score-item-card">
+            <div class="score-item-top">
+              <div>
+                <span class="score-dim-name">${dim.cn}</span>
+                <span class="score-dim-en">${dim.en}</span>
+              </div>
+              <span class="score-anchor-badge">${curVal} 分 · ${CVA_ANCHORS[curVal]}</span>
+            </div>
+            <div class="score-9-grid">${btns}</div>
+          </div>
+        `;
+      }).join("");
+
+      container.querySelectorAll(".s9-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          dialAudio.playTick(0.9);
+          cvaState.scores[btn.dataset.dim] = Number(btn.dataset.val);
+          syncCvaScoreBadges();
+          renderCvaScoreDimensions();
+        });
+      });
+
+      document.getElementById("cvaCntNonUniform").textContent = cvaState.defects.nonUniform;
+      document.getElementById("cvaCntTaint").textContent = cvaState.defects.taint;
+      document.getElementById("cvaCntFault").textContent = cvaState.defects.fault;
+      syncCvaScoreBadges();
+    }
+
+    function adjustCvaDefect(type, delta) {
+      dialAudio.playTick(0.8);
+      cvaState.defects[type] = Math.max(0, Math.min(5, cvaState.defects[type] + delta));
+      syncCvaScoreBadges();
+      renderCvaScoreDimensions();
+    }
+
+    function renderCvaReport() {
+      const canvas = document.getElementById("cvaPosterCanvas");
+      const ctx = canvas.getContext("2d");
+      const W = 900;
+      const H = 1200;
+
+      const beanName = document.getElementById("cvaBeanName").value.trim() || "未命名杯测样豆";
+      const country = document.getElementById("cvaCountry").value.trim() || "产地未填";
+      const farm = document.getElementById("cvaFarm").value.trim();
+      const importer = document.getElementById("cvaImporter").value.trim() || "—";
+      const variety = getCvaSelectedVariety();
+      const process = document.getElementById("cvaSelProcess").value;
+      const roastProto = document.getElementById("cvaRoastProtocol").value.trim();
+      const summary = document.getElementById("cvaCuppingSummary").value.trim() || "香气层次清晰，高、中、低温演变连贯均衡。";
+      const totalScore = calculateCvaScore();
+      const sigText = inpSignature.value.trim() || "骨頭不重";
+
+      ctx.fillStyle = "#F6F2E8";
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "rgba(76, 62, 48, 0.055)";
+      ctx.lineWidth = 1;
+      for (let x = 44; x <= W - 44; x += 28) {
+        ctx.beginPath(); ctx.moveTo(x, 44); ctx.lineTo(x, H - 44); ctx.stroke();
+      }
+      for (let y = 44; y <= H - 44; y += 28) {
+        ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(W - 44, y); ctx.stroke();
+      }
+
+      ctx.strokeStyle = "#26201B";
+      ctx.lineWidth = 2.2;
+      ctx.strokeRect(44, 44, W - 88, H - 88);
+      ctx.strokeStyle = "rgba(38, 32, 27, 0.35)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(52, 52, W - 104, H - 104);
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}`;
+
+      ctx.fillStyle = "#8E8275";
+      ctx.font = "600 12px 'JetBrains Mono', monospace";
+      ctx.fillText(`SCA CVA CUPPING FORM  ·  ${dateStr}`, 74, 92);
+
+      ctx.fillStyle = "#26201B";
+      ctx.font = "700 34px 'Noto Serif SC', serif";
+      ctx.fillText(beanName, 74, 136);
+
+      ctx.fillStyle = "#26201B";
+      ctx.fillRect(W - 224, 72, 150, 74);
+      ctx.fillStyle = "#F3C677";
+      ctx.font = "700 32px 'JetBrains Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(totalScore, W - 149, 114);
+      ctx.fillStyle = "#FFFDF9";
+      ctx.font = "500 10.5px 'JetBrains Mono', monospace";
+      ctx.fillText("CVA SCORE / 100", W - 149, 134);
+      ctx.textAlign = "left";
+
+      ctx.strokeStyle = "#26201B";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(52, 164); ctx.lineTo(W - 52, 164); ctx.stroke();
+
+      ctx.fillStyle = "#9E4A36";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("01 / EXTRINSIC ORIGIN & LOT · 溯源档案", 74, 190);
+
+      const originFull = farm ? `${country} · ${farm}` : country;
+      const metaGrid = [
+        ["产地庄园", originFull],
+        ["进口商", importer],
+        ["咖啡品种", variety],
+        ["处理法", process]
+      ];
+      metaGrid.forEach((m, i) => {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const mx = col === 0 ? 74 : 465;
+        const my = 222 + row * 42;
+        ctx.fillStyle = "#8E8275";
+        ctx.font = "600 13px 'Noto Sans SC', sans-serif";
+        ctx.fillText(`${m[0]}：`, mx, my);
+        ctx.fillStyle = "#26201B";
+        ctx.font = "600 14.5px 'Noto Sans SC', sans-serif";
+        ctx.fillText(m[1], mx + 72, my);
+      });
+
+      ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(52, 310); ctx.lineTo(W - 52, 310); ctx.stroke();
+
+      ctx.fillStyle = "#9E4A36";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("02 / DESCRIPTIVE EVOLUTION · 干湿香与高中低温感官演变 (SCA-103)", 74, 338);
+
+      const stageKeys = ["fragrance", "aroma", "hot", "warm", "cool"];
+      stageKeys.forEach((k, idx) => {
+        const meta = CVA_STAGE_META[k];
+        const d = cvaState.stages[k];
+        const sy = 374 + idx * 60;
+
+        ctx.fillStyle = "#26201B";
+        ctx.font = "700 16px 'Noto Serif SC', serif";
+        ctx.fillText(meta.cn, 74, sy);
+
+        ctx.fillStyle = "#8E8275";
+        ctx.font = "400 10.5px 'JetBrains Mono', monospace";
+        ctx.fillText(`${meta.en.split(" ")[0]} · ${d.intensity.toFixed(1)}/15`, 74, sy + 18);
+
+        ctx.strokeStyle = "rgba(158, 74, 54, 0.35)";
+        ctx.beginPath(); ctx.moveTo(195, sy - 14); ctx.lineTo(195, sy + 22); ctx.stroke();
+
+        let cursorX = 212;
+        d.cata.slice(0, 3).forEach(cid => {
+          const catObj = CAT_MAP[cid];
+          if (!catObj) return;
+          ctx.fillStyle = catObj.color;
+          const tagW = catObj.cn.length * 14 + 14;
+          ctx.fillRect(cursorX, sy - 14, tagW, 20);
+          ctx.fillStyle = "#FFFDF9";
+          ctx.font = "600 11.5px 'Noto Sans SC', sans-serif";
+          ctx.fillText(catObj.cn, cursorX + 7, sy);
+          cursorX += tagW + 6;
+        });
+
+        const mfStr = (d.mouthfeel && d.mouthfeel.length > 0) ? ` [${d.mouthfeel.map(m => m.split(" ")[0]).join("·")}]` : "";
+        ctx.fillStyle = "#26201B";
+        ctx.font = "500 14.5px 'Noto Sans SC', sans-serif";
+        ctx.fillText(`${d.notes || "—"}${mfStr}`, cursorX + 4, sy);
+
+        if (idx < 4) {
+          ctx.strokeStyle = "rgba(68, 55, 42, 0.1)";
+          ctx.beginPath(); ctx.moveTo(74, sy + 30); ctx.lineTo(W - 74, sy + 30); ctx.stroke();
+        }
+      });
+
+      ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
+      ctx.beginPath(); ctx.moveTo(52, 682); ctx.lineTo(W - 52, 682); ctx.stroke();
+
+      ctx.fillStyle = "#9E4A36";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("03 / AFFECTIVE ASSESSMENT · CVA 八维雷达图与评分明细 (SCA-104)", 74, 710);
+
+      const rcx = 255;
+      const rcy = 868;
+      const maxR = 115;
+
+      [3, 6, 9].forEach(level => {
+        const rad = (level / 9) * maxR;
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+          const ang = -Math.PI / 2 + (i * Math.PI * 2) / 8;
+          const px = rcx + rad * Math.cos(ang);
+          const py = rcy + rad * Math.sin(ang);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = "rgba(92, 75, 58, 0.18)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      ctx.beginPath();
+      for (let i = 0; i < 8; i++) {
+        const ang = -Math.PI / 2 + (i * Math.PI * 2) / 8;
+        ctx.moveTo(rcx, rcy);
+        ctx.lineTo(rcx + maxR * Math.cos(ang), rcy + maxR * Math.sin(ang));
+      }
+      ctx.strokeStyle = "rgba(92, 75, 58, 0.15)";
+      ctx.stroke();
+
+      ctx.beginPath();
+      CVA_SCORE_DIMENSIONS.forEach((dim, i) => {
+        const val = cvaState.scores[dim.key];
+        const rad = (val / 9) * maxR;
+        const ang = -Math.PI / 2 + (i * Math.PI * 2) / 8;
+        const px = rcx + rad * Math.cos(ang);
+        const py = rcy + rad * Math.sin(ang);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      });
+      ctx.closePath();
+      ctx.fillStyle = "rgba(158, 74, 54, 0.22)";
+      ctx.fill();
+      ctx.strokeStyle = "#9E4A36";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      CVA_SCORE_DIMENSIONS.forEach((dim, i) => {
+        const val = cvaState.scores[dim.key];
+        const rad = (val / 9) * maxR;
+        const ang = -Math.PI / 2 + (i * Math.PI * 2) / 8;
+        const px = rcx + rad * Math.cos(ang);
+        const py = rcy + rad * Math.sin(ang);
+
+        ctx.beginPath();
+        ctx.arc(px, py, 4, 0, Math.PI * 2);
+        ctx.fillStyle = "#9E4A36";
+        ctx.fill();
+
+        const lx = rcx + (maxR + 24) * Math.cos(ang);
+        const ly = rcy + (maxR + 24) * Math.sin(ang);
+        ctx.fillStyle = "#26201B";
+        ctx.font = "600 12px 'Noto Sans SC', sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(`${dim.cn} ${val}`, lx, ly + 4);
+      });
+      ctx.textAlign = "left";
+
+      const rightX = 450;
+      ctx.fillStyle = "#8E8275";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("PROTOCOL / 杯测方案", rightX, 754);
+      ctx.fillStyle = "#26201B";
+      ctx.font = "500 14px 'Noto Sans SC', sans-serif";
+      ctx.fillText(roastProto, rightX, 778);
+
+      ctx.fillStyle = "#8E8275";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("UNIFORMITY & DEFECTS / 瑕疵扣分", rightX, 816);
+      const defectStr = `非均匀 ${cvaState.defects.nonUniform} · 轻微瑕疵 ${cvaState.defects.taint} · 严重瑕疵 ${cvaState.defects.fault}`;
+      ctx.fillStyle = "#26201B";
+      ctx.font = "500 14px 'Noto Sans SC', sans-serif";
+      ctx.fillText(defectStr, rightX, 840);
+
+      ctx.fillStyle = "#8E8275";
+      ctx.font = "600 11px 'JetBrains Mono', monospace";
+      ctx.fillText("CUPPER'S NOTE / 综合印象", rightX, 878);
+
+      ctx.fillStyle = "#26201B";
+      ctx.font = "400 15px 'Noto Serif SC', serif";
+      const chars = summary.split("");
+      let line = "";
+      let ly = 906;
+      for (let i = 0; i < chars.length; i++) {
+        line += chars[i];
+        if (ctx.measureText(line).width > 370) {
+          ctx.fillText(line, rightX, ly);
+          line = "";
+          ly += 24;
+        }
+      }
+      if (line) ctx.fillText(line, rightX, ly);
+
+      ctx.strokeStyle = "rgba(38, 32, 27, 0.22)";
+      ctx.beginPath(); ctx.moveTo(52, 1044); ctx.lineTo(W - 52, 1044); ctx.stroke();
+
+      ctx.fillStyle = "#8E8275";
+      ctx.font = "400 12px 'JetBrains Mono', monospace";
+      ctx.fillText("SCA COFFEE VALUE ASSESSMENT · SENSORY ARCHIVE", 74, 1098);
+
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#26201B";
+      ctx.font = "700 18px 'Noto Serif SC', serif";
+      ctx.fillText(sigText, W - 74, 1098);
+      ctx.textAlign = "left";
+
+      document.getElementById("cvaPosterImg").src = canvas.toDataURL("image/png");
+
+      const stageLines = stageKeys.map(k => {
+        const meta = CVA_STAGE_META[k];
+        const d = cvaState.stages[k];
+        const cats = d.cata.map(cid => CAT_MAP[cid]?.cn).filter(Boolean).join("/");
+        const mfs = (d.mouthfeel && d.mouthfeel.length > 0) ? ` | 口感：${d.mouthfeel.join("、")}` : "";
+        return `· ${meta.cn} (${d.intensity.toFixed(1)}/15)：${cats ? `【${cats}】` : ""}${d.notes}${mfs}`;
+      });
+
+      const scoreLine = CVA_SCORE_DIMENSIONS.map(dim => `${dim.cn}${cvaState.scores[dim.key]}`).join(" · ");
+
+      document.getElementById("cvaTextPreview").value = [
+        `📋 SCA CVA 杯测报告｜${beanName}（总分 ${totalScore}）`,
+        `🌍 产地庄园：${originFull}｜进口商：${importer}`,
+        `🌱 品种与处理：${variety} · ${process}`,
+        `🌡️ 香气演变：`,
+        ...stageLines,
+        `📊 CVA 9分制：${scoreLine}`,
+        `💬 综合评语：${summary}`
+      ].join("\n");
+    }
+
+    document.getElementById("shareCvaPosterBtn").addEventListener("click", async () => {
+      const canvas = document.getElementById("cvaPosterCanvas");
+      const beanSlug = (document.getElementById("cvaBeanName").value.trim() || "CVA杯测报告").replace(/[\\/:*?"<>|]/g, "_");
+      const fileName = `${beanSlug}_CVA杯测卡.png`;
+
+      if (navigator.canShare && canvas.toBlob) {
+        try {
+          const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
+          const file = new File([blob], fileName, { type: "image/png" });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: "SCA CVA 杯测报告" });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+
+      const link = document.createElement("a");
+      link.download = fileName;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      showToast("已导出图片，iPhone 也可直接长按海报存入相册");
+    });
+
+    document.getElementById("copyCvaTextBtn").addEventListener("click", async () => {
+      const text = document.getElementById("cvaTextPreview").value;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("杯测报告文本已复制");
+      } catch (e) {
+        const box = document.getElementById("cvaTextPreview");
+        box.select();
+        document.execCommand("copy");
+        showToast("杯测报告文本已复制");
+      }
+    });
+
+    // 保存 CVA 杯测记录至本地《小酌档案》（附带完整快照 cvaPayload）
+    document.getElementById("saveCvaArchiveBtn").addEventListener("click", () => {
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+      const beanName = document.getElementById("cvaBeanName").value.trim() || "未命名杯测样豆";
+      const country = document.getElementById("cvaCountry").value.trim();
+      const farm = document.getElementById("cvaFarm").value.trim();
+      const importer = document.getElementById("cvaImporter").value.trim();
+      const variety = getCvaSelectedVariety();
+      const process = document.getElementById("cvaSelProcess").value;
+      const totalScore = calculateCvaScore();
+
+      const stageSummary = ["fragrance", "aroma", "hot", "warm", "cool"]
+        .map(k => `${CVA_STAGE_META[k].cn}:${cvaState.stages[k].notes}`)
+        .filter(s => !s.endsWith(":"))
+        .join(" / ");
+
+      const record = {
+        id: `cva_${Date.now()}`,
+        recordType: "cva",
+        date: dateStr,
+        mode: "cupping",
+        bean: `${beanName} [CVA ${totalScore}]`,
+        origin: [country, farm, variety, process, importer ? `进口商:${importer}` : ""].filter(Boolean).join(" · "),
+        grinder: "SCA CVA 评估",
+        grindSize: `总分 ${totalScore}`,
+        brewer: "杯测碗",
+        brewTime: "4min 破渣",
+        method: "干湿香 + 高/中/低温 CATA",
+        tempRatio: document.getElementById("cvaRoastProtocol").value.trim(),
+        capturedFlavors: [],
+        capturedIds: [],
+        rawFlavorText: stageSummary,
+        cvaPayload: buildCvaSnapshot()
+      };
+
+      state.logs.unshift(record);
+      saveLogs(state.logs);
+      showToast("已将本轮 CVA 杯测归档至《小酌档案》");
+    });
+
+    /*****************************************************************
+     * 10. 模块三（最后一个大项）：WCR 咖啡品种速查（名录 + 三品种对比）
      *****************************************************************/
     document.querySelectorAll(".var-sub-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -4382,14 +5898,11 @@
         state.varPane = pane;
         document.querySelectorAll(".var-sub-btn").forEach(b => b.classList.toggle("active", b === btn));
         document.querySelectorAll(".var-pane").forEach(p => p.classList.remove("active"));
-        if (pane === "list") document.getElementById("varPaneList").classList.add("active");
-        if (pane === "tree") {
-          document.getElementById("varPaneTree").classList.add("active");
-          renderLineageTree();
-        }
-        if (pane === "compare") {
+        if (pane === "list") {
+          document.getElementById("varPaneList").classList.add("active");
+        } else if (pane === "compare") {
           document.getElementById("varPaneCompare").classList.add("active");
-          renderComparePane();
+          renderCompare3Pane();
         }
       });
     });
@@ -4478,186 +5991,74 @@
       });
     }
 
-    function renderLineageTree() {
-      const edgesG = document.getElementById("lineageEdges");
-      const nodesG = document.getElementById("lineageNodes");
-      const vp = document.getElementById("lineageViewport");
-      const legendEl = document.getElementById("treeLegend");
-
-      vp.setAttribute("transform", `translate(${state.treePanX.toFixed(1)}, ${state.treePanY.toFixed(1)}) scale(${state.treeZoom.toFixed(2)})`);
-
-      const visibleVars = COFFEE_VARIETIES.filter(v => {
-        if (state.treeFilter === "all") return true;
-        return VARIETY_GROUPS[v.group].species === state.treeFilter;
-      });
-      const visibleSet = new Set(visibleVars.map(v => v.id));
-
-      const selNode = VARIETY_MAP[state.treeSelectedId];
-      const relatedSet = new Set();
-      if (selNode) {
-        relatedSet.add(selNode.id);
-        (selNode.parents || []).forEach(pid => relatedSet.add(pid));
-        COFFEE_VARIETIES.forEach(c => {
-          if ((c.parents || []).includes(selNode.id)) relatedSet.add(c.id);
-        });
-      }
-
-      let edgesHtml = "";
-      visibleVars.forEach(v => {
-        (v.parents || []).forEach(pid => {
-          if (!visibleSet.has(pid)) return;
-          const p = VARIETY_MAP[pid];
-          if (!p) return;
-          const isHighlight = selNode && (v.id === selNode.id || pid === selNode.id);
-          const stroke = isHighlight ? "#9E4A36" : "rgba(92, 75, 58, 0.25)";
-          const width = isHighlight ? "2.2" : "1.1";
-          edgesHtml += `<line x1="${p.x}" y1="${p.y}" x2="${v.x}" y2="${v.y}" stroke="${stroke}" stroke-width="${width}" />`;
-        });
-      });
-      edgesG.innerHTML = edgesHtml;
-
-      let nodesHtml = "";
-      visibleVars.forEach(v => {
-        const grp = VARIETY_GROUPS[v.group];
-        const isSel = v.id === state.treeSelectedId;
-        const isRel = relatedSet.has(v.id);
-        const opacity = selNode ? (isRel ? 1 : 0.35) : 1;
-        const r = isSel ? 17 : 13;
-
-        nodesHtml += `
-          <g class="tree-node-g" data-vid="${v.id}" style="cursor:pointer; opacity:${opacity};">
-            ${isSel ? `<circle cx="${v.x}" cy="${v.y}" r="${r + 5}" fill="none" stroke="#9E4A36" stroke-width="1.5" stroke-dasharray="3 2" />` : ""}
-            <circle cx="${v.x}" cy="${v.y}" r="${r}" fill="${grp.color}" stroke="#FFFDF9" stroke-width="2" />
-            <text x="${v.x}" y="${v.y + r + 13}" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-size="10.5" font-weight="${isSel ? "700" : "500"}" fill="#26201B">${v.cn}</text>
-          </g>
-        `;
-      });
-      nodesG.innerHTML = nodesHtml;
-
-      nodesG.querySelectorAll(".tree-node-g").forEach(g => {
-        g.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const vid = g.dataset.vid;
-          if (state.treeSelectedId === vid) {
-            openVarietyDetail(vid);
-          } else {
-            dialAudio.playTick(0.9);
-            state.treeSelectedId = vid;
-            renderLineageTree();
-            showToast(`已聚焦「${VARIETY_MAP[vid].cn}」血统（再点一次查看完整档案）`);
-          }
-        });
-      });
-
-      legendEl.innerHTML = Object.values(VARIETY_GROUPS).map(g => `
-        <span class="legend-item">
-          <span style="width:8px; height:8px; border-radius:50%; background:${g.color}; display:inline-block;"></span>
-          <span>${g.label}</span>
-        </span>
-      `).join("");
-    }
-
-    document.querySelectorAll(".tree-f-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        dialAudio.playTick(0.8);
-        state.treeFilter = btn.dataset.tf;
-        document.querySelectorAll(".tree-f-btn").forEach(b => b.classList.toggle("active", b === btn));
-        renderLineageTree();
-      });
-    });
-
-    document.getElementById("treeZoomInBtn").addEventListener("click", () => {
-      state.treeZoom = Math.min(2.2, state.treeZoom + 0.25);
-      renderLineageTree();
-    });
-    document.getElementById("treeZoomOutBtn").addEventListener("click", () => {
-      state.treeZoom = Math.max(0.6, state.treeZoom - 0.25);
-      renderLineageTree();
-    });
-    document.getElementById("treeZoomResetBtn").addEventListener("click", () => {
-      state.treeZoom = 1;
-      state.treePanX = 0;
-      state.treePanY = 0;
-      renderLineageTree();
-    });
-
-    const treeStage = document.getElementById("treeStage");
-    let treeDragging = false;
-    let treeStartX = 0, treeStartY = 0, treeOrigPanX = 0, treeOrigPanY = 0;
-
-    treeStage.addEventListener("pointerdown", (e) => {
-      if (e.target.closest(".tree-toolbar") || e.target.closest(".tree-node-g")) return;
-      treeDragging = true;
-      treeStartX = e.clientX;
-      treeStartY = e.clientY;
-      treeOrigPanX = state.treePanX;
-      treeOrigPanY = state.treePanY;
-    });
-    window.addEventListener("pointermove", (e) => {
-      if (!treeDragging) return;
-      state.treePanX = treeOrigPanX + (e.clientX - treeStartX) * 1.3;
-      state.treePanY = treeOrigPanY + (e.clientY - treeStartY) * 1.3;
-      document.getElementById("lineageViewport").setAttribute("transform", `translate(${state.treePanX.toFixed(1)}, ${state.treePanY.toFixed(1)}) scale(${state.treeZoom.toFixed(2)})`);
-    });
-    window.addEventListener("pointerup", () => { treeDragging = false; });
-
-    function renderComparePane() {
+    function renderCompare3Pane() {
       const presetRow = document.getElementById("vsPresetsRow");
-      presetRow.innerHTML = VS_PRESETS.map((p, idx) => `
-        <button type="button" class="preset-pill ${state.vsA === p.a && state.vsB === p.b ? "active" : ""}" data-idx="${idx}">${p.label}</button>
+      presetRow.innerHTML = VS_3_PRESETS.map((p, idx) => `
+        <button type="button" class="preset-pill ${state.vsA === p.a && state.vsB === p.b && state.vsC === p.c ? "active" : ""}" data-idx="${idx}">${p.label}</button>
       `).join("");
 
       presetRow.querySelectorAll(".preset-pill").forEach(btn => {
         btn.addEventListener("click", () => {
           dialAudio.playTick(0.8);
-          const p = VS_PRESETS[Number(btn.dataset.idx)];
+          const p = VS_3_PRESETS[Number(btn.dataset.idx)];
           state.vsA = p.a;
           state.vsB = p.b;
-          renderComparePane();
+          state.vsC = p.c;
+          renderCompare3Pane();
         });
       });
 
-      const optionsHtml = COFFEE_VARIETIES.map(v => `<option value="${v.id}">${v.cn} (${v.en})</option>`).join("");
+      const optionsHtml = COFFEE_VARIETIES.map(v => `<option value="${v.id}">${v.cn}</option>`).join("");
       const selA = document.getElementById("vsSelectA");
       const selB = document.getElementById("vsSelectB");
+      const selC = document.getElementById("vsSelectC");
       selA.innerHTML = optionsHtml;
       selB.innerHTML = optionsHtml;
+      selC.innerHTML = optionsHtml;
       selA.value = state.vsA;
       selB.value = state.vsB;
+      selC.value = state.vsC;
 
       const va = VARIETY_MAP[state.vsA] || COFFEE_VARIETIES[0];
       const vb = VARIETY_MAP[state.vsB] || COFFEE_VARIETIES[1];
+      const vc = VARIETY_MAP[state.vsC] || COFFEE_VARIETIES[2];
 
-      const matchedPreset = VS_PRESETS.find(p => (p.a === va.id && p.b === vb.id) || (p.a === vb.id && p.b === va.id));
+      const matchedPreset = VS_3_PRESETS.find(p => {
+        const set1 = [p.a, p.b, p.c].sort().join(",");
+        const set2 = [va.id, vb.id, vc.id].sort().join(",");
+        return set1 === set2;
+      });
+
       const summaryText = matchedPreset
         ? matchedPreset.summary
-        : `【${va.cn}】属于${VARIETY_GROUPS[va.group].label}（适宜海拔 ${va.altitude}），主打${va.flavor}；而【${vb.cn}】属于${VARIETY_GROUPS[vb.group].label}（适宜海拔 ${vb.altitude}），以${vb.flavor}见长。`;
+        : `【${va.cn}】(${VARIETY_GROUPS[va.group].label}) 主打${va.flavor}；【${vb.cn}】(${VARIETY_GROUPS[vb.group].label}) 主打${vb.flavor}；【${vc.cn}】(${VARIETY_GROUPS[vc.group].label}) 主打${vc.flavor}。`;
 
       document.getElementById("vsSummaryBanner").textContent = summaryText;
 
-      const parentNames = (v) => (v.parents && v.parents.length > 0) ? v.parents.map(id => VARIETY_MAP[id]?.cn || id).join(" × ") : "原始野生种 / 独立系谱";
+      const parentNames = (v) => (v.parents && v.parents.length > 0) ? v.parents.map(id => VARIETY_MAP[id]?.cn || id).join(" × ") : "原始野生种";
       const rows = [
-        ["所属群系", VARIETY_GROUPS[va.group].label, VARIETY_GROUPS[vb.group].label],
-        ["直接亲本", parentNames(va), parentNames(vb)],
-        ["起源路径", va.origin, vb.origin],
-        ["豆粒大小", va.beanSize, vb.beanSize],
-        ["适宜海拔", va.altitude, vb.altitude],
-        ["杯测潜力", va.quality, vb.quality],
-        ["抗叶锈病", va.rustResistance, vb.rustResistance],
-        ["典型风味", va.flavor, vb.flavor]
+        ["群系", VARIETY_GROUPS[va.group].label, VARIETY_GROUPS[vb.group].label, VARIETY_GROUPS[vc.group].label],
+        ["亲本", parentNames(va), parentNames(vb), parentNames(vc)],
+        ["起源", va.origin, vb.origin, vc.origin],
+        ["豆粒", va.beanSize, vb.beanSize, vc.beanSize],
+        ["海拔", va.altitude, vb.altitude, vc.altitude],
+        ["潜力", va.quality, vb.quality, vc.quality],
+        ["抗锈", va.rustResistance, vb.rustResistance, vc.rustResistance],
+        ["风味", va.flavor, vb.flavor, vc.flavor]
       ];
 
       document.getElementById("vsTableContainer").innerHTML = `
-        <table class="vs-table">
+        <table class="vs-table-3">
           <thead>
             <tr>
               <th>维度</th>
               <td style="font-weight:700; color:var(--accent-rust);">${va.cn}</td>
               <td style="font-weight:700; color:var(--accent-olive);">${vb.cn}</td>
+              <td style="font-weight:700; color:#8C6326;">${vc.cn}</td>
             </tr>
           </thead>
           <tbody>
-            ${rows.map(r => `<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}
+            ${rows.map(r => `<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("")}
           </tbody>
         </table>
       `;
@@ -4665,18 +6066,15 @@
 
     document.getElementById("vsSelectA").addEventListener("change", (e) => {
       state.vsA = e.target.value;
-      renderComparePane();
+      renderCompare3Pane();
     });
     document.getElementById("vsSelectB").addEventListener("change", (e) => {
       state.vsB = e.target.value;
-      renderComparePane();
+      renderCompare3Pane();
     });
-    document.getElementById("vsSwapBtn").addEventListener("click", () => {
-      dialAudio.playTick(0.9);
-      const tmp = state.vsA;
-      state.vsA = state.vsB;
-      state.vsB = tmp;
-      renderComparePane();
+    document.getElementById("vsSelectC").addEventListener("change", (e) => {
+      state.vsC = e.target.value;
+      renderCompare3Pane();
     });
 
     const varDetailModal = document.getElementById("varDetailModal");
@@ -4730,213 +6128,13 @@
             ${children.length ? children.map(c => `<button type="button" class="lineage-node-chip" data-jump="${c.id}">${c.cn}</button>`).join("") : `<span style="font-size:11px; color:var(--ink-muted);">暂无收录直接子代</span>`}
           </div>
         </div>
-
-        <div class="poster-preview-wrap">
-          <canvas id="varPosterCanvas" width="900" height="1200"></canvas>
-          <img id="varPosterImgPreview" alt="品种档案小卡" />
-          <div class="save-photo-tip">📱 长按上方品种档案卡片可直接存入 iPhone 相册</div>
-        </div>
-
-        <button type="button" id="shareVarPosterBtn" class="btn-primary" style="width:100%;">存至相册 / 分享品种档案卡</button>
       `;
 
       body.querySelectorAll("[data-jump]").forEach(btn => {
         btn.addEventListener("click", () => openVarietyDetail(btn.dataset.jump));
       });
 
-      drawVarietyPosterCanvas(v);
-
-      document.getElementById("shareVarPosterBtn").addEventListener("click", async () => {
-        const canvas = document.getElementById("varPosterCanvas");
-        const fileName = `${v.cn}_品种档案卡.png`;
-        if (navigator.canShare && canvas.toBlob) {
-          try {
-            const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
-            const file = new File([blob], fileName, { type: "image/png" });
-            if (navigator.canShare({ files: [file] })) {
-              await navigator.share({ files: [file], title: `${v.cn} · WCR品种档案` });
-              return;
-            }
-          } catch (err) {
-            if (err && err.name === "AbortError") return;
-          }
-        }
-        const link = document.createElement("a");
-        link.download = fileName;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-        showToast("已导出高清品种档案卡");
-      });
-
       varDetailModal.classList.add("open");
-    }
-
-    function drawVarietyPosterCanvas(v) {
-      const canvas = document.getElementById("varPosterCanvas");
-      const ctx = canvas.getContext("2d");
-      const W = 900;
-      const H = 1200;
-      const grp = VARIETY_GROUPS[v.group];
-
-      ctx.fillStyle = "#F6F2E8";
-      ctx.fillRect(0, 0, W, H);
-
-      ctx.strokeStyle = "rgba(76, 62, 48, 0.055)";
-      ctx.lineWidth = 1;
-      for (let x = 44; x <= W - 44; x += 28) {
-        ctx.beginPath(); ctx.moveTo(x, 44); ctx.lineTo(x, H - 44); ctx.stroke();
-      }
-      for (let y = 44; y <= H - 44; y += 28) {
-        ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(W - 44, y); ctx.stroke();
-      }
-
-      ctx.strokeStyle = "#26201B";
-      ctx.lineWidth = 2.2;
-      ctx.strokeRect(44, 44, W - 88, H - 88);
-      ctx.strokeStyle = "rgba(38, 32, 27, 0.35)";
-      ctx.lineWidth = 1;
-      ctx.strokeRect(52, 52, W - 104, H - 104);
-
-      ctx.fillStyle = "#8E8275";
-      ctx.font = "600 13px 'JetBrains Mono', monospace";
-      ctx.fillText("WCR COFFEE VARIETY ARCHIVE · 咖啡品种档案", 74, 96);
-
-      ctx.fillStyle = "#26201B";
-      ctx.font = "700 46px 'Noto Serif SC', serif";
-      ctx.fillText(v.cn, 74, 152);
-
-      ctx.fillStyle = "#5C5248";
-      ctx.font = "500 20px 'JetBrains Mono', monospace";
-      ctx.fillText(v.en, 74, 184);
-
-      ctx.fillStyle = grp.color;
-      ctx.fillRect(W - 240, 86, 166, 36);
-      ctx.fillStyle = "#FFFDF9";
-      ctx.font = "600 16px 'Noto Sans SC', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText(grp.label, W - 157, 110);
-      ctx.textAlign = "left";
-
-      ctx.strokeStyle = "#26201B";
-      ctx.lineWidth = 1.6;
-      ctx.beginPath(); ctx.moveTo(52, 212); ctx.lineTo(W - 52, 212); ctx.stroke();
-
-      ctx.fillStyle = "#8E8275";
-      ctx.font = "600 12px 'JetBrains Mono', monospace";
-      ctx.fillText("01 / GENETIC LINEAGE · 三代血统图谱", 74, 246);
-
-      const parents = (v.parents || []).map(id => VARIETY_MAP[id]).filter(Boolean);
-      const children = COFFEE_VARIETIES.filter(c => (c.parents || []).includes(v.id)).slice(0, 4);
-
-      const centerY = 395;
-      if (parents.length > 0) {
-        parents.forEach((p, i) => {
-          const px = 220 + i * 240;
-          const py = 295;
-          ctx.strokeStyle = "#9E4A36";
-          ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.moveTo(px, py + 22); ctx.lineTo(450, centerY - 26); ctx.stroke();
-
-          ctx.fillStyle = "#FAF7F0";
-          ctx.fillRect(px - 85, py - 18, 170, 38);
-          ctx.strokeStyle = "#26201B";
-          ctx.strokeRect(px - 85, py - 18, 170, 38);
-          ctx.fillStyle = "#26201B";
-          ctx.font = "600 16px 'Noto Sans SC', sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText(`亲本：${p.cn}`, px, py + 7);
-          ctx.textAlign = "left";
-        });
-      }
-
-      ctx.fillStyle = "#26201B";
-      ctx.fillRect(320, centerY - 26, 260, 52);
-      ctx.fillStyle = "#FFFDF9";
-      ctx.font = "700 22px 'Noto Serif SC', serif";
-      ctx.textAlign = "center";
-      ctx.fillText(v.cn, 450, centerY + 8);
-      ctx.textAlign = "left";
-
-      if (children.length > 0) {
-        const span = 180;
-        const startX = 450 - ((children.length - 1) * span) / 2;
-        children.forEach((c, i) => {
-          const cx = startX + i * span;
-          const cy = 500;
-          ctx.strokeStyle = "#586B51";
-          ctx.lineWidth = 1.8;
-          ctx.beginPath(); ctx.moveTo(450, centerY + 26); ctx.lineTo(cx, cy - 20); ctx.stroke();
-
-          ctx.fillStyle = "#FAF7F0";
-          ctx.fillRect(cx - 72, cy - 18, 144, 36);
-          ctx.strokeStyle = "#586B51";
-          ctx.strokeRect(cx - 72, cy - 18, 144, 36);
-          ctx.fillStyle = "#26201B";
-          ctx.font = "500 15px 'Noto Sans SC', sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText(c.cn, cx, cy + 6);
-          ctx.textAlign = "left";
-        });
-      }
-
-      ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
-      ctx.beginPath(); ctx.moveTo(52, 555); ctx.lineTo(W - 52, 555); ctx.stroke();
-
-      ctx.fillStyle = "#8E8275";
-      ctx.font = "600 12px 'JetBrains Mono', monospace";
-      ctx.fillText("02 / AGRONOMIC & SENSORY PROFILE · 农艺与杯测指标", 74, 588);
-
-      const specs = [
-        ["起源路径", v.origin],
-        ["豆粒大小", v.beanSize],
-        ["适宜海拔", v.altitude],
-        ["杯测潜力", v.quality],
-        ["抗叶锈病", v.rustResistance],
-        ["典型风味", v.flavor]
-      ];
-      specs.forEach((sp, idx) => {
-        const y = 628 + idx * 46;
-        ctx.fillStyle = "#8E8275";
-        ctx.font = "600 15px 'Noto Sans SC', sans-serif";
-        ctx.fillText(sp[0], 74, y);
-        ctx.fillStyle = "#26201B";
-        ctx.font = "600 16px 'Noto Sans SC', sans-serif";
-        ctx.fillText(sp[1], 190, y);
-      });
-
-      ctx.strokeStyle = "rgba(38, 32, 27, 0.25)";
-      ctx.beginPath(); ctx.moveTo(52, 910); ctx.lineTo(W - 52, 910); ctx.stroke();
-
-      ctx.fillStyle = "#5C5248";
-      ctx.font = "400 16px 'Noto Serif SC', serif";
-      const chars = v.desc.split("");
-      let line = "";
-      let lineY = 952;
-      for (let i = 0; i < chars.length; i++) {
-        line += chars[i];
-        if (ctx.measureText(line).width > W - 156) {
-          ctx.fillText(line, 74, lineY);
-          line = "";
-          lineY += 28;
-        }
-      }
-      if (line) ctx.fillText(line, 74, lineY);
-
-      const sigText = inpSignature.value.trim() || "骨頭不重";
-      ctx.strokeStyle = "rgba(38, 32, 27, 0.22)";
-      ctx.beginPath(); ctx.moveTo(52, 1056); ctx.lineTo(W - 52, 1056); ctx.stroke();
-
-      ctx.fillStyle = "#8E8275";
-      ctx.font = "400 12px 'JetBrains Mono', monospace";
-      ctx.fillText("SOURCE: WORLD COFFEE RESEARCH (WCR) CATALOG", 74, 1102);
-
-      ctx.textAlign = "right";
-      ctx.fillStyle = "#26201B";
-      ctx.font = "700 17px 'Noto Serif SC', serif";
-      ctx.fillText(sigText, W - 74, 1102);
-      ctx.textAlign = "left";
-
-      document.getElementById("varPosterImgPreview").src = canvas.toDataURL("image/png");
     }
 
     document.getElementById("closeVarDetailBtn").addEventListener("click", () => {
@@ -4949,13 +6147,13 @@
       inpBean.value = `${v.cn} (${v.en})`;
       if (!inpOrigin.value) inpOrigin.value = `${VARIETY_GROUPS[v.group].label} · ${v.altitude}`;
       varDetailModal.classList.remove("open");
-      switchMainModule("brew");
+      enterModuleFromHome("brew");
       goToStep(1);
       showToast(`已将「${v.cn}」填入冲煮方案`);
     });
 
     /*****************************************************************
-     * 10. iOS 相册存储/分享、CSV 导出/导入对照、JSON 备份恢复
+     * 11. 档案分类筛选（全部 / 冲煮手记 / CVA 杯测）、CSV/JSON 导入导出
      *****************************************************************/
     const presetModal = document.getElementById("presetModal");
     const logsModal = document.getElementById("logsModal");
@@ -4970,10 +6168,7 @@
           const blob = await new Promise(res => canvas.toBlob(res, "image/png"));
           const file = new File([blob], fileName, { type: "image/png" });
           if (navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: "小酌记录 · 风味小卡"
-            });
+            await navigator.share({ files: [file], title: "小酌记录 · 风味小卡" });
             return;
           }
         } catch (err) {
@@ -5006,6 +6201,7 @@
       const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
       const record = {
         id: Date.now().toString(),
+        recordType: "brew",
         date: dateStr,
         mode: state.brewMode,
         bean: inpBean.value.trim() || "未命名咖啡豆",
@@ -5038,9 +6234,11 @@
           ? log.capturedFlavors.map(formatCapturedFlavorLabel).join(" / ")
           : (log.capturedIds || []).map(id => LEAF_MAP[id] ? LEAF_MAP[id].cn : id).join(" / ");
         const finalFlavors = flavors || log.rawFlavorText || "";
+        const isCva = log.mode === "cupping" || log.recordType === "cva";
+        const modeLabel = isCva ? "CVA杯测" : (log.mode === "espresso" ? "意式" : "手冲");
         return [
           log.date,
-          log.mode === "espresso" ? "意式" : "手冲",
+          modeLabel,
           log.bean,
           log.origin,
           log.grinder,
@@ -5154,7 +6352,8 @@
             if (!beanVal) continue;
 
             const modeRaw = idxMode >= 0 ? cols[idxMode] : (cols[1] || "");
-            const modeVal = /意式|espresso/i.test(modeRaw) ? "espresso" : "pourover";
+            const isCva = /杯测|cva/i.test(modeRaw);
+            const modeVal = isCva ? "cupping" : (/意式|espresso/i.test(modeRaw) ? "espresso" : "pourover");
 
             const flavorRaw = idxFlavor >= 0 ? cols[idxFlavor] : (cols[10] || "");
             const flavorTokens = flavorRaw.split(/[\/、,，]+/).map(s => s.trim()).filter(Boolean);
@@ -5186,6 +6385,7 @@
 
             importedRecords.push({
               id: `csv_${Date.now()}_${r}`,
+              recordType: isCva ? "cva" : "brew",
               date: (idxDate >= 0 ? cols[idxDate] : cols[0]) || new Date().toISOString().slice(0, 10),
               mode: modeVal,
               bean: beanVal,
@@ -5203,7 +6403,7 @@
           }
 
           if (importedRecords.length === 0) {
-            showToast("未能从 CSV 中解析出有效冲煮记录");
+            showToast("未能从 CSV 中解析出有效记录");
             return;
           }
 
@@ -5380,17 +6580,56 @@
     });
 
     function updateLogsBadge() {
-      document.getElementById("logsCountBadge").textContent = state.logs.length;
+      const count = state.logs.length;
+      document.getElementById("logsCountBadge").textContent = count;
+      document.getElementById("coverLogsBadge").textContent = count;
     }
+
+    // 档案抽屉分类切换（全部 / 冲煮手记 / CVA 杯测）
+    document.querySelectorAll("#archiveFilterTabs .arch-tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        dialAudio.playTick(0.8);
+        state.archiveFilter = btn.dataset.af;
+        document.querySelectorAll("#archiveFilterTabs .arch-tab-btn").forEach(b => b.classList.toggle("active", b === btn));
+        renderLogsDrawer();
+      });
+    });
 
     function renderLogsDrawer() {
       const container = document.getElementById("logsListContainer");
-      if (state.logs.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:var(--ink-muted); font-size:13px; margin:40px 0;">暂无本地小酌记录，可点击上方「📥 导入 CSV 档案」导入历史方案对照。</p>`;
+      const allCount = state.logs.length;
+      const cvaLogs = state.logs.filter(l => l.mode === "cupping" || l.recordType === "cva");
+      const brewLogs = state.logs.filter(l => !(l.mode === "cupping" || l.recordType === "cva"));
+
+      // 更新分类按钮数量
+      const tabs = document.querySelectorAll("#archiveFilterTabs .arch-tab-btn");
+      if (tabs.length === 3) {
+        tabs[0].textContent = `全部 (${allCount})`;
+        tabs[1].textContent = `冲煮手记 (${brewLogs.length})`;
+        tabs[2].textContent = `CVA 杯测 (${cvaLogs.length})`;
+      }
+
+      const displayList = state.archiveFilter === "cupping"
+        ? cvaLogs
+        : (state.archiveFilter === "brew" ? brewLogs : state.logs);
+
+      if (displayList.length === 0) {
+        const emptyHint = state.archiveFilter === "cupping"
+          ? "暂无 CVA 杯测记录，完成杯测后点击「保存本轮杯测至本地《小酌档案》」即可归档。"
+          : (state.archiveFilter === "brew"
+            ? "暂无冲煮手记记录，可在风味手记中保存或导入 CSV 档案。"
+            : "暂无本地小酌记录，可点击上方「📥 导入 CSV 档案」导入历史方案对照。");
+        container.innerHTML = `<p style="text-align:center; color:var(--ink-muted); font-size:13px; margin:36px 0; line-height:1.6;">${emptyHint}</p>`;
         return;
       }
 
-      container.innerHTML = state.logs.map((log, idx) => {
+      container.innerHTML = displayList.map(log => {
+        const realIdx = state.logs.indexOf(log);
+        const isCva = log.mode === "cupping" || log.recordType === "cva";
+        const typeTag = isCva
+          ? `<span class="log-type-tag cva">CVA杯测</span>`
+          : `<span class="log-type-tag brew">${log.mode === "espresso" ? "意式" : "手冲"}</span>`;
+
         const gearLine = [
           log.grinder ? `研磨: ${log.grinder}${log.grindSize ? " (" + log.grindSize + ")" : ""}` : "",
           log.brewer ? `器具: ${sanitizeBrandStrings(log.brewer)}${log.brewTime ? " · " + log.brewTime : ""}` : "",
@@ -5412,19 +6651,26 @@
           tagsHtml = `<span class="log-flavor-tag text-only">${log.rawFlavorText}</span>`;
         }
 
+        const actionBtnsHtml = isCva
+          ? `
+              <button type="button" class="icon-btn load-log-btn" data-idx="${realIdx}" style="color:var(--accent-rust); border-color:var(--accent-rust);">查看报告</button>
+              <button type="button" class="preset-del-btn del-log-btn" data-idx="${realIdx}">删除</button>
+            `
+          : `
+              <button type="button" class="icon-btn ref-log-btn" data-idx="${realIdx}" style="color:var(--accent-olive); border-color:var(--accent-olive);">设为对照参考</button>
+              <button type="button" class="icon-btn load-log-btn" data-idx="${realIdx}">查看小卡</button>
+              <button type="button" class="preset-del-btn del-log-btn" data-idx="${realIdx}">删除</button>
+            `;
+
         return `
           <div class="log-card">
             <div class="log-header">
-              <span class="log-bean">${log.bean}</span>
+              <span class="log-bean">${typeTag}${log.bean}</span>
               <span class="log-date">${log.date}</span>
             </div>
             <div class="log-params">${log.origin ? log.origin + " · " : ""}${gearLine || "常规参数"}</div>
             <div class="log-flavors">${tagsHtml || '<span style="font-size:11px;color:var(--ink-muted);">未记录具体风味</span>'}</div>
-            <div class="log-actions">
-              <button type="button" class="icon-btn ref-log-btn" data-idx="${idx}" style="color:var(--accent-olive); border-color:var(--accent-olive);">设为对照参考</button>
-              <button type="button" class="icon-btn load-log-btn" data-idx="${idx}">查看小卡</button>
-              <button type="button" class="preset-del-btn del-log-btn" data-idx="${idx}">删除</button>
-            </div>
+            <div class="log-actions">${actionBtnsHtml}</div>
           </div>
         `;
       }).join("");
@@ -5443,6 +6689,22 @@
         btn.addEventListener("click", () => {
           const log = state.logs[Number(btn.dataset.idx)];
           if (!log) return;
+
+          // 如果是 CVA 杯测记录，直接还原数据并跳转到 CVA 报告页
+          if (log.mode === "cupping" || log.recordType === "cva") {
+            if (log.cvaPayload) {
+              applyCvaSnapshot(log.cvaPayload);
+            } else {
+              document.getElementById("cvaBeanName").value = log.bean.replace(/\s*\[CVA.*?\]/, "");
+              document.getElementById("cvaCountry").value = log.origin || "";
+            }
+            logsModal.classList.remove("open");
+            enterModuleFromHome("cupping");
+            goCvaStep(4);
+            showToast("已还原该轮 CVA 杯测报告");
+            return;
+          }
+
           if (log.capturedFlavors && log.capturedFlavors.length > 0) {
             state.capturedFlavors = JSON.parse(JSON.stringify(log.capturedFlavors));
           } else {
@@ -5467,7 +6729,7 @@
           syncVisualState();
           renderGearSelectors();
           logsModal.classList.remove("open");
-          switchMainModule("brew");
+          enterModuleFromHome("brew");
           goToStep(3);
           showToast("已载入该杯记录");
         });
@@ -5483,6 +6745,11 @@
     }
 
     document.getElementById("logsDrawerBtn").addEventListener("click", () => {
+      renderLogsDrawer();
+      logsModal.classList.add("open");
+    });
+
+    document.getElementById("coverArchiveBtn").addEventListener("click", () => {
       renderLogsDrawer();
       logsModal.classList.add("open");
     });
@@ -5508,7 +6775,7 @@
       toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
     }
 
-    // 初始化下拉菜单默认选项、风味轮与品种速查
+    // 全局初始化
     renderGearSelectors();
     if (state.gearPresets.grinders.length > 0) {
       setGrinderValue(state.gearPresets.grinders[0].name);
@@ -5519,6 +6786,7 @@
     }
     renderWheel();
     updateLogsBadge();
+    syncCvaScoreBadges();
     renderVarietyGroupPills();
     renderVarietyList();
   </script>
