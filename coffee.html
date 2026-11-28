@@ -3321,163 +3321,1115 @@
     /*****************************************************************
      * 1B. WCR 咖啡品种数据库
      *****************************************************************/
-    const VARIETY_GROUPS = {
-      ethiopia: { label: "埃塞原生种", color: "#D97736" },
-      typica: { label: "铁皮卡系", color: "#4E79A7" },
-      bourbon: { label: "波旁系", color: "#B84A5A" },
-      catimor: { label: "卡蒂姆群", color: "#598B68" },
-      sarchimor: { label: "萨奇姆群", color: "#6A8D4E" },
-      f1: { label: "F1 杂交", color: "#9B6B9E" },
-      arabica_core: { label: "阿拉比卡主干", color: "#8C6D46" },
-      robusta_hd: { label: "罗布斯塔/帝汶", color: "#6E7B8B" }
-    };
+   const VARIETY_GROUPS = {
+  ethiopia: { label: "埃塞/苏丹/也门原生与选育", color: "#D97736" },
+  typica: { label: "铁皮卡谱系", color: "#4E79A7" },
+  bourbon: { label: "波旁谱系", color: "#B84A5A" },
+  modern_hybrid: { label: "现代精品/跨系杂交", color: "#9B6B9E" },
+  timor_rust: { label: "帝汶/抗叶锈病杂交", color: "#598B68" },
+  f1: { label: "新一代 F1 杂交", color: "#6A8D4E" }
+};
 
-    const COFFEE_VARIETIES = [
-      {
-        id: "geisha", cn: "瑰夏", en: "Geisha / Gesha", aliases: ["艺伎", "戈里瑰夏"],
-        group: "ethiopia", parents: ["arabica_wild"],
-        origin: "埃塞俄比亚 Gori Gesha 森林 ➔ 巴拿马", beanSize: "修长偏大", altitude: "1600–2200m",
-        quality: "传奇级极高", rustResistance: "中等",
-        flavor: "茉莉花、佛手柑、水蜜桃、橙花与蜜糖",
-        desc: "1931年采集自埃塞俄比亚瑰夏山，经肯尼亚、坦桑尼亚与哥斯达黎加引种至巴拿马翡翠庄园后震惊世界，是花果调性天花板。"
-      },
-      {
-        id: "heirloom", cn: "埃塞俄比亚原生种", en: "Ethiopian Heirloom", aliases: ["古优种", "原生混合种", "74110/74112"],
-        group: "ethiopia", parents: ["arabica_wild"],
-        origin: "埃塞俄比亚耶加雪菲 / 古吉 / 西达摩", beanSize: "大小不一（偏小）", altitude: "1700–2300m",
-        quality: "极高", rustResistance: "多样（含抗病选育系）",
-        flavor: "白花、柠檬柑橘、莓果、伯爵红茶",
-        desc: "埃塞俄比亚数千种本地农家品种与吉马农业研究中心（JARC）选育单株的统称，风味谱系极其奔放多变。"
-      },
-      {
-        id: "sl28", cn: "SL28", en: "SL28", aliases: ["斯科特实验室28号"],
-        group: "bourbon", parents: ["bourbon"],
-        origin: "肯尼亚 Scott Laboratories（选育自坦桑尼亚抗旱种）", beanSize: "极大", altitude: "1400–2100m",
-        quality: "极高", rustResistance: "低",
-        flavor: "黑醋栗、圣女果、西柚、复杂酒香酸质",
-        desc: "20世纪30年代在肯尼亚选育的传奇品种，根系深厚耐干旱，颗粒饱满，以标志性的黑醋栗与明亮果汁感闻名。"
-      },
-      {
-        id: "sl34", cn: "SL34", en: "SL34", aliases: ["斯科特实验室34号"],
-        group: "typica", parents: ["typica"],
-        origin: "肯尼亚 Scott Laboratories（选育自法国传教士波旁/铁皮卡系）", beanSize: "极大", altitude: "1400–2100m",
-        quality: "极高", rustResistance: "低",
-        flavor: "柑橘、红莓、厚重醇厚度与悠长回甘",
-        desc: "常与 SL28 混种于肯尼亚高海拔产区。适应高降雨量环境，相比 SL28 拥有更沉稳厚实的醇厚度（Body）。"
-      },
-      {
-        id: "typica", cn: "铁皮卡", en: "Typica", aliases: ["老品种", "蓝山种", "Criollo"],
-        group: "typica", parents: ["arabica_wild"],
-        origin: "也门 ➔ 爪哇 ➔ 美洲", beanSize: "大", altitude: "1300–2000m",
-        quality: "极高", rustResistance: "极低",
-        flavor: "清甜干净、柑橘花香、细腻茶感",
-        desc: "阿拉比卡两大最古老的栽培母系之一。树形高大呈圆锥状，新叶呈古铜色，产量低但杯测干净度与甜感极为出众。"
-      },
-      {
-        id: "bourbon", cn: "波旁", en: "Bourbon", aliases: ["波邦", "留尼汪波旁"],
-        group: "bourbon", parents: ["arabica_wild"],
-        origin: "也门 ➔ 留尼汪岛（波旁岛）", beanSize: "中等", altitude: "1200–2000m",
-        quality: "极高", rustResistance: "极低",
-        flavor: "焦糖、红糖甜感、圆润果酸、巧克力尾韵",
-        desc: "阿拉比卡另一大核心栽培母系。新叶多为绿色，果实较密集，相比铁皮卡具有更高的甜度与醇厚度。"
-      },
-      {
-        id: "pink_bourbon", cn: "粉红波旁", en: "Pink Bourbon", aliases: ["粉波旁"],
-        group: "ethiopia", parents: ["bourbon", "heirloom"],
-        origin: "哥伦比亚乌伊拉省（基因检测证实为埃塞原生种 × 波旁杂交）", beanSize: "中等", altitude: "1500–2100m",
-        quality: "极高", rustResistance: "中等",
-        flavor: "粉红西柚、橙花、水蜜桃、蔗糖回甘",
-        desc: "近年WCR基因测序揭示其并非单纯红黄波旁杂交，而是含有埃塞俄比亚地方原生种基因，兼具花果爆发力与波旁甜感。"
-      },
-      {
-        id: "caturra", cn: "卡杜拉", en: "Caturra", aliases: ["卡图拉"],
-        group: "bourbon", parents: ["bourbon"],
-        origin: "巴西米纳斯吉拉斯州（波旁自然矮化突变）", beanSize: "中等", altitude: "1200–1900m",
-        quality: "高", rustResistance: "极低",
-        flavor: "明亮柠檬酸、焦糖、干净平衡",
-        desc: "波旁的天然单基因矮化变种，节间紧密适合高密度种植，在中南美洲精品产区广泛栽培。"
-      },
-      {
-        id: "catuai", cn: "卡杜艾", en: "Catuai", aliases: ["卡图艾", "黄卡杜艾/红卡杜艾"],
-        group: "bourbon", parents: ["caturra", "mundo_novo"],
-        origin: "巴西坎皮纳斯农艺研究所（卡杜拉 × 新世界人工杂交）", beanSize: "中等", altitude: "1200–1800m",
-        quality: "高", rustResistance: "低",
-        flavor: "蜂蜜甜感、红苹果、坚果可可",
-        desc: "1949年育成，继承了卡杜拉的矮化株型与新世界的高产抗风特性，果实挂枝牢固不易被风雨打落。"
-      },
-      {
-        id: "mundo_novo", cn: "新世界", en: "Mundo Novo", aliases: ["蒙多诺沃"],
-        group: "bourbon", parents: ["typica", "bourbon"],
-        origin: "巴西圣保罗州（苏门答腊铁皮卡 × 红波旁自然杂交）", beanSize: "中等偏大", altitude: "1000–1700m",
-        quality: "中高", rustResistance: "低",
-        flavor: "烤榛子、牛奶巧克力、顺滑低酸",
-        desc: "铁皮卡与波旁的自然杂交结晶，兼具双亲优点且抗风抗病能力更强，是巴西商业与精品咖啡的中流砥柱。"
-      },
-      {
-        id: "maragogipe", cn: "马拉戈日佩", en: "Maragogipe", aliases: ["象豆", "Elephant Bean"],
-        group: "typica", parents: ["typica"],
-        origin: "巴西巴伊亚州 Maragogipe（铁皮卡自然巨粒突变）", beanSize: "特大（象豆）", altitude: "1200–1800m",
-        quality: "高", rustResistance: "极低",
-        flavor: "清雅花香、哈密瓜、柔和果酸",
-        desc: "铁皮卡的天然巨型突变体，生豆体积是普通咖啡豆的 1.5 至 2 倍，产量极低但风味细腻清甜。"
-      },
-      {
-        id: "pacamara", cn: "帕卡马拉", en: "Pacamara", aliases: ["帕卡玛拉"],
-        group: "bourbon", parents: ["maragogipe", "bourbon"],
-        origin: "萨尔瓦多 ISIC 研究所（帕卡斯 × 象豆人工杂交）", beanSize: "特大", altitude: "1400–2000m",
-        quality: "极高", rustResistance: "低",
-        flavor: "热带水果、百香果、草本香料、奶油感",
-        desc: "由波旁矮化种帕卡斯（Pacas）与铁皮卡象豆杂交而成，颗粒巨大且风味极具冲击力，多次斩获 COE 卓越杯冠军。"
-      },
-      {
-        id: "timor_hybrid", cn: "帝汶杂交种", en: "Timor Hybrid (HdT)", aliases: ["帝汶种", "Híbrido de Timor"],
-        group: "robusta_hd", parents: ["typica", "robusta"],
-        origin: "东帝汶岛（铁皮卡 × 罗布斯塔自然杂交）", beanSize: "中等", altitude: "1000–1700m",
-        quality: "中等", rustResistance: "极高",
-        flavor: "草本、可可、香料与扎实醇度",
-        desc: "20世纪20年代在东帝汶发现的里程碑式自然杂交种，拥有罗布斯塔抗叶锈病基因且保持四倍体可与阿拉比卡自由杂交。"
-      },
-      {
-        id: "catimor", cn: "卡蒂姆", en: "Catimor", aliases: ["卡提姆", "云南小粒高产抗病种"],
-        group: "catimor", parents: ["caturra", "timor_hybrid"],
-        origin: "葡萄牙 CIFC 咖啡锈病研究中心（卡杜拉 × 帝汶杂交种）", beanSize: "中等偏大", altitude: "1000–1600m",
-        quality: "中至中高（高海拔精细处理表现优异）", rustResistance: "高",
-        flavor: "焦糖、烤坚果、微草本与梅子酸",
-        desc: "1959年育成的经典抗锈病品种群，在中国云南及东南亚广泛种植；高海拔精细水洗或发酵处理下可呈现惊艳果甜。"
-      },
-      {
-        id: "sarchimor", cn: "萨奇姆", en: "Sarchimor", aliases: ["萨奇莫", "Parainema / Obata"],
-        group: "sarchimor", parents: ["bourbon", "timor_hybrid"],
-        origin: "葡萄牙 CIFC（维拉萨奇 Villa Sarchi × 帝汶杂交种）", beanSize: "大", altitude: "1100–1750m",
-        quality: "中高至高", rustResistance: "高",
-        flavor: "甜橙、蜂蜜、杏仁与顺滑醇厚度",
-        desc: "以哥斯达黎加波旁矮化变种维拉萨奇为母本与帝汶杂交，整体杯测洁净度与果酸细腻度普遍优于传统卡蒂姆。"
-      },
-      {
-        id: "centroamericano", cn: "中美洲 F1", en: "Centroamericano (H1)", aliases: ["H1杂交种", "F1杂交一代"],
-        group: "f1", parents: ["sarchimor", "heirloom"],
-        origin: "中美洲 PROMECAFE / CATIE（萨奇姆 × 埃塞原生种 Rume Sudan）", beanSize: "大", altitude: "1300–1900m",
-        quality: "极高", rustResistance: "高",
-        flavor: "茉莉花、热带水果、蜂蜜与丝滑质感",
-        desc: "现代 F1 一代杂交育种代表作，打破了“抗病高产品种风味平庸”的魔咒，多次在国际生豆竞赛中获得高分。"
-      },
-      {
-        id: "arabica_wild", cn: "野生阿拉比卡", en: "Coffea arabica", aliases: ["原生阿拉比卡", "阿比西尼亚种"],
-        group: "arabica_core", parents: [],
-        origin: "埃塞俄比亚西南部 / 南苏丹", beanSize: "中等", altitude: "1300–2100m",
-        quality: "极高", rustResistance: "低（易感叶锈病）",
-        flavor: "花香、柑橘、优雅酸质与复杂层次",
-        desc: "由卡法果（C. eugenioides）与罗布斯塔（C. canephora）在埃塞俄比亚高原自然杂交形成的四倍体咖啡物种，占全球精品咖啡绝大部分。"
-      },
-      {
-        id: "robusta", cn: "罗布斯塔（中果咖啡）", en: "Coffea canephora", aliases: ["罗豆", "Robusta", "卡尼弗拉"],
-        group: "robusta_hd", parents: [],
-        origin: "非洲刚果盆地低海拔雨林", beanSize: "偏小、圆润", altitude: "200–800m",
-        quality: "低（高咖啡因醇厚）", rustResistance: "极高",
-        flavor: "黑巧克力、烘焙谷物、木质与厚重油脂",
-        desc: "二倍体咖啡物种，抗病虫害与耐高温能力极强，咖啡因含量约为阿拉比卡的两倍，也是现代抗叶锈病育种的重要基因来源。"
-      }
-    ];
+
+  const COFFEE_VARIETIES = [
+  {
+    id: "v001", num: 1, cn: "铁皮卡", en: "Typica", aliases: [],
+    group: "ethiopia", parents: ["埃塞俄比亚古老原生主干种"],
+    origin: "全球各大产区", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "干净均衡、花香、柑橘、柔和果酸",
+    desc: "埃塞俄比亚古老原生主干种。主产于全球各大产区，核心风味：干净均衡、花香、柑橘、柔和果酸。"
+  },
+  {
+    id: "v002", num: 2, cn: "波旁", en: "Bourbon", aliases: [],
+    group: "ethiopia", parents: ["铁皮卡早期自然突变种"],
+    origin: "中南美、东非", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "甜感饱满、醇厚度佳、莓果与焦糖",
+    desc: "铁皮卡早期自然突变种。主产于中南美、东非，核心风味：甜感饱满、醇厚度佳、莓果与焦糖。"
+  },
+  {
+    id: "v003", num: 3, cn: "瑰夏", en: "Gesha / Geisha", aliases: ["Geisha"],
+    group: "ethiopia", parents: ["源自埃塞俄比亚瑰夏山森林"],
+    origin: "巴拿马、哥伦比亚等", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "茉莉花香、佛手柑、柑橘、清澈茶感",
+    desc: "源自埃塞俄比亚瑰夏山森林。主产于巴拿马、哥伦比亚等，核心风味：茉莉花香、佛手柑、柑橘、清澈茶感。"
+  },
+  {
+    id: "v004", num: 4, cn: "戈里瑰夏", en: "Gori Gesha", aliases: [],
+    group: "ethiopia", parents: ["埃塞瑰夏森林原始野生采集种"],
+    origin: "埃塞俄比亚（班奇马吉）", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "浓郁野花香、热带水果、明亮柑橘",
+    desc: "埃塞瑰夏森林原始野生采集种。主产于埃塞俄比亚（班奇马吉），核心风味：浓郁野花香、热带水果、明亮柑橘。"
+  },
+  {
+    id: "v005", num: 5, cn: "1931瑰夏", en: "Geisha 1931", aliases: [],
+    group: "ethiopia", parents: ["1931年从埃塞引种至坦桑尼亚后裔"],
+    origin: "埃塞俄比亚、坦桑尼亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "优雅白花、水蜜桃、柠檬草与蜂蜜",
+    desc: "1931年从埃塞引种至坦桑尼亚后裔。主产于埃塞俄比亚、坦桑尼亚，核心风味：优雅白花、水蜜桃、柠檬草与蜂蜜。"
+  },
+  {
+    id: "v006", num: 6, cn: "苏丹汝魅", en: "Sudan Rume", aliases: [],
+    group: "ethiopia", parents: ["源自苏丹博马高原，抗CBD病强"],
+    origin: "哥伦比亚、苏丹", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "百香果、香茅草本、花香与辛香料",
+    desc: "源自苏丹博马高原，抗CBD病强。主产于哥伦比亚、苏丹，核心风味：百香果、香茅草本、花香与辛香料。"
+  },
+  {
+    id: "v007", num: 7, cn: "乌什乌什", en: "Wush Wush", aliases: [],
+    group: "ethiopia", parents: ["源自埃塞西南部 Wush Wush 森林"],
+    origin: "埃塞俄比亚、哥伦比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "玫瑰花香、红莓果酱、热带水果酒香",
+    desc: "源自埃塞西南部 Wush Wush 森林。主产于埃塞俄比亚、哥伦比亚，核心风味：玫瑰花香、红莓果酱、热带水果酒香。"
+  },
+  {
+    id: "v008", num: 8, cn: "库鲁梅", en: "Kurume", aliases: [],
+    group: "ethiopia", parents: ["埃塞俄比亚耶加雪菲传统地方种"],
+    origin: "埃塞俄比亚", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "豆粒小、精致白花、柠檬与柑橘酸质",
+    desc: "埃塞俄比亚耶加雪菲传统地方种。主产于埃塞俄比亚，核心风味：豆粒小、精致白花、柠檬与柑橘酸质。"
+  },
+  {
+    id: "v009", num: 9, cn: "德加", en: "Dega", aliases: [],
+    group: "ethiopia", parents: ["埃塞俄比亚西达摩传统地方种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "甜感厚实、黄桃、杏子与红茶余韵",
+    desc: "埃塞俄比亚西达摩传统地方种。主产于埃塞俄比亚，核心风味：甜感厚实、黄桃、杏子与红茶余韵。"
+  },
+  {
+    id: "v010", num: 10, cn: "沃利绍", en: "Wolisho", aliases: [],
+    group: "ethiopia", parents: ["埃塞俄比亚高海拔传统地方种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "豆粒较大、花香优雅、多汁核果感",
+    desc: "埃塞俄比亚高海拔传统地方种。主产于埃塞俄比亚，核心风味：豆粒较大、花香优雅、多汁核果感。"
+  },
+  {
+    id: "v011", num: 11, cn: "莫卡", en: "Mokka / Mocha", aliases: ["摩卡", "Mocha"],
+    group: "ethiopia", parents: ["也门古老地方种，豆粒极小圆润"],
+    origin: "也门、夏威夷、巴西", beanSize: "偏小紧凑", altitude: "1500–2250m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "黑巧克力、肉桂香料、红糖与发酵酒韵",
+    desc: "也门古老地方种，豆粒极小圆润。主产于也门、夏威夷、巴西，核心风味：黑巧克力、肉桂香料、红糖与发酵酒韵。"
+  },
+  {
+    id: "v012", num: 12, cn: "阿比西尼亚", en: "Abyssinia / AB3", aliases: ["AB3"],
+    group: "ethiopia", parents: ["1928年由埃塞引种至印尼的古老种"],
+    origin: "印尼（苏门答腊、爪哇）", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "草本香料、黑莓、可可与厚实醇度",
+    desc: "1928年由埃塞引种至印尼的古老种。主产于印尼（苏门答腊、爪哇），核心风味：草本香料、黑莓、可可与厚实醇度。"
+  },
+  {
+    id: "v013", num: 13, cn: "恩纳雷亚", en: "Ennarea", aliases: [],
+    group: "ethiopia", parents: ["源自埃塞西南部古老王国地区"],
+    origin: "埃塞俄比亚、哥伦比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "复杂热带水果、花香与明亮酸质",
+    desc: "源自埃塞西南部古老王国地区。主产于埃塞俄比亚、哥伦比亚，核心风味：复杂热带水果、花香与明亮酸质。"
+  },
+  {
+    id: "v014", num: 14, cn: "74110", en: "74110", aliases [],
+    group: "ethiopia", parents: ["1974年 JARC 从伊鲁巴博森林选育"],
+    origin: "埃塞俄比亚（古吉、耶加）", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "白花、佛手柑、青柠、极高干净度",
+    desc: "1974年 JARC 从伊鲁巴博森林选育。主产于埃塞俄比亚（古吉、耶加），核心风味：白花、佛手柑、青柠、极高干净度。"
+  },
+  {
+    id: "v015", num: 15, cn: "74112", en: "74112", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育抗咖啡浆果病种"],
+    origin: "埃塞俄比亚（古吉、耶加）", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "甜橙、水蜜桃、花蜜与丝滑口感",
+    desc: "1974年 JARC 选育抗咖啡浆果病种。主产于埃塞俄比亚（古吉、耶加），核心风味：甜橙、水蜜桃、花蜜与丝滑口感。"
+  },
+  {
+    id: "v016", num: 16, cn: "74158", en: "74158", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育抗病高风味种"],
+    origin: "埃塞俄比亚（古吉、西达摩）", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "热带水果、草莓、花香与活泼果酸",
+    desc: "1974年 JARC 选育抗病高风味种。主产于埃塞俄比亚（古吉、西达摩），核心风味：热带水果、草莓、花香与活泼果酸。"
+  },
+  {
+    id: "v017", num: 17, cn: "74114", en: "74114", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "柑橘、核果甜感、均衡茶感",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：柑橘、核果甜感、均衡茶感。"
+  },
+  {
+    id: "v018", num: 18, cn: "74140", en: "74140", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "清新花香、甜柠檬与蔗糖甜感",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：清新花香、甜柠檬与蔗糖甜感。"
+  },
+  {
+    id: "v019", num: 19, cn: "74148", en: "74148", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "莓果、杏桃、柔和酸质与焦糖尾韵",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：莓果、杏桃、柔和酸质与焦糖尾韵。"
+  },
+  {
+    id: "v020", num: 20, cn: "74165", en: "74165", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "豆粒偏大、花果香协调、口感饱满",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：豆粒偏大、花果香协调、口感饱满。"
+  },
+  {
+    id: "v021", num: 21, cn: "7440", en: "7440", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育中高海拔抗病种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "柑橘、红茶、坚果与温和果酸",
+    desc: "1974年 JARC 选育中高海拔抗病种。主产于埃塞俄比亚，核心风味：柑橘、红茶、坚果与温和果酸。"
+  },
+  {
+    id: "v022", num: 22, cn: "7454", en: "7454", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "甜橙、蜂蜜、干净清爽的草本韵",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：甜橙、蜂蜜、干净清爽的草本韵。"
+  },
+  {
+    id: "v023", num: 23, cn: "7487", en: "7487", aliases: [],
+    group: "ethiopia", parents: ["1974年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "花香、黄桃、明亮柔和的果酸",
+    desc: "1974年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：花香、黄桃、明亮柔和的果酸。"
+  },
+  {
+    id: "v024", num: 24, cn: "75227", en: "75227", aliases: [],
+    group: "ethiopia", parents: ["1975年 JARC 选育高海拔抗病种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "细腻花香、柑橘皮、甜感持久",
+    desc: "1975年 JARC 选育高海拔抗病种。主产于埃塞俄比亚，核心风味：细腻花香、柑橘皮、甜感持久。"
+  },
+  {
+    id: "v025", num: 25, cn: "754", en: "754", aliases: [],
+    group: "ethiopia", parents: ["1975年 JARC 选育地方抗病品种"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "成熟核果、可可、均衡圆润",
+    desc: "1975年 JARC 选育地方抗病品种。主产于埃塞俄比亚，核心风味：成熟核果、可可、均衡圆润。"
+  },
+  {
+    id: "v026", num: 26, cn: "哈拉尔长豆", en: "Harar Longberry", aliases: [],
+    group: "ethiopia", parents: ["埃塞东部旱区古老野生演化品系"],
+    origin: "埃塞俄比亚（哈拉尔）", beanSize: "特大（象豆级）", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "蓝莓、黑巧克力、香料与狂野酒香",
+    desc: "埃塞东部旱区古老野生演化品系。主产于埃塞俄比亚（哈拉尔），核心风味：蓝莓、黑巧克力、香料与狂野酒香。"
+  },
+  {
+    id: "v027", num: 27, cn: "哈拉尔短豆", en: "Harar Shortberry", aliases: [],
+    group: "ethiopia", parents: ["埃塞东部地方小粒原生品系"],
+    origin: "埃塞俄比亚（哈拉尔）", beanSize: "偏小紧凑", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "浓郁可可、干果、甜香料与厚实感",
+    desc: "埃塞东部地方小粒原生品系。主产于埃塞俄比亚（哈拉尔），核心风味：浓郁可可、干果、甜香料与厚实感。"
+  },
+  {
+    id: "v028", num: 28, cn: "邦加", en: "Bonga", aliases: [],
+    group: "ethiopia", parents: ["源自埃塞卡法（Kaffa）邦加森林"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "野生花香、浆果、清新草本调",
+    desc: "源自埃塞卡法（Kaffa）邦加森林。主产于埃塞俄比亚，核心风味：野生花香、浆果、清新草本调。"
+  },
+  {
+    id: "v029", num: 29, cn: "吉马原生种", en: "Jimma", aliases: [],
+    group: "ethiopia", parents: ["埃塞西南部吉马地区地方品系统称"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "坚果、可可、熟果甜感与稳重醇度",
+    desc: "埃塞西南部吉马地区地方品系统称。主产于埃塞俄比亚，核心风味：坚果、可可、熟果甜感与稳重醇度。"
+  },
+  {
+    id: "v030", num: 30, cn: "西达摩原生种", en: "Heirloom", aliases: [],
+    group: "ethiopia", parents: ["埃塞未单一命名地方原生混种统称"],
+    origin: "埃塞俄比亚", beanSize: "中等", altitude: "1650–2300m",
+    quality: "极高（原生基因库）", rustResistance: "低至中等",
+    flavor: "茉莉花、柑橘、桃李与多样果香",
+    desc: "埃塞未单一命名地方原生混种统称。主产于埃塞俄比亚，核心风味：茉莉花、柑橘、桃李与多样果香。"
+  },
+  {
+    id: "v031", num: 31, cn: "蓝山", en: "Blue Mountain", aliases: [],
+    group: "typica", parents: ["传至牙买加蓝山的高海拔铁皮卡"],
+    origin: "牙买加、巴布亚新几内亚", beanSize: "修长偏大", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "极致均衡、柔和果酸、坚果与奶油甜",
+    desc: "传至牙买加蓝山的高海拔铁皮卡。主产于牙买加、巴布亚新几内亚，核心风味：极致均衡、柔和果酸、坚果与奶油甜。"
+  },
+  {
+    id: "v032", num: 32, cn: "科纳", en: "Kona", aliases: [],
+    group: "typica", parents: ["19世纪引入夏威夷的危地马拉铁皮卡"],
+    origin: "美国（夏威夷）", beanSize: "中等", altitude: "400–900m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "顺滑细腻、牛奶巧克力、焦糖与花香",
+    desc: "19世纪引入夏威夷的危地马拉铁皮卡。主产于美国（夏威夷），核心风味：顺滑细腻、牛奶巧克力、焦糖与花香。"
+  },
+  {
+    id: "v033", num: 33, cn: "肯特", en: "Kent", aliases: [],
+    group: "typica", parents: ["1911年印度发现的铁皮卡抗病突变种"],
+    origin: "印度、肯尼亚、坦桑尼亚", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "中高（抗病选育）",
+    flavor: "柔和柑橘、草本香料、焦糖与干净度",
+    desc: "1911年印度发现的铁皮卡抗病突变种。主产于印度、肯尼亚、坦桑尼亚，核心风味：柔和柑橘、草本香料、焦糖与干净度。"
+  },
+  {
+    id: "v034", num: 34, cn: "象豆", en: "Maragogipe", aliases: [],
+    group: "typica", parents: ["巴西发现的铁皮卡巨型豆粒突变种"],
+    origin: "巴西、墨西哥、尼加拉瓜", beanSize: "特大（象豆级）", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "豆粒硕大、花香、柑橘与丝滑奶油感",
+    desc: "巴西发现的铁皮卡巨型豆粒突变种。主产于巴西、墨西哥、尼加拉瓜，核心风味：豆粒硕大、花香、柑橘与丝滑奶油感。"
+  },
+  {
+    id: "v035", num: 35, cn: "普通帕切", en: "Pache Común", aliases: [],
+    group: "typica", parents: ["危地马拉发现的铁皮卡矮化突变种"],
+    origin: "危地马拉、萨尔瓦多", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "温和果酸、坚果、牛奶巧克力与平衡感",
+    desc: "危地马拉发现的铁皮卡矮化突变种。主产于危地马拉、萨尔瓦多，核心风味：温和果酸、坚果、牛奶巧克力与平衡感。"
+  },
+  {
+    id: "v036", num: 36, cn: "帕切科利斯", en: "Pache Colis", aliases: [],
+    group: "typica", parents: ["帕切与卡杜拉的自然杂交种"],
+    origin: "危地马拉", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "柑橘、核果甜感、口感比普通帕切更厚",
+    desc: "帕切与卡杜拉的自然杂交种。主产于危地马拉，核心风味：柑橘、核果甜感、口感比普通帕切更厚。"
+  },
+  {
+    id: "v037", num: 37, cn: "爪哇", en: "Java", aliases: [],
+    group: "typica", parents: ["埃塞原生种经印尼传至中美洲"],
+    origin: "喀麦隆、哥斯达黎加、巴拿马", beanSize: "修长偏大", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "豆形修长、白花香、香草与甜柑橘",
+    desc: "埃塞原生种经印尼传至中美洲。主产于喀麦隆、哥斯达黎加、巴拿马，核心风味：豆形修长、白花香、香草与甜柑橘。"
+  },
+  {
+    id: "v038", num: 38, cn: "伯根达尔", en: "Bergendal", aliases: [],
+    group: "typica", parents: ["印尼苏门答腊保留的古老铁皮卡系"],
+    origin: "印尼（苏门答腊）", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "草本香气、黑莓、红糖与干净余韵",
+    desc: "印尼苏门答腊保留的古老铁皮卡系。主产于印尼（苏门答腊），核心风味：草本香气、黑莓、红糖与干净余韵。"
+  },
+  {
+    id: "v039", num: 39, cn: "西迪卡朗", en: "Sidikalang", aliases: [],
+    group: "typica", parents: ["印尼北苏门答腊古老铁皮卡延伸种"],
+    origin: "印尼（苏门答腊）", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "醇厚浓郁、黑巧克力、雪松与低酸感",
+    desc: "印尼北苏门答腊古老铁皮卡延伸种。主产于印尼（苏门答腊），核心风味：醇厚浓郁、黑巧克力、雪松与低酸感。"
+  },
+  {
+    id: "v040", num: 40, cn: "苏门答腊铁皮卡", en: "Sumatra Typica", aliases: [],
+    group: "typica", parents: ["17世纪引入印尼的早期铁皮卡后裔"],
+    origin: "印尼", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "泥土草本、香料、黑可可与高醇厚度",
+    desc: "17世纪引入印尼的早期铁皮卡后裔。主产于印尼，核心风味：泥土草本、香料、黑可可与高醇厚度。"
+  },
+  {
+    id: "v041", num: 41, cn: "圣拉蒙", en: "San Ramón", aliases: [],
+    group: "typica", parents: ["哥斯达黎加发现的铁皮卡矮化突变种"],
+    origin: "哥斯达黎加、危地马拉", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "抗风性强、坚果、焦糖与柔和苹果酸",
+    desc: "哥斯达黎加发现的铁皮卡矮化突变种。主产于哥斯达黎加、危地马拉，核心风味：抗风性强、坚果、焦糖与柔和苹果酸。"
+  },
+  {
+    id: "v042", num: 42, cn: "克里奥罗", en: "Criollo", aliases: [],
+    group: "typica", parents: ["早期引入中南美的原始铁皮卡别称"],
+    origin: "秘鲁、玻利维亚、委内瑞拉", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "甜感纯净、坚果、柑橘与温和茶感",
+    desc: "早期引入中南美的原始铁皮卡别称。主产于秘鲁、玻利维亚、委内瑞拉，核心风味：甜感纯净、坚果、柑橘与温和茶感。"
+  },
+  {
+    id: "v043", num: 43, cn: "普卢马伊达尔戈", en: "Pluma Hidalgo", aliases: [],
+    group: "typica", parents: ["墨西哥瓦哈卡州适应高海拔的铁皮卡"],
+    origin: "墨西哥", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "清爽柑橘、杏仁、红糖与轻盈口感",
+    desc: "墨西哥瓦哈卡州适应高海拔的铁皮卡。主产于墨西哥，核心风味：清爽柑橘、杏仁、红糖与轻盈口感。"
+  },
+  {
+    id: "v044", num: 44, cn: "维拉洛博斯", en: "Villalobos", aliases: [],
+    group: "typica", parents: ["哥斯达黎加发现的铁皮卡矮化变种"],
+    origin: "哥斯达黎加", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "甜感突出、温和果酸、焦糖与坚果",
+    desc: "哥斯达黎加发现的铁皮卡矮化变种。主产于哥斯达黎加，核心风味：甜感突出、温和果酸、焦糖与坚果。"
+  },
+  {
+    id: "v045", num: 45, cn: "博图卡图黄铁皮卡", en: "Amarello de Botucatu", aliases: [],
+    group: "typica", parents: ["1871年巴西发现的黄果铁皮卡突变种"],
+    origin: "巴西", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "蜂蜜甜感、坚果、温和柑橘酸质",
+    desc: "1871年巴西发现的黄果铁皮卡突变种。主产于巴西，核心风味：蜂蜜甜感、坚果、温和柑橘酸质。"
+  },
+  {
+    id: "v046", num: 46, cn: "奇库马尔古", en: "Chickumalgu", aliases: [],
+    group: "typica", parents: ["印度卡纳塔克邦古老铁皮卡延伸种"],
+    origin: "印度", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "香料气息、烤坚果、黑糖与饱满醇度",
+    desc: "印度卡纳塔克邦古老铁皮卡延伸种。主产于印度，核心风味：香料气息、烤坚果、黑糖与饱满醇度。"
+  },
+  {
+    id: "v047", num: 47, cn: "K7", en: "K7", aliases: [],
+    group: "typica", parents: ["肯尼亚从法属传教士系选育的抗病种"],
+    origin: "肯尼亚、坦桑尼亚", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "中高（抗病选育）",
+    flavor: "明亮柑橘、黑醋栗、甜感与干净尾韵",
+    desc: "肯尼亚从法属传教士系选育的抗病种。主产于肯尼亚、坦桑尼亚，核心风味：明亮柑橘、黑醋栗、甜感与干净尾韵。"
+  },
+  {
+    id: "v048", num: 48, cn: "SL34", en: "SL34", aliases: ["Scott Lab 34"],
+    group: "typica", parents: ["肯尼亚选育，基因属铁皮卡/法属传教士"],
+    origin: "肯尼亚", beanSize: "修长偏大", altitude: "1400–2100m",
+    quality: "极高", rustResistance: "极低",
+    flavor: "强劲黑醋栗、西柚酸质与厚实焦糖甜",
+    desc: "肯尼亚选育，基因属铁皮卡/法属传教士。主产于肯尼亚，核心风味：强劲黑醋栗、西柚酸质与厚实焦糖甜。"
+  },
+  {
+    id: "v137", num: 137, cn: "SL09（印加瑰夏）", en: "SL09 / Inca Gesha", aliases: ["SL9", "SL-09", "印加瑰夏", "Inca Geisha", "SL-9"],
+    group: "ethiopia", parents: ["肯尼亚斯科特实验室单株选育 · 埃塞原生遗产系 (Ethiopian Legacy)"],
+    origin: "秘鲁（库斯科、卡哈马卡）、肯尼亚", beanSize: "偏小至中等、圆润紧实", altitude: "1900–2400m",
+    quality: "传奇级极高（2025/2026 秘鲁 COE 屡获高分）", rustResistance: "低（抗叶锈与CBD较弱，多见于高海拔微批次）",
+    flavor: "短发酵呈茉莉花、佛手柑、白桃与清澈茶感；长发酵呈黑莓、红酒韵与可可甜",
+    desc: "由肯尼亚斯科特实验室选育、后在秘鲁库斯科云雾带被称为“印加瑰夏”的高海拔明星品种。基因溯源归属埃塞俄比亚遗产种系，兼具花香张力与细腻甜感。"
+  },
+  {
+    id: "v049", num: 49, cn: "法属传教士", en: "French Mission", aliases: [],
+    group: "typica", parents: ["19世纪法国传教士引入东非的波旁/铁皮卡系"],
+    origin: "肯尼亚、坦桑尼亚", beanSize: "中等", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "复杂莓果、红酒感、花香与饱满甜度",
+    desc: "19世纪法国传教士引入东非的波旁/铁皮卡系。主产于肯尼亚、坦桑尼亚，核心风味：复杂莓果、红酒感、花香与饱满甜度。"
+  },
+  {
+    id: "v050", num: 50, cn: "帕帕约", en: "Papayo", aliases: [],
+    group: "typica", parents: ["哥伦比亚发现的稀有长豆型地方变种"],
+    origin: "哥伦比亚", beanSize: "修长偏大", altitude: "1300–2000m",
+    quality: "高至极高", rustResistance: "极低",
+    flavor: "木瓜、芒果等热带水果、花香与高甜",
+    desc: "哥伦比亚发现的稀有长豆型地方变种。主产于哥伦比亚，核心风味：木瓜、芒果等热带水果、花香与高甜。"
+  },
+  {
+    id: "v051", num: 51, cn: "红波旁", en: "Red Bourbon", aliases: [],
+    group: "bourbon", parents: ["经典成熟红果波旁品系"],
+    origin: "巴西、萨尔瓦多、卢旺达", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "焦糖、红苹果、莓果与丝滑醇厚度",
+    desc: "经典成熟红果波旁品系。主产于巴西、萨尔瓦多、卢旺达，核心风味：焦糖、红苹果、莓果与丝滑醇厚度。"
+  },
+  {
+    id: "v052", num: 52, cn: "黄波旁", en: "Yellow Bourbon", aliases: [],
+    group: "bourbon", parents: ["巴西发现的成熟黄果自然突变种"],
+    origin: "巴西、萨尔瓦多", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "甜感更明亮、黄桃、杏子与蜂蜜调",
+    desc: "巴西发现的成熟黄果自然突变种。主产于巴西、萨尔瓦多，核心风味：甜感更明亮、黄桃、杏子与蜂蜜调。"
+  },
+  {
+    id: "v053", num: 53, cn: "橙波旁", en: "Orange Bourbon", aliases: [],
+    group: "bourbon", parents: ["红波旁与黄波旁自然杂交/突变种"],
+    origin: "萨尔瓦多、哥伦比亚", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "甜橙、水蜜桃、花香与多汁酸质",
+    desc: "红波旁与黄波旁自然杂交/突变种。主产于萨尔瓦多、哥伦比亚，核心风味：甜橙、水蜜桃、花香与多汁酸质。"
+  },
+  {
+    id: "v054", num: 54, cn: "粉红波旁", en: "Pink Bourbon", aliases: [],
+    group: "bourbon", parents: ["实为埃塞原生种与波旁系自然杂交后代"],
+    origin: "哥伦比亚（乌伊拉、考卡）", beanSize: "中等", altitude: "1500–2100m",
+    quality: "极高", rustResistance: "极低",
+    flavor: "橙花、粉红葡萄柚、蜂蜜与果汁感",
+    desc: "实为埃塞原生种与波旁系自然杂交后代。主产于哥伦比亚（乌伊拉、考卡），核心风味：橙花、粉红葡萄柚、蜂蜜与果汁感。"
+  },
+  {
+    id: "v055", num: 55, cn: "尖身波旁", en: "Laurina", aliases: ["劳瑞娜", "Laurina"],
+    group: "bourbon", parents: ["留尼汪岛发现的低咖啡因自然突变种"],
+    origin: "留尼汪、巴西、哥伦比亚", beanSize: "偏小紧实", altitude: "1200–2000m",
+    quality: "极高", rustResistance: "极低",
+    flavor: "咖啡因减半、轻盈丝滑、白桃与红茶",
+    desc: "留尼汪岛发现的低咖啡因自然突变种。主产于留尼汪、巴西、哥伦比亚，核心风味：咖啡因减半、轻盈丝滑、白桃与红茶。"
+  },
+  {
+    id: "v056", num: 56, cn: "卡杜拉", en: "Caturra", aliases: [],
+    group: "bourbon", parents: ["巴西发现的波旁单基因矮化突变种"],
+    origin: "哥伦比亚、中美洲各国", beanSize: "中等", altitude: "1200–1900m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "明亮柠檬柑橘、青苹果酸质与焦糖",
+    desc: "巴西发现的波旁单基因矮化突变种。主产于哥伦比亚、中美洲各国，核心风味：明亮柠檬柑橘、青苹果酸质与焦糖。"
+  },
+  {
+    id: "v057", num: 57, cn: "黄卡杜拉", en: "Yellow Caturra", aliases: [],
+    group: "bourbon", parents: ["卡杜拉的黄色果实自然突变分支"],
+    origin: "巴西、哥伦比亚、哥斯达黎加", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "柑橘、蜂蜜、热带水果与清爽甜感",
+    desc: "卡杜拉的黄色果实自然突变分支。主产于巴西、哥伦比亚、哥斯达黎加，核心风味：柑橘、蜂蜜、热带水果与清爽甜感。"
+  },
+  {
+    id: "v058", num: 58, cn: "帕卡斯", en: "Pacas", aliases: [],
+    group: "bourbon", parents: ["萨尔瓦多发现的波旁矮化自然突变种"],
+    origin: "萨尔瓦多、洪都拉斯", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "抗风耐旱、花香、柑橘与蜂蜜甜感",
+    desc: "萨尔瓦多发现的波旁矮化自然突变种。主产于萨尔瓦多、洪都拉斯，核心风味：抗风耐旱、花香、柑橘与蜂蜜甜感。"
+  },
+  {
+    id: "v059", num: 59, cn: "维拉萨奇", en: "Villa Sarchi", aliases: [],
+    group: "bourbon", parents: ["哥斯达黎加发现的波旁矮化突变种"],
+    origin: "哥斯达黎加", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "优雅柑橘、苹果酸质、花香与蜂蜜",
+    desc: "哥斯达黎加发现的波旁矮化突变种。主产于哥斯达黎加，核心风味：优雅柑橘、苹果酸质、花香与蜂蜜。"
+  },
+  {
+    id: "v060", num: 60, cn: "特奇西克", en: "Tekisic", aliases: [],
+    group: "bourbon", parents: ["萨尔瓦多咖啡研究所选育的波旁改良种"],
+    origin: "萨尔瓦多", beanSize: "偏小紧实", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "豆粒小密度高、黑糖、蜂蜜与高干净度",
+    desc: "萨尔瓦多咖啡研究所选育的波旁改良种。主产于萨尔瓦多，核心风味：豆粒小密度高、黑糖、蜂蜜与高干净度。"
+  },
+  {
+    id: "v061", num: 61, cn: "SL28", en: "SL28", aliases: ["Scott Lab 28"],
+    group: "bourbon", parents: ["肯尼亚斯科特实验室从坦桑尼亚波旁选育"],
+    origin: "肯尼亚、乌干达、马拉维", beanSize: "中等", altitude: "1400–2100m",
+    quality: "极高", rustResistance: "极低",
+    flavor: "标志性黑醋栗、莓果炸弹与饱满甜度",
+    desc: "肯尼亚斯科特实验室从坦桑尼亚波旁选育。主产于肯尼亚、乌干达、马拉维，核心风味：标志性黑醋栗、莓果炸弹与饱满甜度。"
+  },
+  {
+    id: "v062", num: 62, cn: "SL14", en: "SL14", aliases: [],
+    group: "bourbon", parents: ["肯尼亚选育的耐旱型波旁延伸品种"],
+    origin: "肯尼亚、乌干达", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "柑橘、核果、焦糖与均衡醇厚度",
+    desc: "肯尼亚选育的耐旱型波旁延伸品种。主产于肯尼亚、乌干达，核心风味：柑橘、核果、焦糖与均衡醇厚度。"
+  },
+  {
+    id: "v063", num: 63, cn: "杰克逊", en: "Jackson", aliases: [],
+    group: "bourbon", parents: ["卢旺达与布隆迪广泛种植的波旁变种"],
+    origin: "卢旺达、布隆迪", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "红茶、柑橘、莓果与细腻花香",
+    desc: "卢旺达与布隆迪广泛种植的波旁变种。主产于卢旺达、布隆迪，核心风味：红茶、柑橘、莓果与细腻花香。"
+  },
+  {
+    id: "v064", num: 64, cn: "米比里兹", en: "Mibirizi", aliases: [],
+    group: "bourbon", parents: ["早期引入卢旺达的危地马拉波旁后裔"],
+    origin: "卢旺达、布隆迪", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "饱满甜感、黑莓、可可与温和果酸",
+    desc: "早期引入卢旺达的危地马拉波旁后裔。主产于卢旺达、布隆迪，核心风味：饱满甜感、黑莓、可可与温和果酸。"
+  },
+  {
+    id: "v065", num: 65, cn: "马亚圭斯", en: "Mayaguez 139/71", aliases: [],
+    group: "bourbon", parents: ["波多黎各选育后引入东非的波旁变种"],
+    origin: "卢旺达、布隆迪", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "花香、柑橘、红糖与干净余韵",
+    desc: "波多黎各选育后引入东非的波旁变种。主产于卢旺达、布隆迪，核心风味：花香、柑橘、红糖与干净余韵。"
+  },
+  {
+    id: "v066", num: 66, cn: "阿鲁沙", en: "Arusha", aliases: [],
+    group: "bourbon", parents: ["坦桑尼亚梅鲁山发现的波旁/铁皮卡系"],
+    origin: "坦桑尼亚、巴布亚新几内亚", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "柑橘、草本香料、蜂蜜与均衡口感",
+    desc: "坦桑尼亚梅鲁山发现的波旁/铁皮卡系。主产于坦桑尼亚、巴布亚新几内亚，核心风味：柑橘、草本香料、蜂蜜与均衡口感。"
+  },
+  {
+    id: "v067", num: 67, cn: "N39", en: "N39", aliases: [],
+    group: "bourbon", parents: ["坦桑尼亚莱阿穆古研究所选育波旁系"],
+    origin: "坦桑尼亚", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "明亮果酸、浆果、花香与黑糖甜",
+    desc: "坦桑尼亚莱阿穆古研究所选育波旁系。主产于坦桑尼亚，核心风味：明亮果酸、浆果、花香与黑糖甜。"
+  },
+  {
+    id: "v068", num: 68, cn: "KP423", en: "KP423", aliases: [],
+    group: "bourbon", parents: ["坦桑尼亚选育的抗病波旁衍生品系"],
+    origin: "坦桑尼亚", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "低至中等",
+    flavor: "柑橘、核果、焦糖与良好醇厚度",
+    desc: "坦桑尼亚选育的抗病波旁衍生品系。主产于坦桑尼亚，核心风味：柑橘、核果、焦糖与良好醇厚度。"
+  },
+  {
+    id: "v069", num: 69, cn: "威尼斯", en: "Venecia", aliases: [],
+    group: "bourbon", parents: ["哥斯达黎加发现的矮化波旁突变种"],
+    origin: "哥斯达黎加", beanSize: "偏大", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "成熟果实晚、豆粒大、黑巧克力与焦糖",
+    desc: "哥斯达黎加发现的矮化波旁突变种。主产于哥斯达黎加，核心风味：成熟果实晚、豆粒大、黑巧克力与焦糖。"
+  },
+  {
+    id: "v070", num: 70, cn: "塞拉", en: "Cera", aliases: [],
+    group: "bourbon", parents: ["巴西发现的黄胚乳（生豆偏黄）波旁突变"],
+    origin: "巴西", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "坚果、奶油、蜂蜜与温和甜感",
+    desc: "巴西发现的黄胚乳（生豆偏黄）波旁突变。主产于巴西，核心风味：坚果、奶油、蜂蜜与温和甜感。"
+  },
+  {
+    id: "v071", num: 71, cn: "四季波旁", en: "Semperflorens", aliases: [],
+    group: "bourbon", parents: ["巴西发现的全年持续开花的波旁突变种"],
+    origin: "巴西", beanSize: "中等", altitude: "1200–2000m",
+    quality: "中高至高", rustResistance: "极低",
+    flavor: "坚果、可可、柔和果酸与均衡甜感",
+    desc: "巴西发现的全年持续开花的波旁突变种。主产于巴西，核心风味：坚果、可可、柔和果酸与均衡甜感。"
+  },
+  {
+    id: "v072", num: 72, cn: "伯纳迪纳", en: "Bernardina", aliases: [],
+    group: "bourbon", parents: ["萨尔瓦多发现的稀有品种，近埃塞原生基因"],
+    origin: "萨尔瓦多", beanSize: "中等", altitude: "1200–2000m",
+    quality: "极高", rustResistance: "极低",
+    flavor: "强烈茉莉花香、水蜜桃、柑橘与茶感",
+    desc: "萨尔瓦多发现的稀有品种，近埃塞原生基因。主产于萨尔瓦多，核心风味：强烈茉莉花香、水蜜桃、柑橘与茶感。"
+  },
+  {
+    id: "v073", num: 73, cn: "希爪", en: "Sidra", aliases: [],
+    group: "modern_hybrid", parents: ["厄瓜多尔由红波旁与铁皮卡/埃塞原生杂交"],
+    origin: "厄瓜多尔、哥伦比亚", beanSize: "中等偏大", altitude: "1500–2200m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "紫罗兰花香、莓果、热带水果与丝滑感",
+    desc: "厄瓜多尔由红波旁与铁皮卡/埃塞原生杂交。主产于厄瓜多尔、哥伦比亚，核心风味：紫罗兰花香、莓果、热带水果与丝滑感。"
+  },
+  {
+    id: "v074", num: 74, cn: "奇罗索", en: "Chiroso", aliases: [],
+    group: "modern_hybrid", parents: ["哥伦比亚发现，基因溯源指向埃塞原生种"],
+    origin: "哥伦比亚（安蒂奥基亚）", beanSize: "中等偏大", altitude: "1500–2200m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "茉莉花、香柠檬、白桃与清澈茶感",
+    desc: "哥伦比亚发现，基因溯源指向埃塞原生种。主产于哥伦比亚（安蒂奥基亚），核心风味：茉莉花、香柠檬、白桃与清澈茶感。"
+  },
+  {
+    id: "v075", num: 75, cn: "大肚脐", en: "Ombligon", aliases: [],
+    group: "modern_hybrid", parents: ["哥伦比亚稀有突变种，生豆中线有凸起"],
+    origin: "哥伦比亚（乌伊拉）", beanSize: "中等偏大", altitude: "1500–2200m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "浓郁蓝莓、草莓酱、可可脂与发酵甜",
+    desc: "哥伦比亚稀有突变种，生豆中线有凸起。主产于哥伦比亚（乌伊拉），核心风味：浓郁蓝莓、草莓酱、可可脂与发酵甜。"
+  },
+  {
+    id: "v076", num: 76, cn: "塔比", en: "Tabi", aliases: [],
+    group: "modern_hybrid", parents: ["哥伦比亚将铁皮卡、波旁与帝汶杂交培育"],
+    origin: "哥伦比亚", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "高（含帝汶血统）",
+    flavor: "抗叶锈病、黄桃、红苹果与高焦糖甜",
+    desc: "哥伦比亚将铁皮卡、波旁与帝汶杂交培育。主产于哥伦比亚，核心风味：抗叶锈病、黄桃、红苹果与高焦糖甜。"
+  },
+  {
+    id: "v077", num: 77, cn: "马拉卡图拉", en: "Maracaturra", aliases: [],
+    group: "modern_hybrid", parents: ["象豆（Maragogipe）与卡杜拉自然杂交"],
+    origin: "尼加拉瓜、萨尔瓦多、巴西", beanSize: "特大（象豆级）", altitude: "1500–2200m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "豆粒硕大、热带水果、柑橘与明亮酸质",
+    desc: "象豆（Maragogipe）与卡杜拉自然杂交。主产于尼加拉瓜、萨尔瓦多、巴西，核心风味：豆粒硕大、热带水果、柑橘与明亮酸质。"
+  },
+  {
+    id: "v078", num: 78, cn: "帕卡马拉", en: "Pacamara", aliases: [],
+    group: "modern_hybrid", parents: ["萨尔瓦多将帕卡斯与象豆人工杂交培育"],
+    origin: "萨尔瓦多、洪都拉斯、危地马拉", beanSize: "特大（象豆级）", altitude: "1500–2200m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "豆粒巨大、奶油、巧克力、花香与热带果",
+    desc: "萨尔瓦多将帕卡斯与象豆人工杂交培育。主产于萨尔瓦多、洪都拉斯、危地马拉，核心风味：豆粒巨大、奶油、巧克力、花香与热带果。"
+  },
+  {
+    id: "v079", num: 79, cn: "新世界", en: "Mundo Novo", aliases: [],
+    group: "modern_hybrid", parents: ["巴西发现的波旁与苏门答腊铁皮卡自然杂交"],
+    origin: "巴西、秘鲁", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "产量高、坚果、黑巧克力、红糖与低酸",
+    desc: "巴西发现的波旁与苏门答腊铁皮卡自然杂交。主产于巴西、秘鲁，核心风味：产量高、坚果、黑巧克力、红糖与低酸。"
+  },
+  {
+    id: "v080", num: 80, cn: "红卡度艾", en: "Red Catuaí", aliases: [],
+    group: "modern_hybrid", parents: ["巴西将黄卡杜拉与新世界人工杂交培育"],
+    origin: "巴西、洪都拉斯、哥斯达黎加", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "抗风性强、焦糖、烤坚果与温和果酸",
+    desc: "巴西将黄卡杜拉与新世界人工杂交培育。主产于巴西、洪都拉斯、哥斯达黎加，核心风味：抗风性强、焦糖、烤坚果与温和果酸。"
+  },
+  {
+    id: "v081", num: 81, cn: "黄卡度艾", en: "Yellow Catuaí", aliases: [],
+    group: "modern_hybrid", parents: ["卡度艾的黄色果实选育分支"],
+    origin: "巴西、中美洲各国", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "蜂蜜甜感、柑橘、黄桃与干净平衡感",
+    desc: "卡度艾的黄色果实选育分支。主产于巴西、中美洲各国，核心风味：蜂蜜甜感、柑橘、黄桃与干净平衡感。"
+  },
+  {
+    id: "v082", num: 82, cn: "红宝石", en: "Rubi", aliases: [],
+    group: "modern_hybrid", parents: ["巴西将卡度艾与新世界回交选育"],
+    origin: "巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "红色水果、焦糖、巧克力与顺滑醇度",
+    desc: "巴西将卡度艾与新世界回交选育。主产于巴西，核心风味：红色水果、焦糖、巧克力与顺滑醇度。"
+  },
+  {
+    id: "v083", num: 83, cn: "黄玉", en: "Topázio", aliases: [],
+    group: "modern_hybrid", parents: ["巴西将黄卡杜拉与新世界杂交培育"],
+    origin: "巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "蜂蜜、黄桃、柑橘与高甜度平衡感",
+    desc: "巴西将黄卡杜拉与新世界杂交培育。主产于巴西，核心风味：蜂蜜、黄桃、柑橘与高甜度平衡感。"
+  },
+  {
+    id: "v084", num: 84, cn: "绿金", en: "Ouro Verde", aliases: [],
+    group: "modern_hybrid", parents: ["巴西将黄卡杜艾与新世界杂交培育"],
+    origin: "巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "嫩叶呈绿色、坚果、焦糖与巧克力调",
+    desc: "巴西将黄卡杜艾与新世界杂交培育。主产于巴西，核心风味：嫩叶呈绿色、坚果、焦糖与巧克力调。"
+  },
+  {
+    id: "v085", num: 85, cn: "古铜金", en: "Ouro Bronze", aliases: [],
+    group: "modern_hybrid", parents: ["巴西选育，嫩叶呈古铜色的新世界系"],
+    origin: "巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "焦糖、可可、温和核果甜与饱满口感",
+    desc: "巴西选育，嫩叶呈古铜色的新世界系。主产于巴西，核心风味：焦糖、可可、温和核果甜与饱满口感。"
+  },
+  {
+    id: "v086", num: 86, cn: "阿卡亚", en: "Acaia", aliases: [],
+    group: "modern_hybrid", parents: ["巴西从新世界（Mundo Novo）中选育的大豆系"],
+    origin: "巴西", beanSize: "特大（象豆级）", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "豆粒较大、巧克力、坚果与柔和果酸",
+    desc: "巴西从新世界（Mundo Novo）中选育的大豆系。主产于巴西，核心风味：豆粒较大、巧克力、坚果与柔和果酸。"
+  },
+  {
+    id: "v087", num: 87, cn: "欧亨尼奥伊德斯", en: "Eugenioides", aliases: [],
+    group: "modern_hybrid", parents: ["阿拉比卡的两大亲本之一（独立物种）"],
+    origin: "哥伦比亚", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "绿原酸极低、几乎无苦酸、棉花糖与甘蔗甜",
+    desc: "阿拉比卡的两大亲本之一（独立物种）。主产于哥伦比亚，核心风味：绿原酸极低、几乎无苦酸、棉花糖与甘蔗甜。"
+  },
+  {
+    id: "v088", num: 88, cn: "阿拉莫萨", en: "Aramosa", aliases: [],
+    group: "modern_hybrid", parents: ["阿拉比卡与马斯卡林咖啡的种间杂交种"],
+    origin: "巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "低咖啡因、薄荷草本、白花与清爽果酸",
+    desc: "阿拉比卡与马斯卡林咖啡的种间杂交种。主产于巴西，核心风味：低咖啡因、薄荷草本、白花与清爽果酸。"
+  },
+  {
+    id: "v089", num: 89, cn: "马斯卡林咖啡", en: "Racemosa", aliases: [],
+    group: "modern_hybrid", parents: ["源自非洲东南部的小粒低因独立物种"],
+    origin: "南非、莫桑比克、巴西", beanSize: "中等偏大", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "天然低咖啡因、草本、辛香料与可可调",
+    desc: "源自非洲东南部的小粒低因独立物种。主产于南非、莫桑比克、巴西，核心风味：天然低咖啡因、草本、辛香料与可可调。"
+  },
+  {
+    id: "v090", num: 90, cn: "利比里卡", en: "Liberica", aliases: ["埃克塞尔萨", "Liberica"],
+    group: "modern_hybrid", parents: ["独立咖啡物种（图谱常列作三大豆种对比）"],
+    origin: "马来西亚、菲律宾、越南", beanSize: "特大（象豆级）", altitude: "1000–1800m",
+    quality: "极高（竞赛级潜力）", rustResistance: "低至中等",
+    flavor: "豆粒巨大不对称、菠萝蜜、木质与烟熏感",
+    desc: "独立咖啡物种（图谱常列作三大豆种对比）。主产于马来西亚、菲律宾、越南，核心风味：豆粒巨大不对称、菠萝蜜、木质与烟熏感。"
+  },
+  {
+    id: "v091", num: 91, cn: "帝汶杂交种", en: "Timor Hybrid", aliases: [],
+    group: "timor_rust", parents: ["1927年东帝汶发现的阿拉比卡×罗布斯塔杂交"],
+    origin: "东帝汶、育种亲本", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病基因核心来源，风味偏厚重草本",
+    desc: "1927年东帝汶发现的阿拉比卡×罗布斯塔杂交。主产于东帝汶、育种亲本，核心风味：抗叶锈病基因核心来源，风味偏厚重草本。"
+  },
+  {
+    id: "v092", num: 92, cn: "卡蒂姆 129", en: "Catimor 129", aliases: [],
+    group: "timor_rust", parents: ["卡杜拉与帝汶杂交种早期代表性品系"],
+    origin: "全球多国、中国云南", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病高产、坚果、可可、草本与稳重醇度",
+    desc: "卡杜拉与帝汶杂交种早期代表性品系。主产于全球多国、中国云南，核心风味：抗病高产、坚果、可可、草本与稳重醇度。"
+  },
+  {
+    id: "v093", num: 93, cn: "哥斯达黎加 95", en: "CR95", aliases: [],
+    group: "timor_rust", parents: ["哥斯达黎加选育的卡蒂姆抗病品系"],
+    origin: "哥斯达黎加、中美洲", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "产量高、巧克力、焦糖与温和柑橘酸",
+    desc: "哥斯达黎加选育的卡蒂姆抗病品系。主产于哥斯达黎加、中美洲，核心风味：产量高、巧克力、焦糖与温和柑橘酸。"
+  },
+  {
+    id: "v094", num: 94, cn: "伦皮拉", en: "Lempira", aliases: [],
+    group: "timor_rust", parents: ["洪都拉斯咖啡研究所选育的卡蒂姆系"],
+    origin: "洪都拉斯", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病、坚果、红糖、柑橘与均衡感",
+    desc: "洪都拉斯咖啡研究所选育的卡蒂姆系。主产于洪都拉斯，核心风味：抗叶锈病、坚果、红糖、柑橘与均衡感。"
+  },
+  {
+    id: "v095", num: 95, cn: "洪都拉斯 90", en: "Ihcafe 90", aliases: [],
+    group: "timor_rust", parents: ["洪都拉斯选育的早期卡蒂姆抗病品种"],
+    origin: "洪都拉斯", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "耐低海拔、可可、坚果与柔和果酸",
+    desc: "洪都拉斯选育的早期卡蒂姆抗病品种。主产于洪都拉斯，核心风味：耐低海拔、可可、坚果与柔和果酸。"
+  },
+  {
+    id: "v096", num: 96, cn: "阿兹特克黄金", en: "Oro Azteca", aliases: [],
+    group: "timor_rust", parents: ["墨西哥国家农研机构选育的卡蒂姆系"],
+    origin: "墨西哥", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病、焦糖、烤杏仁与温和柑橘",
+    desc: "墨西哥国家农研机构选育的卡蒂姆系。主产于墨西哥，核心风味：抗叶锈病、焦糖、烤杏仁与温和柑橘。"
+  },
+  {
+    id: "v097", num: 97, cn: "危地马拉 14", en: "Anacafe 14", aliases: [],
+    group: "timor_rust", parents: ["帕卡马拉与卡蒂姆杂交选育的精品抗病种"],
+    origin: "危地马拉", beanSize: "偏大", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "豆粒较大、甜感突出、核果与巧克力调",
+    desc: "帕卡马拉与卡蒂姆杂交选育的精品抗病种。主产于危地马拉，核心风味：豆粒较大、甜感突出、核果与巧克力调。"
+  },
+  {
+    id: "v098", num: 98, cn: "卡蒂西克", en: "Catisic", aliases: [],
+    group: "timor_rust", parents: ["萨尔瓦多咖啡研究所选育的卡蒂姆品系"],
+    origin: "萨尔瓦多", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病高产、焦糖、坚果与柔和果酸",
+    desc: "萨尔瓦多咖啡研究所选育的卡蒂姆品系。主产于萨尔瓦多，核心风味：抗病高产、焦糖、坚果与柔和果酸。"
+  },
+  {
+    id: "v099", num: 99, cn: "哥伦比亚种", en: "Colombia", aliases: [],
+    group: "timor_rust", parents: ["哥伦比亚 Cenicafé 培育的多系混合卡蒂姆"],
+    origin: "哥伦比亚", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病、柑橘、红糖与均衡醇厚度",
+    desc: "哥伦比亚 Cenicafé 培育的多系混合卡蒂姆。主产于哥伦比亚，核心风味：抗叶锈病、柑橘、红糖与均衡醇厚度。"
+  },
+  {
+    id: "v100", num: 100, cn: "卡斯蒂略", en: "Castillo", aliases: [],
+    group: "timor_rust", parents: ["哥伦比亚历时20余年培育的卡蒂姆改良主力"],
+    origin: "哥伦比亚", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "高海拔表现优异、柑橘、莓果与焦糖甜",
+    desc: "哥伦比亚历时20余年培育的卡蒂姆改良主力。主产于哥伦比亚，核心风味：高海拔表现优异、柑橘、莓果与焦糖甜。"
+  },
+  {
+    id: "v101", num: 101, cn: "哥伦比亚研究中心1号", en: "Cenicafé 1", aliases: [],
+    group: "timor_rust", parents: ["哥伦比亚最新一代矮化抗病精品品种"],
+    origin: "哥伦比亚", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "豆粒均一、甜感优于卡斯蒂略、果香明亮",
+    desc: "哥伦比亚最新一代矮化抗病精品品种。主产于哥伦比亚，核心风味：豆粒均一、甜感优于卡斯蒂略、果香明亮。"
+  },
+  {
+    id: "v102", num: 102, cn: "奥埃拉斯", en: "Oeiras", aliases: [],
+    group: "timor_rust", parents: ["巴西选育的卡蒂姆抗叶锈病品种"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "坚果、牛奶巧克力、低酸且口感顺滑",
+    desc: "巴西选育的卡蒂姆抗叶锈病品种。主产于巴西，核心风味：坚果、牛奶巧克力、低酸且口感顺滑。"
+  },
+  {
+    id: "v103", num: 103, cn: "图皮", en: "Tupi", aliases: [],
+    group: "timor_rust", parents: ["巴西将维拉萨奇与帝汶杂交培育的萨奇姆系"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病高产、焦糖、坚果与温和柑橘调",
+    desc: "巴西将维拉萨奇与帝汶杂交培育的萨奇姆系。主产于巴西，核心风味：抗病高产、焦糖、坚果与温和柑橘调。"
+  },
+  {
+    id: "v104", num: 104, cn: "奥巴塔", en: "Obatá", aliases: [],
+    group: "timor_rust", parents: ["巴西选育的萨奇姆系（后与红卡度艾杂交）"],
+    origin: "巴西、哥斯达黎加", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "高产抗病、甜感饱满、可可与柔和果酸",
+    desc: "巴西选育的萨奇姆系（后与红卡度艾杂交）。主产于巴西、哥斯达黎加，核心风味：高产抗病、甜感饱满、可可与柔和果酸。"
+  },
+  {
+    id: "v105", num: 105, cn: "帕拉伊内玛", en: "Parainema", aliases: [],
+    group: "timor_rust", parents: ["洪都拉斯从萨奇姆选育的竞赛级抗病种"],
+    origin: "洪都拉斯", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "多次获CoE冠军、香茅草本、百香果与柑橘",
+    desc: "洪都拉斯从萨奇姆选育的竞赛级抗病种。主产于洪都拉斯，核心风味：多次获CoE冠军、香茅草本、百香果与柑橘。"
+  },
+  {
+    id: "v106", num: 106, cn: "库斯卡特莱科", en: "Cuscatleco", aliases: [],
+    group: "timor_rust", parents: ["萨尔瓦多从萨奇姆（T5296）选育品种"],
+    origin: "萨尔瓦多", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病与线虫、花香、柑橘与蜂蜜甜",
+    desc: "萨尔瓦多从萨奇姆（T5296）选育品种。主产于萨尔瓦多，核心风味：抗叶锈病与线虫、花香、柑橘与蜂蜜甜。"
+  },
+  {
+    id: "v107", num: 107, cn: "马赛曲", en: "Marsellesa", aliases: [],
+    group: "timor_rust", parents: ["尼加拉瓜选育的萨奇姆系精品抗病种"],
+    origin: "尼加拉瓜、中美洲", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "干净度高、核果、柑橘与焦糖甜感",
+    desc: "尼加拉瓜选育的萨奇姆系精品抗病种。主产于尼加拉瓜、中美洲，核心风味：干净度高、核果、柑橘与焦糖甜感。"
+  },
+  {
+    id: "v108", num: 108, cn: "萨奇姆 T5296", en: "Sarchimor", aliases: [],
+    group: "timor_rust", parents: ["维拉萨奇与帝汶杂交种的基础抗病母本"],
+    origin: "中南美育种基地", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病力极强，风味显著优于传统卡蒂姆",
+    desc: "维拉萨奇与帝汶杂交种的基础抗病母本。主产于中南美育种基地，核心风味：抗病力极强，风味显著优于传统卡蒂姆。"
+  },
+  {
+    id: "v109", num: 109, cn: "IPR 107", en: "IPR 107", aliases: [],
+    group: "timor_rust", parents: ["巴西巴拉那农研所培育的萨奇姆系品种"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病、甜感佳、坚果与柔和果酸",
+    desc: "巴西巴拉那农研所培育的萨奇姆系品种。主产于巴西，核心风味：抗叶锈病、甜感佳、坚果与柔和果酸。"
+  },
+  {
+    id: "v110", num: 110, cn: "IPR 100", en: "IPR 100", aliases: [],
+    group: "timor_rust", parents: ["巴西培育的抗线虫商业高产品种"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "焦糖、巧克力、低酸均衡",
+    desc: "巴西培育的抗线虫商业高产品种。主产于巴西，核心风味：焦糖、巧克力、低酸均衡。"
+  },
+  {
+    id: "v111", num: 111, cn: "IPR 99", en: "IPR 99", aliases: [],
+    group: "timor_rust", parents: ["巴西培育的萨奇姆系抗叶锈病品种"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病耐热、坚果、可可与红糖甜感",
+    desc: "巴西培育的萨奇姆系抗叶锈病品种。主产于巴西，核心风味：抗病耐热、坚果、可可与红糖甜感。"
+  },
+  {
+    id: "v112", num: 112, cn: "阿拉拉", en: "Arara", aliases: [],
+    group: "timor_rust", parents: ["巴西由黄卡杜艾与萨奇姆系自然杂交选育"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "近年巴西精品明星、热带水果、蜂蜜与柑橘",
+    desc: "巴西由黄卡杜艾与萨奇姆系自然杂交选育。主产于巴西，核心风味：近年巴西精品明星、热带水果、蜂蜜与柑橘。"
+  },
+  {
+    id: "v113", num: 113, cn: "阿考阿", en: "Acauã", aliases: [],
+    group: "timor_rust", parents: ["巴西将萨奇姆与新世界杂交培育的耐旱种"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "耐旱抗病、黑巧克力、焦糖与饱满醇度",
+    desc: "巴西将萨奇姆与新世界杂交培育的耐旱种。主产于巴西，核心风味：耐旱抗病、黑巧克力、焦糖与饱满醇度。"
+  },
+  {
+    id: "v114", num: 114, cn: "卡图凯", en: "Catucaí", aliases: [],
+    group: "timor_rust", parents: ["巴西将卡度艾与伊卡图自然杂交选育"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "兼具抗病与甜感、坚果、焦糖与黄色水果",
+    desc: "巴西将卡度艾与伊卡图自然杂交选育。主产于巴西，核心风味：兼具抗病与甜感、坚果、焦糖与黄色水果。"
+  },
+  {
+    id: "v115", num: 115, cn: "伊卡图", en: "Icatu", aliases: [],
+    group: "timor_rust", parents: ["巴西将罗布斯塔与波旁、新世界多次回交"],
+    origin: "巴西", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病高产、浓郁黑巧克力、坚果与高醇度",
+    desc: "巴西将罗布斯塔与波旁、新世界多次回交。主产于巴西，核心风味：抗病高产、浓郁黑巧克力、坚果与高醇度。"
+  },
+  {
+    id: "v116", num: 116, cn: "鲁伊鲁 11", en: "Ruiru 11", aliases: [],
+    group: "timor_rust", parents: ["肯尼亚培育的紧凑型双抗（CBD与叶锈病）种"],
+    origin: "肯尼亚", beanSize: "中等", altitude: "1400–2000m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病高产、明亮莓果酸质与焦糖（略逊SL28）",
+    desc: "肯尼亚培育的紧凑型双抗（CBD与叶锈病）种。主产于肯尼亚，核心风味：抗病高产、明亮莓果酸质与焦糖（略逊SL28）。"
+  },
+  {
+    id: "v117", num: 117, cn: "巴蒂安", en: "Batian", aliases: [],
+    group: "timor_rust", parents: ["肯尼亚从SL28/SL34与抗病系选育的高大种"],
+    origin: "肯尼亚", beanSize: "偏大", altitude: "1400–2000m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "风味极接近SL28、黑醋栗、柑橘与饱满甜",
+    desc: "肯尼亚从SL28/SL34与抗病系选育的高大种。主产于肯尼亚，核心风味：风味极接近SL28、黑醋栗、柑橘与饱满甜。"
+  },
+  {
+    id: "v118", num: 118, cn: "坦桑尼亚紧凑种", en: "Compact", aliases: [],
+    group: "timor_rust", parents: ["坦桑尼亚培育的矮化抗病商业品种"],
+    origin: "坦桑尼亚", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "便于高密种植、柑橘、红糖与均衡醇度",
+    desc: "坦桑尼亚培育的矮化抗病商业品种。主产于坦桑尼亚，核心风味：便于高密种植、柑橘、红糖与均衡醇度。"
+  },
+  {
+    id: "v119", num: 119, cn: "钱德拉吉里", en: "Chandragiri", aliases: [],
+    group: "timor_rust", parents: ["印度从萨奇姆系选育的高海拔抗病品种"],
+    origin: "印度", beanSize: "偏大", altitude: "1400–2000m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "豆粒大、柔和果酸、香料与巧克力甜",
+    desc: "印度从萨奇姆系选育的高海拔抗病品种。主产于印度，核心风味：豆粒大、柔和果酸、香料与巧克力甜。"
+  },
+  {
+    id: "v120", num: 120, cn: "印度 795", en: "Selection 795", aliases: [],
+    group: "timor_rust", parents: ["印度将肯特与S.288（含利比里卡基因）杂交"],
+    origin: "印度", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "印度经典商业主力、草本香料、坚果与焦糖",
+    desc: "印度将肯特与S.288（含利比里卡基因）杂交。主产于印度，核心风味：印度经典商业主力、草本香料、坚果与焦糖。"
+  },
+  {
+    id: "v121", num: 121, cn: "印度 9 号", en: "Selection 9", aliases: [],
+    group: "timor_rust", parents: ["印度将埃塞塔法里凯拉与帝汶杂交种培育"],
+    origin: "印度", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "曾获精品大奖、花香、柑橘与饱满甜度",
+    desc: "印度将埃塞塔法里凯拉与帝汶杂交种培育。主产于印度，核心风味：曾获精品大奖、花香、柑橘与饱满甜度。"
+  },
+  {
+    id: "v122", num: 122, cn: "高韦里", en: "Cauvery", aliases: [],
+    group: "timor_rust", parents: ["印度引入选育的卡蒂姆抗叶锈病品种"],
+    origin: "印度", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病早熟、可可、烤坚果与温和酸质",
+    desc: "印度引入选育的卡蒂姆抗叶锈病品种。主产于印度，核心风味：抗病早熟、可可、烤坚果与温和酸质。"
+  },
+  {
+    id: "v123", num: 123, cn: "西纳朋", en: "Sinabung", aliases: [],
+    group: "timor_rust", parents: ["印尼苏门答腊培育的卡蒂姆衍生抗病种"],
+    origin: "印尼", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "草本香料、黑巧克力、低酸厚实",
+    desc: "印尼苏门答腊培育的卡蒂姆衍生抗病种。主产于印尼，核心风味：草本香料、黑巧克力、低酸厚实。"
+  },
+  {
+    id: "v124", num: 124, cn: "安东萨里", en: "Andungsari", aliases: [],
+    group: "timor_rust", parents: ["印尼咖啡可可研究所选育的卡蒂姆系"],
+    origin: "印尼", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗叶锈病、黑糖、香料与浓郁醇厚度",
+    desc: "印尼咖啡可可研究所选育的卡蒂姆系。主产于印尼，核心风味：抗叶锈病、黑糖、香料与浓郁醇厚度。"
+  },
+  {
+    id: "v125", num: 125, cn: "卡蒂卡 1 & 2", en: "Kartika", aliases: [],
+    group: "timor_rust", parents: ["印尼选育的矮化卡蒂姆抗病商业品种"],
+    origin: "印尼", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "产量高、可可、坚果与温和草本调",
+    desc: "印尼选育的矮化卡蒂姆抗病商业品种。主产于印尼，核心风味：产量高、可可、坚果与温和草本调。"
+  },
+  {
+    id: "v126", num: 126, cn: "阿滕", en: "Ateng", aliases: [],
+    group: "timor_rust", parents: ["印尼苏门答腊当地对卡蒂姆系品种的统称"],
+    origin: "印尼（亚齐省）", beanSize: "中等", altitude: "900–1700m",
+    quality: "中高至高", rustResistance: "高至极高（抗叶锈病）",
+    flavor: "抗病耐造、黑巧克力、香料与草本韵",
+    desc: "印尼苏门答腊当地对卡蒂姆系品种的统称。主产于印尼（亚齐省），核心风味：抗病耐造、黑巧克力、香料与草本韵。"
+  },
+  {
+    id: "v127", num: 127, cn: "中美洲 1 号", en: "Centroamericano / H1", aliases: ["H1"],
+    group: "f1", parents: ["苏丹汝魅（Sudan Rume）× 萨奇姆"],
+    origin: "哥斯达黎加、尼加拉瓜", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "获CoE高分、花香、柑橘、核果与高甜度",
+    desc: "苏丹汝魅（Sudan Rume）× 萨奇姆。主产于哥斯达黎加、尼加拉瓜，核心风味：获CoE高分、花香、柑橘、核果与高甜度。"
+  },
+  {
+    id: "v128", num: 128, cn: "千禧", en: "Milenio", aliases: [],
+    group: "f1", parents: ["苏丹汝魅 × 萨奇姆（另一优选组合）"],
+    origin: "哥斯达黎加、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "适合高海拔、饱满甜感、莓果与柔和花香",
+    desc: "苏丹汝魅 × 萨奇姆（另一优选组合）。主产于哥斯达黎加、中美洲，核心风味：适合高海拔、饱满甜感、莓果与柔和花香。"
+  },
+  {
+    id: "v129", num: 129, cn: "星玛雅", en: "Starmaya", aliases: [],
+    group: "f1", parents: ["苏丹汝魅雄性不育系 × 卡蒂姆系"],
+    origin: "尼加拉瓜、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "罕见可用种子繁殖的F1、核果、焦糖与花香",
+    desc: "苏丹汝魅雄性不育系 × 卡蒂姆系。主产于尼加拉瓜、中美洲，核心风味：罕见可用种子繁殖的F1、核果、焦糖与花香。"
+  },
+  {
+    id: "v130", num: 130, cn: "仙后座", en: "Casiopea", aliases: [],
+    group: "f1", parents: ["卡杜拉 × 埃塞俄比亚野生种（ET41）"],
+    origin: "哥斯达黎加、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "无罗布斯塔血统、精致花香、柑橘与茶感",
+    desc: "卡杜拉 × 埃塞俄比亚野生种（ET41）。主产于哥斯达黎加、中美洲，核心风味：无罗布斯塔血统、精致花香、柑橘与茶感。"
+  },
+  {
+    id: "v131", num: 131, cn: "玛雅世界", en: "Mundo Maya", aliases: [],
+    group: "f1", parents: ["埃塞俄比亚原生种（ET01）× 萨奇姆"],
+    origin: "萨尔瓦多、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "抗病高产、热带水果、花香与明亮果酸",
+    desc: "埃塞俄比亚原生种（ET01）× 萨奇姆。主产于萨尔瓦多、中美洲，核心风味：抗病高产、热带水果、花香与明亮果酸。"
+  },
+  {
+    id: "v132", num: 132, cn: "希望", en: "Esperanza", aliases: [],
+    group: "f1", parents: ["萨奇姆 × 埃塞俄比亚原生种（ET25）"],
+    origin: "萨尔瓦多、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "干净甜美、柑橘、蜂蜜与均衡醇厚度",
+    desc: "萨奇姆 × 埃塞俄比亚原生种（ET25）。主产于萨尔瓦多、中美洲，核心风味：干净甜美、柑橘、蜂蜜与均衡醇厚度。"
+  },
+  {
+    id: "v133", num: 133, cn: "伊娃露娜", en: "Evaluna", aliases: [],
+    group: "f1", parents: ["萨奇姆 × 埃塞俄比亚原生种（ET06）"],
+    origin: "中美洲试验与精品庄园", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "抗叶锈病、花香明显、核果甜感突出",
+    desc: "萨奇姆 × 埃塞俄比亚原生种（ET06）。主产于中美洲试验与精品庄园，核心风味：抗叶锈病、花香明显、核果甜感突出。"
+  },
+  {
+    id: "v134", num: 134, cn: "纳亚里塔", en: "Nayarita", aliases: [],
+    group: "f1", parents: ["萨奇姆 × 埃塞俄比亚原生种（ET57）"],
+    origin: "墨西哥、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "适应性强、柑橘、红糖与清爽果酸",
+    desc: "萨奇姆 × 埃塞俄比亚原生种（ET57）。主产于墨西哥、中美洲，核心风味：适应性强、柑橘、红糖与清爽果酸。"
+  },
+  {
+    id: "v135", num: 135, cn: "CATIE H3", en: "CATIE H3", aliases: [],
+    group: "f1", parents: ["卡杜拉 × 埃塞俄比亚原生种（E531）"],
+    origin: "哥斯达黎加、中美洲", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "兼顾产量与精品风味、花果香与丝滑甜感",
+    desc: "卡杜拉 × 埃塞俄比亚原生种（E531）。主产于哥斯达黎加、中美洲，核心风味：兼顾产量与精品风味、花果香与丝滑甜感。"
+  },
+  {
+    id: "v136", num: 136, cn: "内玛雅", en: "Nemaya", aliases: [],
+    group: "f1", parents: ["埃塞原生与罗布斯塔抗线虫选育种"],
+    origin: "中美洲各国", beanSize: "中等偏大", altitude: "1200–1950m",
+    quality: "极高（F1杂交优势）", rustResistance: "中高至高",
+    flavor: "主要作抗根结线虫的嫁接砧木，提升母株风味",
+    desc: "埃塞原生与罗布斯塔抗线虫选育种。主产于中美洲各国，核心风味：主要作抗根结线虫的嫁接砧木，提升母株风味。"
+  }
+];
+
 
     const VARIETY_MAP = {};
     COFFEE_VARIETIES.forEach(v => { VARIETY_MAP[v.id] = v; });
