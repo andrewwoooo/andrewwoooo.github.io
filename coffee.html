@@ -3321,15 +3321,15 @@
     /*****************************************************************
      * 1B. WCR 咖啡品种数据库
      *****************************************************************/
-    const VARIETY_GROUPS = {
-      const VARIETY_GROUPS = {
-  ethiopia: { label: "埃塞/苏丹/也门原生与选育", color: "#D97736" },
-  typica: { label: "铁皮卡谱系", color: "#4E79A7" },
-  bourbon: { label: "波旁谱系", color: "#B84A5A" },
-  modern_hybrid: { label: "现代精品/跨系杂交", color: "#9B6B9E" },
-  timor_rust: { label: "帝汶/抗叶锈病杂交", color: "#598B68" },
-  f1: { label: "新一代 F1 杂交", color: "#6A8D4E" }
-};
+     const VARIETY_GROUPS = {
+      ethiopia: { label: "埃塞/苏丹/也门原生与选育", color: "#D97736" },
+      typica: { label: "铁皮卡谱系", color: "#4E79A7" },
+      bourbon: { label: "波旁谱系", color: "#B84A5A" },
+      modern_hybrid: { label: "现代精品/跨系杂交", color: "#9B6B9E" },
+      timor_rust: { label: "帝汶/抗叶锈病杂交", color: "#598B68" },
+      f1: { label: "新一代 F1 杂交", color: "#6A8D4E" }
+    };
+
 
 
   const COFFEE_VARIETIES = [
@@ -4434,11 +4434,11 @@
     const VARIETY_MAP = {};
     COFFEE_VARIETIES.forEach(v => { VARIETY_MAP[v.id] = v; });
 
-    const VS_3_PRESETS = [
-      { label: "SL28 vs SL34 vs 瑰夏", a: "sl28", b: "sl34", c: "geisha", summary: "精品高分三巨头：SL28 黑醋栗果汁感最爆裂；SL34 醇厚度与甜感更稳重；瑰夏则以白花、佛手柑与水蜜桃香气独树一帜。" },
-      { label: "卡杜拉 vs 卡杜艾 vs 波旁", a: "caturra", b: "catuai", c: "bourbon", summary: "波旁家族三代演进：波旁为原生高大母本，甜感厚实；卡杜拉为其天然矮化突变，酸质更明亮；卡杜艾由卡杜拉×新世界杂交，抗风高产且蜂蜜甜感均衡。" },
-      { label: "卡蒂姆 vs 萨奇姆 vs 中美洲F1", a: "catimor", b: "sarchimor", c: "centroamericano", summary: "抗叶锈病育种三阶梯：卡蒂姆高产抗病；萨奇姆在洁净度与果酸细腻度上更进一步；中美洲 F1 融合埃塞原生种基因，杯测潜力媲美瑰夏。" },
-      { label: "铁皮卡 vs 象豆 vs 帕卡马拉", a: "typica", b: "maragogipe", c: "pacamara", summary: "大粒风味演进链：铁皮卡清甜干净；象豆（马拉戈日佩）是其天然巨粒突变，风味清雅；帕卡马拉为象豆×帕卡斯杂交，颗粒巨大且热带果香极具冲击力。" }
+       const VS_3_PRESETS = [
+      { label: "SL28 vs SL34 vs 瑰夏", a: "v061", b: "v048", c: "v003", summary: "精品高分三巨头：SL28 黑醋栗果汁感最爆裂；SL34 醇厚度与甜感更稳重；瑰夏则以白花、佛手柑与水蜜桃香气独树一帜。" },
+      { label: "SL09 vs 瑰夏 vs 粉红波旁", a: "v137", b: "v003", c: "v054", summary: "花果调三大明星：SL09（印加瑰夏）高海拔清透白花与红酒甜感兼备；瑰夏茉莉佛手柑香气最飘逸；粉红波旁果汁感与蜂蜜甜度更饱满。" },
+      { label: "卡杜拉 vs 卡杜艾 vs 波旁", a: "v056", b: "v080", c: "v002", summary: "波旁家族三代演进：波旁为原生高大母本，甜感厚实；卡杜拉为其天然矮化突变，酸质更明亮；卡杜艾由卡杜拉×新世界杂交，抗风高产。" },
+      { label: "卡蒂姆 vs 萨奇姆 vs 中美洲1号", a: "v092", b: "v108", c: "v127", summary: "抗叶锈病育种三阶梯：卡蒂姆高产抗病；萨奇姆在洁净度与果酸细腻度上更进一步；中美洲 1 号（H1）融合苏丹汝魅基因，杯测潜力媲美瑰夏。" }
     ];
 
     /*****************************************************************
@@ -4705,9 +4705,9 @@
       varPane: "list",
       varQuery: "",
       varGroupFilter: "all",
-      vsA: "sl28",
-      vsB: "sl34",
-      vsC: "geisha",
+      vsA: "v061",
+      vsB: "v048",
+      vsC: "v003",
       detailVarId: null
     };
 
@@ -7240,13 +7240,14 @@
           } else if (ch === ',') {
             row.push(field.trim());
             field = "";
-          } else if (ch === '\r' && next === '\n') {
+                    } else if (ch === '\r' && next === '\n') {
             row.push(field.trim());
             rows.push(row);
             row = [];
             field = "";
             i++;
           } else if (ch === '\n' || ch === '\r') {
+
             row.push(field.trim());
             rows.push(row);
             row = [];
